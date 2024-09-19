@@ -1,7 +1,4 @@
-
 import Seacrh from './components/Seacrh';
-
-
 function Home() {
   return (
     <div>
@@ -24,9 +21,6 @@ function Home() {
       <div className='bg-white w-1920px py-4 text-white'></div>
       <div className='overflow-y-auto'></div>
       <div className="border-20 border-x-gray-400">
-        <div>
-          <h1>เมนูยอดนิยม</h1>
-        </div>
       </div>
           <h1 className="text-red text-3xl font-bold mb-4">เมนูยอดนิยม</h1>
           <br></br>
