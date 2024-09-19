@@ -19,6 +19,9 @@ const config: Config = {
       height: {
         '600': '600px',
       },
+      fontFamily: {
+        kanit: ['Kanit']
+      }
     },
   },
   plugins: [],
