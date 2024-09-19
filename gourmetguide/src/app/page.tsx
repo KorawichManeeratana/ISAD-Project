@@ -1,4 +1,6 @@
+
 import Seacrh from './components/Seacrh';
+
 
 function Home() {
   return (
@@ -25,6 +27,7 @@ function Home() {
         <div>
           <h1>เมนูยอดนิยม</h1>
         </div>
+        
       </div>
     </div>
   );
