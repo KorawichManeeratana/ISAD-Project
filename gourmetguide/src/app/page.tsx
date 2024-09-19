@@ -6,7 +6,7 @@ function Home() {
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-amber-100 text-5xl font-bold mb-4" id="gourment">GOURMET GUIDE</h1>
-            <p className="text-lg opacity-60">ค้นหาสูตรตามที่ใจคุณต้องการ</p>
+            <p className="text-lg text-gray-100">ค้นหาสูตรตามที่ใจคุณต้องการ</p>
           </div>
           <div className="flex items-center justify-center mt-8">
           <svg className="bi bi-search mr-10 t" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFB443"  viewBox="0 0 16 16">

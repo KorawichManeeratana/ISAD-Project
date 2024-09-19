@@ -33,6 +33,10 @@ body {
   padding: 100px 0;
 }
 
-.h1#gourmet{
-  color: var(--background);
+#loginbg{
+  background-image: url(https://images.pexels.com/photos/784633/pexels-photo-784633.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1);
+  background-size: cover;
+  background-position: center;
+  text-align: center;
 }
+
