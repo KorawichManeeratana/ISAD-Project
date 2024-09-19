@@ -5,7 +5,7 @@ import Seacrh from './components/Seacrh';
 function Home() {
   return (
     <div>
-        <div className="bg-gray-900 text-white font-sans" id="background">
+        <div className="bg-grey-900 text-white font-sans" id="background">
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1 className="text-amber-100 text-5xl font-bold mb-4" id="gourment">GOURMET GUIDE</h1>
@@ -21,14 +21,24 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className='bg-white w-1920px py-4 text-white'><p>12</p></div>
+      <div className='bg-white w-1920px py-4 text-white'></div>
       <div className='overflow-y-auto'></div>
       <div className="border-20 border-x-gray-400">
         <div>
           <h1>เมนูยอดนิยม</h1>
         </div>
-        
       </div>
+          <h1 className="text-red text-3xl font-bold mb-4">เมนูยอดนิยม</h1>
+          <br></br>
+          <br></br>
+          <div className='bg-white w-1920px h-1680px py-4 text-white'></div>
+          <div className="border-20 border-x-gray-400"></div>
+            <div>
+              <h1>เกี่ยวกับเรา</h1>
+              <p className='description'>ที่ Gourmet Guide เรามุ่งมั่นสร้างพื้นที่สําหรับคนรักการทําอาหาร ให้สามารถค้นหา แบ่งปัน และเรียนรู้สูตรใหม่ ๆ ได้ง่ายดาย ไม่ว่าคุณจะเป็นเชฟ มืออาชีพหรือผู้ที่ชอบทําอาหารที่บ้าน คุณจะพบสูตรอาหารหลากหลายที่ครอบ คลุมทั้งอาหารพื้นเมืองและอาหารนานาชาติ ทุกสูตรถูกคัดเลือกอย่างดี เพื่อให้ มั่นใจว่าใช้งานได้จริง นอกจากนี้เรายังเป็นชุมชนสําหรับผู้ที่หลงใหลในอาหาร ที่นี่คุณจะได้แรงบันดาลใจและสร้างสรรค์เมนูที่สมบูรณ์แบบ</p>
+            </div>
+          <br></br>
+          <br></br>
     </div>
   );
 }
