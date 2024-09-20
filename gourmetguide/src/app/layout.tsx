@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className="font-kanit" 
-      > {/* กำหนด font เป็น kanit importมาจาก tailwind.config.js */}
+      > {/* กำหนด font เป็น kanit import มาจาก tailwind.config.js */}
       <Nav /> {/* กำหนด nav bar กับทุกหน้า */}
       {children} {/* เนื้อหาของแต่ละหน้า */}
       </body>

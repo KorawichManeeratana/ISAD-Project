@@ -3,7 +3,7 @@ import Seacrh from "./components/Seacrh";
 function Home() {
   return (
     <div className="font-kanit bg-gray-200">
-      <div className="bg-grey-900 text-white" id="background">
+      <div className="bg-grey-900 text-white" id="background"> {/* รูปพื้นหลังในหน้า home หลัง search */}
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
             <h1
