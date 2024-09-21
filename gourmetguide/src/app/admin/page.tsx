@@ -1,11 +1,13 @@
 import React from 'react'
-import Admin_main from '../components/Admin_main'
 import './page.css'; 
 
 function Admin_page() {
   return (
-    <div className='admin_main_page'>
-        <Admin_main />
+    <div className='admin_main_page flex flex-col justify-center items-center'>
+        <div className='admin_main'>account_here</div>
+        <div className='admin_c'>จัดการแอคเคาท์</div>
+        <div className='admin_c'>สูตรอาหาร</div>
+        <div className='admin_c'>รับเรื่องที่แจ้ง</div>
     </div>
   )
 }
