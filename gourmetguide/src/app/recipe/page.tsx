@@ -1,9 +1,11 @@
 import React from 'react'
 
-function RecipePage() {
-  return (
+class RecipePage extends React.Component {
+  render(){
+    return (
     <div>Recipe</div>
-  )
+    )
+  }
 }
 
 export default RecipePage

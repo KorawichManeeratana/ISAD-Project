@@ -2,8 +2,8 @@ import React from 'react'
 import './page.css';
 import Link from 'next/link';
 
-function Admin_page() {
-  return (
+class Admin_page extends React.Component{
+  render() {return (
     <div className='admin_main_page flex flex-col justify-center items-center'>
         <div className='admin_main_1'>
           <div>account image</div>
@@ -28,7 +28,7 @@ function Admin_page() {
           </li>
           </div>
     </div>
-  )
+  )}
 }
 
 export default Admin_page;
