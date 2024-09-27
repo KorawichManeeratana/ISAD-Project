@@ -4,9 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import Modal from "./modal";
 
-class Header extends React.Component {
-  render(){
-    const [showModal, setShowModal] = useState(false);
+function Header() {
+  const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [errorLogin, setErrorLogin] = useState("");
   const [errorRegister, setErrorRegister] = useState("");
@@ -216,7 +215,6 @@ class Header extends React.Component {
       </Modal>
     </div>
   );
-  }
 }
 
 export default Header;

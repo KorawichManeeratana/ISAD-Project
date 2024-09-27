@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Seacrh from "./components/Seacrh";
 // หน้า homepage หลักเลย

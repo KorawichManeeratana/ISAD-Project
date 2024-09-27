@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import './page.css';
 import Link from 'next/link';
@@ -11,21 +12,21 @@ class Admin_page extends React.Component{
           </div>
         <div className='admin_c'>
           <div>manage image</div>
-          <li>
+          <p>
           <Link href="/admin/manage_account">จัดการแอคเคาท์</Link>
-          </li>
+          </p>
           </div>
         <div className='admin_c'>
           <div>recipes image</div>
-          <li>
+          <p>
           <Link href="/admin/manage_recipes">จัดการสูตรอาหาร</Link>
-          </li>
+          </p>
           </div>
         <div className='admin_c'>
           <div>reports image</div>
-          <li>
+          <p>
           <Link href="/admin/report_feedback">รับเรื่องที่แจ้ง</Link>
-          </li>
+          </p>
           </div>
     </div>
   )}
