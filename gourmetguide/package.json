@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/env": "^14.2.13",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "mysql2": "^3.11.3",
     "next": "14.2.12",

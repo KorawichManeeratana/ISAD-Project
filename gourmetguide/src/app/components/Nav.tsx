@@ -34,7 +34,7 @@ class Header extends React.Component {
     })
   }
   
-  private handleSubmitLogin(e:any){
+  private async handleSubmitLogin(e:any){
     e.preventDefault();
     let abc:any = document.querySelector(".name")
     let name = abc.value
@@ -44,6 +44,26 @@ class Header extends React.Component {
       this.setErrorLogin("Please commit all form first!")
       return;
      }
+     try {
+      let res = await fetch("http://localhost:3000/attractions/api_login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name, password: password
+        })
+      })
+      if (res.ok) {
+        const form = e.target;
+        this.setErrorRegister("");
+        form.reset();
+      }else {
+        console.log("User registration failed.");
+      }
+  }catch(error) {
+    console.log("Error during registration.", error);
+  }
   }
 
 
@@ -66,7 +86,7 @@ class Header extends React.Component {
       this.setErrorRegister("Please commit all form first!");
       return;
     }
-
+    
     try {
         let res = await fetch("http://localhost:3000/attractions/api_register", {
           method: "POST",
@@ -78,9 +98,8 @@ class Header extends React.Component {
           })
         })
         if (res.ok) {
-          console.log("KUY")
           const form = e.target;
-          this.setState(this.setErrorRegister);
+          this.setErrorRegister("");
           form.reset();
         }else {
           console.log("User registration failed.");
@@ -114,7 +133,7 @@ class Header extends React.Component {
         </div>
         <Modal isVisible={this.state.showModal} onClose={() => this.setShowModal(false)}> {/* เนื้อหาของหน้า login */}
           <div>
-            <form onSubmit={this.handleSubmitLogin}>
+            <form onSubmit={this.handleSubmitLogin.bind(this)}>
             <div>
               <h3 className="text-black font-normal text-2xl mt-5 mb-5 flex justify-center items-center">
                 เข้าสู่ระบบ
@@ -163,7 +182,7 @@ class Header extends React.Component {
         </Modal>
         <Modal isVisible={this.state.showModal2} onClose={() => this.setShowModal2(false)}> {/*เนื้อหาของหน้า register*/}
         <div>
-          <form onSubmit={this.handleSubmitRegister}>
+          <form onSubmit={this.handleSubmitRegister.bind(this)}>
             <div>
               <h3 className="text-black font-normal text-2xl mb-3 flex justify-center items-center">
                 ลงทะเบียน

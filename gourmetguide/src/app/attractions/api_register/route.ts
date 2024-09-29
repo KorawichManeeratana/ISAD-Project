@@ -1,15 +1,13 @@
 import {NextResponse} from 'next/server'
 import  { mysqlPool }  from '@/app/utils/db'
 import { error } from 'console';
-
+const bcrypt = require("bcrypt");
 export async function POST(req:any){
     try {
         const connection = await mysqlPool;
         const {name, email, password} = await req.json();
-        console.log("Name: ", name);
-        console.log("Email: ", email);
-        console.log("Password: ", password);
-        connection.execute(`INSERT INTO account value(default, '${name}', '${password}', '${email}')`)
+        let bigga = await bcrypt.compate(password, 14);
+        connection.execute(`INSERT INTO account value(default, '${name}', '${bigga}', '${email}')`)
         connection.end();
         return NextResponse.json({message: "User registered."}, {status: 201});
     } catch {error}{
