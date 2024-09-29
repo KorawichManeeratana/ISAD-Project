@@ -3,44 +3,45 @@ import Link from "next/link";
 import Modal from "./modal";
 import React, { Component } from 'react'
 class Header extends React.Component {
-  constructor(props : any){
-    super(props)
-  }
   state = {
     showModal : false,
     showModal2 : false,
     errorLogin : "",
     errorRegister : "",
   }
-  private setErrorLogin(){
+  constructor(props : any){
+    super(props)
+  }
+  
+  public setErrorLogin(word : string){
     this.setState({
-      errorLogin : "",
+      errorLogin : word 
     })
   }
-  private setErrorRegister(){
+  public setErrorRegister(word : string){
     this.setState({
-      errorRegister : "",
+      errorRegister : word
     })
   }
-  private setShowModal2(check : boolean){
+  public setShowModal2(check : boolean){
     this.setState({
       showModal2 : check,
     })
   }
-  private setShowModal(check : boolean){
+  public setShowModal(check : boolean){
     this.setState({
       showModal : check,
     })
   }
   
-  private async handleSubmitLogin(e:any){
+  private handleSubmitLogin(e:any){
     e.preventDefault();
     let abc:any = document.querySelector(".name")
     let name = abc.value
     abc = document.querySelector(".password")
     let password = abc.value
-     if (!name || !password){
-      this.setState({ errorLogin: "Please commit all form first!" });
+    if (!name || !password){
+      this.setErrorLogin("Please commit all form first!")
       return;
      }
   }
@@ -57,12 +58,12 @@ class Header extends React.Component {
     abc = document.querySelector(".confirmPassword")
     let confirmPassword = abc.value
     if (password != confirmPassword){
-      this.setState({ errorRegister : "Password does not match!"})
+      this.setErrorRegister("Password does not match!")
       return;
     }
 
     if (!name || !email || !password || !confirmPassword){
-      this.setState({ errorRegister: "Please commit all form first!" });
+      this.setErrorRegister("Please commit all form first!");
       return;
     }
 
@@ -123,10 +124,10 @@ class Header extends React.Component {
                   ชื่อผู้ใช้งาน:
                 </h3>
                 <input
-                  onChange={this.setErrorLogin}
+                  onChange={() => {this.setErrorLogin("")}}
                   type="text"
                   placeholder="กรอกชื่อผู้ใช้งาน"
-                  className="text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
+                  className="name text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
                 ></input>
               </div>
               <div className="flex flex-row items-center justify-center py-4 text-yellow-500 font-normal bg-white space-x-10 w-full">
@@ -134,10 +135,10 @@ class Header extends React.Component {
                   รหัสผ่าน:
                 </h3>
                 <input
-                  onChange={this.setErrorLogin}
+                  onChange={() => {this.setErrorLogin("")}}
                   type="password"
                   placeholder="กรอกรหัสผ่าน"
-                  className="border border-black text-black w-96 px-6 py-2 rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center"
+                  className="password border border-black text-black w-96 px-6 py-2 rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center"
                 ></input>
               </div>
               <div className="flex flex-row items-center justify-center py-4 font-normal bg-white">
@@ -154,7 +155,7 @@ class Header extends React.Component {
               <button className="text-xl bg-white text-black border-2 border-yellow-500 rounded-full px-12 py-1" onClick={() => {
                 this.setShowModal2(true);
                 this.setShowModal(false);
-                this.setErrorLogin();
+                this.setErrorLogin("");
                 }}>ลงทะเบียน</button> {/* ตั้งกดแล้วเปิดหน้า register ปิดหน้า login */}
             </div>
             </form>
@@ -173,7 +174,7 @@ class Header extends React.Component {
                     อีเมล:
                   </h3>
                   <input
-                    onChange={this.setErrorRegister}
+                    onChange={() => {this.setErrorRegister("")}}
                     type="email"
                     placeholder="กรอกอีเมล (example@gmail.com)"
                     className="email text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
@@ -184,7 +185,7 @@ class Header extends React.Component {
                     ชื่อผู้ใช้งาน:
                   </h3>
                   <input
-                    onChange={this.setErrorRegister}
+                    onChange={() => {this.setErrorRegister("")}}
                     type="text"
                     placeholder="กรอกชื่อผู้ใช้งาน"
                     className="name text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
@@ -196,7 +197,7 @@ class Header extends React.Component {
                   </h3>
                   <div className="flex flex-col items-end mt-6">
                   <input
-                    onChange={this.setErrorRegister}
+                    onChange={() => {this.setErrorRegister("")}}
                     type="password"
                     placeholder="กรอกรหัสผ่าน (อย่างน้อย 8 หรือ 12 ตัวอักษร)"
                     className="password border border-black text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center"
@@ -209,7 +210,7 @@ class Header extends React.Component {
                     ยินยันรหัสผ่าน:
                   </h3>
                   <input
-                    onChange={this.setErrorRegister}
+                    onChange={() => {this.setErrorRegister("")}}
                     type="password"
                     placeholder="กรอกรหัสผ่าน"
                     className="confirmPassword text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
@@ -224,7 +225,7 @@ class Header extends React.Component {
               <button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1">ลงทะเบียน</button>
               <div className="flex flex-row space-x-4 justify-center items-center">
                 <p className="">มีบัญชีอยู่แล้ว?</p>
-                <p className="hover:underline hover:text-blue-400" onClick={() => {this.setShowModal2(false); this.setShowModal(true); this.setErrorRegister()}}>เข้าสู่ระบบ</p> {/* ตั้งกดแล้วปิดหน้า register เปิดหน้า login */}
+                <p className="hover:underline hover:text-blue-400" onClick={() => {this.setShowModal2(false); this.setShowModal(true); this.setErrorRegister("")}}>เข้าสู่ระบบ</p> {/* ตั้งกดแล้วปิดหน้า register เปิดหน้า login */}
               </div>
             </div>
             </form>
