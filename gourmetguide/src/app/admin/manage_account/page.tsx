@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function manage_account_page() {
-  return (
-    <div>manange account</div>
-  )
+export default class manage_account_page extends Component {
+  render() {
+    return (
+      <div>manange account</div>
+    )
+  }
 }

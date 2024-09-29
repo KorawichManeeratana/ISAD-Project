@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function report_feedback() {
-  return (
-    <div>report_feedback</div>
-  )
+export default class report_feedback extends Component {
+  render() {
+    return (
+      <div>report_feedback</div>
+    )
+  }
 }

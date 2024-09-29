@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-export default function manange_recipes_page() {
-  return (
-    <div>manange_recipes_page</div>
-  )
+export default class manange_recipes_page extends Component {
+  render() {
+    return (
+      <div>manange_recipes_page</div>
+    )
+  }
 }
