@@ -21,8 +21,8 @@ export default class report_feedback extends Component {
 
         {/* Yellow box with specified dimensions */}
         <div 
-          className="overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4"
-          style={{ width: '1600px', height: '900px' }} // Setting width and height to 1820x650
+          className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4"
+          style={{ width: '1500px', height: '900px' }} // Setting width and height to 1820x650
         >
           <table className="table-auto w-full">
             <thead>
@@ -40,7 +40,7 @@ export default class report_feedback extends Component {
           </table>
 
           {/* Pagination buttons aligned to the right */}
-          <div className="flex justify-end mt-4">
+          <div className="absolute bottom-4 right-4 flex justify-end mt-4 items-end">
             <button 
               className="px-3 py-2 rounded-l-md bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:bg-gray-400" 
               disabled>
