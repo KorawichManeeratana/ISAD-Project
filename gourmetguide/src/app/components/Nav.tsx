@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Modal from "./modal";
 import React, { Component } from 'react'
+
 class Header extends React.Component {
   state = {
     showModal : false,
@@ -12,7 +13,6 @@ class Header extends React.Component {
   constructor(props : any){
     super(props)
   }
-  
   public setErrorLogin(word : string){
     this.setState({
       errorLogin : word 

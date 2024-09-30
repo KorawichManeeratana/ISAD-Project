@@ -9,9 +9,9 @@ export async function POST(req:any){
         let bigga = await bcrypt.compate(password, 14);
         connection.execute(`INSERT INTO account value(default, '${name}', '${bigga}', '${email}')`)
         connection.end();
-        return NextResponse.json({message: "User registered."}, {status: 201});
+        return Response.json({message: "User registered."}, {status: 201});
     } catch {error}{
-        return NextResponse.json({
+        return Response.json({
             error : error
         }, { status: 500});
     }
