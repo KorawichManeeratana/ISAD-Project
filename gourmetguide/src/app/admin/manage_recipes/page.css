@@ -1,0 +1,61 @@
+.box {
+    width: 100vw;
+    height: 100vh;
+    background-color: #FFF6E0;
+    display: flex;
+    align-items: flex-start;
+    padding: 35px;
+}
+
+.box > div {
+    margin-right: 100px;
+}
+
+.box2 {
+    width: 1450px;
+    height: 750px;
+    background-color: white;
+    border-radius: 25px;
+    border: 1px solid black;
+    padding: 30px;
+}
+
+.Find-Recipes-Box {
+    width: 425px;
+    height: 200px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box3 {
+    width: 940px;
+    height: 250px;
+    background-color: #FEFFE7;
+    border-radius: 25px;
+    border: 1px solid black;
+}
+
+/* Make the Find-Recipes-Box and box3 align side by side */
+.flex-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.box4 {
+    width: 1350px;
+    height: 440px;
+    background-color: #FEFFE7;
+    margin: 10px;
+    border-radius: 25px;
+    border: 1px solid black;
+}
+
+.h1 {
+    font-size: 64px;
+}
+
+.h2 {
+    font-size: 40px;
+}
