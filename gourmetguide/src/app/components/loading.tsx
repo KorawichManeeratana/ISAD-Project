@@ -44,10 +44,6 @@ export default class loading extends Component{
         showModal : check,
         })
     }
-    componentDidMount(): void {
-        this.setShowModal2(false), 
-        this.setShowModal(true)
-    }
     render() {
             return(
                 <>

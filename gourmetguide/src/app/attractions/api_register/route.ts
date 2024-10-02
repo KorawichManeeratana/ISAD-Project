@@ -2,6 +2,7 @@ import {NextResponse} from 'next/server'
 import  { mysqlPool }  from '@/app/utils/db'
 import { error } from 'console';
 const bcrypt = require("bcrypt");
+
 export async function POST(req:any){
     try {
         const connection = await mysqlPool;
