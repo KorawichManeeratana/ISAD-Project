@@ -6,11 +6,12 @@ const bcrypt = require("bcrypt");
 export async function POST(req:any){
     try {
         const connection = await mysqlPool;
-        const {name, email, password} = await req.json();
-        let bigga = await bcrypt.compate(password, 14);
-        connection.execute(`INSERT INTO account value(default, '${name}', '${bigga}', '${email}')`)
+        const {name, password} = await req.json();
+        const username = connection.execute(`SELECT ac_id FROM account WHERE email="${name}" OR username="${name}`)
+        const userpassword = connection.execute(`SELECT password FROM account WHERE email="${name}" OR username="${name}`)
         connection.end();
-        return Response.json({message: "User registered."}, {status: 201});
+        return Response.json({username, userpassword}, {status: 201});
+
     } catch {error}{
         return Response.json({
             error : error

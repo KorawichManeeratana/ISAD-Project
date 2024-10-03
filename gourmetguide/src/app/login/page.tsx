@@ -1,8 +1,6 @@
 "use client"
 import React, { Component } from 'react'
 import Modal from "../components/modal";
-import { withRouter } from 'next/router';
-import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 
 export default class page extends Component {
@@ -47,15 +45,22 @@ export default class page extends Component {
           return;
          }
         try {
-            const response : any = await signIn("credentials", {
-                name, password, redirect: false
-            })
-            if (response.error){
-                this.setErrorLogin("Invalid Credentials.");
-                return;
+          const resLogin = fetch("http://localhost:3000/attractions/auth",{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name, password})
+          })
+          const {userid} = await (await resLogin).json();
+  
+          if (userid){
+            if (password == userid){
+              <Link href="/"></Link>
             }
+          }
             <Link href="../recipe/"></Link>
-      }catch(error) {
+        }catch (error) {
         console.log("Error during registration.", error);
       }
     }

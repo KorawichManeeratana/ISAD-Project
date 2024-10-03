@@ -1,7 +1,6 @@
 import Nav from "./components/Nav";
 import type { Metadata } from "next";
 import "./globals.css";
-import { AuthProvider } from "./Providers";
 
 export const metadata: Metadata = { 
   title: "GourmetGuide",
@@ -15,7 +14,7 @@ export default function RootLayout({ children } : any) {
         className="font-kanit" 
       > {/* กำหนด font เป็น kanit import มาจาก tailwind.config.js */}
       <Nav /> {/* กำหนด nav bar กับทุกหน้า */}
-      <AuthProvider>{children}</AuthProvider>{/* เนื้อหาของแต่ละหน้า */}
+      {children}{/* เนื้อหาของแต่ละหน้า */}
       </body>
     </html>
   );
