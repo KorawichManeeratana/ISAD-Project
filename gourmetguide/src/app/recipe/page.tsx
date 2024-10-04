@@ -1,13 +1,13 @@
 "use client"
 import React, { Component} from 'react'
 import { Progress } from "@/components/ui/progress"
-import Spoon from "../components/loading"
+import Post from "../components/topRecommend/recipesTop1"
 
 class RecipePage extends React.Component {
   render(){
     return (
       <div>
-      <Spoon/>
+      <Post rep_name='ก๋วยเตี๋ยวเรื่อ'/>
       </div>
     )
   }

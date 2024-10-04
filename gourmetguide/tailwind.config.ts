@@ -52,6 +52,8 @@ const config: Config = {
   			}
   		},
   		width: {
+			'181' : '181px',
+			'541': '541px',
   			'600': '600px',
   			'900': '900px',
   			'1200': '1200px'
@@ -66,7 +68,10 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		backgroundImage: {
+			noodle: "url('https://s359.kapook.com/pagebuilder/26fcc205-e197-4429-9b2e-2082dd3b7383.jpg')"
+		}
   	}
   },
   plugins: [require("tailwindcss-animate")],

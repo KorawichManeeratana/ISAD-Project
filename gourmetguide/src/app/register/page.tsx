@@ -1,6 +1,8 @@
 "use client"
 import React, { Component } from 'react'
 import Modal from "../components/modal";
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default class page extends Component {
     state = {
@@ -51,21 +53,21 @@ export default class page extends Component {
         }
         
         try {
-            const resCheckUser = fetch("http://localhost:3000/attractions/api_checkUser",{
+            let resCheckUser = fetch("http://localhost:3000/attractions/api_checkUser/",{
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
               },
-              body: JSON.stringify({email})
+              body: JSON.stringify({email : email, name : name})
             })
     
             const {user} = await (await resCheckUser).json();
-    
             if (user){
               this.setErrorRegister("This account is already exists!");
               return;
             }
-            let res = await fetch("http://localhost:3000/attractions/api_register", {
+
+            let res = await fetch("http://localhost:3000/attractions/api_register/", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"

@@ -1,6 +1,8 @@
 "use client"
 import React from "react";
 import Seacrh from "./components/Seacrh";
+import PostTop1 from "./components/topRecommend/recipesTop1"
+import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   render() {
@@ -37,11 +39,15 @@ class Home extends React.Component {
         </div>
         <div className="bg-white w-1920px py-10 text-white"></div> {/* พท.สีขาว */}
         <div className="overflow-y-auto"></div> {/* scroll bar */}
-          <div className="w-[90vw] m-auto border-20 border-x-gray-400 bg-yellow-200">  {/* เนื้อหา */}
-            <h1 className="text-red text-3xl font-bold mb-4">เมนูยอดนิยม</h1>
-            <br></br>
-            <br></br>
-            <div className="bg-white w-1920px h-1680px py-4 text-white"></div> {/* พท.สีขาว */}
+          <div className="w-[90vw] h-[100vh] m-auto border-20 border-x-gray-400 bg-yellow-100 px-8">  {/* เนื้อหา */}
+            <h1 className="text-red text-3xl font-bold mb-4 py-6">เมนูยอดนิยม</h1>
+            <div className="flex flex-center justify-center items-center space-x-8"><PostTop1 rep_name="ก๋วยเตี๋ยวเรือ"/>
+              <div className="flex flex-col">
+              <PostTop2and3 rep_name="noob insi"/>
+              <PostTop2and3 rep_name="kuy isad"/>
+              </div>
+            </div>
+            <div className="bg-white w-[90vx] h-1680px py-4 text-white mt-40"></div> {/* พท.สีขาว */}
             <div>
               <h1>เกี่ยวกับเรา</h1>
               <p className="description">

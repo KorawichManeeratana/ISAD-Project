@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Modal from "../components/modal";
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default class page extends Component {
     state = {
@@ -9,7 +10,7 @@ export default class page extends Component {
         password : "",
         showModal : true,
         errorLogin : "",
-        router : this.props,
+        authToken: ""
       }
     constructor(props: any){
         super(props)
@@ -34,6 +35,7 @@ export default class page extends Component {
           showModal : check,
         })
       }
+      
       private async handleSubmitLogin(e:any){
         e.preventDefault();
         let abc:any = document.querySelector(".name")
@@ -45,23 +47,32 @@ export default class page extends Component {
           return;
          }
         try {
-          const resLogin = fetch("http://localhost:3000/attractions/auth",{
+          const resLogin = fetch("http://localhost:3000/attractions/api_login",{
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({name, password})
+            body: JSON.stringify({name : name, password : password})
           })
-          const {userid} = await (await resLogin).json();
-  
-          if (userid){
-            if (password == userid){
-              <Link href="/"></Link>
-            }
+          if (!(await resLogin).ok){
+            this.setErrorLogin("Incorrect Password or Username.")
+            return;
           }
-            <Link href="../recipe/"></Link>
+          const isUser : any = await (await resLogin).json();
+          console.log("isUser:", isUser)
+
+
+          if (!isUser){
+            console.log("Login Failed!")
+            this.setErrorLogin("Incorrect Password or Username.")
+            return;
+            
+          }else{
+            console.log("Login Success!");
+          }
+          
         }catch (error) {
-        console.log("Error during registration.", error);
+        console.log("Login Failed", error);
       }
     }
   render() {
