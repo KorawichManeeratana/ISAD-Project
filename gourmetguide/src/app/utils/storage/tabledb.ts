@@ -1,4 +1,4 @@
-export type account = "ac_id" | "username" | "password" | "email";
+export type account = "ac_id" | "username" | "password" | "email" | "token" | "role";
 
 export type Food_Type = "ft_id" | "ft_name";
 

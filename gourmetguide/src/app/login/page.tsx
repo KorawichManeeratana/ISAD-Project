@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import Modal from "../components/modal";
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { checkLoginAction } from "../utils/Account/ServerActionUser";
+
 
 export default class page extends Component {
     state = {
@@ -38,6 +40,7 @@ export default class page extends Component {
       
       private async handleSubmitLogin(e:any){
         e.preventDefault();
+        console.log("handlesumitcall")
         let abc:any = document.querySelector(".name")
         let name = abc.value
         abc = document.querySelector(".password")
@@ -47,30 +50,14 @@ export default class page extends Component {
           return;
          }
         try {
-          const resLogin = fetch("http://localhost:3000/attractions/api_login",{
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({name : name, password : password})
-          })
-          if (!(await resLogin).ok){
-            this.setErrorLogin("Incorrect Password or Username.")
-            return;
+          this.setErrorLogin("");
+          if (!name && !password) { this.setErrorLogin("Please Commits all form first!!"); } 
+          else {
+          if (!await checkLoginAction(JSON.stringify(name), JSON.stringify(password))) { this.setErrorLogin("Login Failed") }
           }
-          const isUser : any = await (await resLogin).json();
-          console.log("isUser:", isUser)
+          name = ""
+          password = ""
 
-
-          if (!isUser){
-            console.log("Login Failed!")
-            this.setErrorLogin("Incorrect Password or Username.")
-            return;
-            
-          }else{
-            console.log("Login Success!");
-          }
-          
         }catch (error) {
         console.log("Login Failed", error);
       }

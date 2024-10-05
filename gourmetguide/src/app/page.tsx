@@ -3,6 +3,7 @@ import React from "react";
 import Seacrh from "./components/Seacrh";
 import PostTop1 from "./components/topRecommend/recipesTop1"
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
+import Footer from "./components/Footer"
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   render() {
@@ -40,31 +41,17 @@ class Home extends React.Component {
         <div className="bg-white w-1920px py-10 text-white"></div> {/* พท.สีขาว */}
         <div className="overflow-y-auto"></div> {/* scroll bar */}
           <div className="w-[90vw] h-[100vh] m-auto border-20 border-x-gray-400 bg-yellow-100 px-8">  {/* เนื้อหา */}
-            <h1 className="text-red text-3xl font-bold mb-4 py-6">เมนูยอดนิยม</h1>
+            <h1 className="inline-block text-yellow-950 border border-b-yellow-950 text-3xl font-bold mb-4 py-6">เมนูยอดนิยม</h1>
             <div className="flex flex-center justify-center items-center space-x-8"><PostTop1 rep_name="ก๋วยเตี๋ยวเรือ"/>
-              <div className="flex flex-col">
+              <div className="flex flex-col p-6 space-y-6">
               <PostTop2and3 rep_name="noob insi"/>
               <PostTop2and3 rep_name="kuy isad"/>
               </div>
             </div>
-            <div className="bg-white w-[90vx] h-1680px py-4 text-white mt-40"></div> {/* พท.สีขาว */}
-            <div>
-              <h1>เกี่ยวกับเรา</h1>
-              <p className="description">
-                ที่ Gourmet Guide เรามุ่งมั่นสร้างพื้นที่สําหรับคนรักการทําอาหาร
-                ให้สามารถค้นหา แบ่งปัน และเรียนรู้สูตรใหม่ ๆ ได้ง่ายดาย
-                ไม่ว่าคุณจะเป็นเชฟ มืออาชีพหรือผู้ที่ชอบทําอาหารที่บ้าน
-                คุณจะพบสูตรอาหารหลากหลายที่ครอบ
-                คลุมทั้งอาหารพื้นเมืองและอาหารนานาชาติ ทุกสูตรถูกคัดเลือกอย่างดี
-                เพื่อให้ มั่นใจว่าใช้งานได้จริง
-                นอกจากนี้เรายังเป็นชุมชนสําหรับผู้ที่หลงใหลในอาหาร
-                ที่นี่คุณจะได้แรงบันดาลใจและสร้างสรรค์เมนูที่สมบูรณ์แบบ
-              </p>
-            </div>
-            <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}
           </div>
-        <br></br>
-        <br></br>
+          <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}
+          <Footer/>
+          <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}
       </div>
     );
   }

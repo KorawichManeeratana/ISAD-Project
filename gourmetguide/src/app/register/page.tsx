@@ -3,14 +3,21 @@ import React, { Component } from 'react'
 import Modal from "../components/modal";
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import Loading from "../components/loading";
 
 export default class page extends Component {
     state = {
         showModal2 : true,
         errorRegister : "",
+        loading : false
     }
     constructor(props : any){
         super(props)
+    }
+    public setloading(check : boolean){
+      this.setState({
+        loading : check
+      })
     }
     public setErrorLogin(word : string){
         this.setState({
@@ -53,7 +60,8 @@ export default class page extends Component {
         }
         
         try {
-            let resCheckUser = fetch("http://localhost:3000/attractions/api_checkUser/",{
+          this.setloading(true);
+            /* let resCheckUser = fetch("http://localhost:3000/attractions/api_checkUser/",{
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -66,7 +74,7 @@ export default class page extends Component {
               this.setErrorRegister("This account is already exists!");
               return;
             }
-
+ */
             let res = await fetch("http://localhost:3000/attractions/api_register/", {
               method: "POST",
               headers: {
@@ -79,6 +87,7 @@ export default class page extends Component {
             if (res.ok) {
               const form = e.target;
               this.setErrorRegister("");
+              this.setloading(false);
               form.reset();
             }else {
               console.log("User registration failed.");
@@ -89,7 +98,9 @@ export default class page extends Component {
       }
   render() {
     return (
-      <div><Modal isVisible={this.state.showModal2} onClose={() => this.setShowModal2(false)}> {/*เนื้อหาของหน้า register*/}
+      <div>
+        <Modal isVisible={this.state.loading} onClose={() => this.setShowModal2(false)}><div><Loading/></div></Modal>
+        <Modal isVisible={this.state.showModal2} onClose={() => this.setShowModal2(false)}> {/*เนื้อหาของหน้า register*/}
       <div>
         <form onSubmit={this.handleSubmitRegister.bind(this)}>
           <div>
@@ -157,8 +168,9 @@ export default class page extends Component {
             </div>
           </div>
           </form>
+          </div>
+        </Modal>
       </div>
-      </Modal></div>
     )
   }
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Image from 'next/image';
 
 
-export default class recipesPost extends Component<{rep_name?: string, rep_des?: string, calories?: Int16Array, likes?: Int16Array, img?: string}> {
+export default class recipesPost extends Component<{rep_name?: string,  img?: string}> {
     constructor(props: any){
         super(props);
     }

@@ -8,7 +8,7 @@ export async function POST(req:any){
         const connection = await mysqlPool;
         const {name, email, password} = await req.json();
         let bigga = await bcrypt.hash(password, 10);
-        connection.execute(`INSERT INTO account value(default, '${name}', '${bigga}', '${email}')`)
+        connection.execute(`INSERT INTO account value(default, '${name}', '${bigga}', '${email}', default, default)`)
         connection.end();
         return Response.json({message: "User registered."}, {status: 201});
     } catch {error}{

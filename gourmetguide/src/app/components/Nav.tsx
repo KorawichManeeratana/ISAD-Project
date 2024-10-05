@@ -1,7 +1,9 @@
 "use client";
 import Link from "next/link";
 import Modal from "./modal";
+import Image from "next/image";
 import React, { Component } from 'react'
+import Logo from "../image/real logo.png"
 
 class Header extends React.Component {
   state = {
@@ -39,7 +41,7 @@ class Header extends React.Component {
         <div className="grid grid-cols-2"> {/* div นี้สำหรับกด nav bar */}
           <div className="flex items-center justify-start py-4 text-yellow-500 ml-10">
               <p className="hover:underline">
-                <Link href="/">logo</Link>
+                <Link href="/"><Image src={Logo} alt="" w-100></Image></Link>
               </p>
           </div>
           <div className="flex justify-end ">
