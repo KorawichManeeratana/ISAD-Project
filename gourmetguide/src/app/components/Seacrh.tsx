@@ -22,7 +22,7 @@ class Search extends Component {
       <input
         type="text"
         placeholder="ค้นหาสูตรอาหาร"
-        className="text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
+        className="text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
         value={this.state.searchQuery}
         onChange={this.handleChange} />
     );

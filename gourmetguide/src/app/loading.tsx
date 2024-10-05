@@ -1,11 +1,13 @@
+"use client"
 import React from 'react'
 import Loading from "./components/loading"
+import Modal from './components/modal'
 
 export default function loading() {
   return (
     <>
     <div className="flex items-center justify-center items-center height-[90vw]">
-    <Loading/>
+    <Modal isVisible={true} onClose={(false)}><><Loading/></></Modal>
     </div>
     </>
   )

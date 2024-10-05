@@ -4,11 +4,34 @@ import Seacrh from "./components/Seacrh";
 import PostTop1 from "./components/topRecommend/recipesTop1"
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 import Footer from "./components/Footer"
+import { SensitiveSearch } from "./components/SensitiveSearch";
 // หน้า homepage หลักเลย
 class Home extends React.Component {
+  state = {
+    sensitiveVisible : false
+  }
+  constructor(props : any){
+    super(props)
+  }
+  public setSensitiveVisible(turn : boolean){
+    this.setState({
+      sensitiveVisible : turn
+    })
+  }
   render() {
     return (
       <div className="font-kanit bg-gray-200">
+          {this.state.sensitiveVisible && ( 
+          <SensitiveSearch
+            initialMin={100}
+            initialMax={500}
+            min={0}
+            max={1000}
+            step={10}
+            Cap={100}
+            Visible={this.state.sensitiveVisible}
+            />
+        )}
         <div className="bg-grey-900 text-white" id="background"> {/* รูปพื้นหลังในหน้า home หลัง search */}
           <div className="container mx-auto px-4 py-16">
             <div className="text-center">
@@ -32,7 +55,7 @@ class Home extends React.Component {
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
               </svg>
               <Seacrh /> {/* เรียกใช้ search bar จาก folder components */}
-              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl">
+              <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl" onClick={() => this.setSensitiveVisible(true)}>
                 ค้นหาแบบละเอียด
               </button>
             </div>
@@ -41,14 +64,16 @@ class Home extends React.Component {
         <div className="bg-white w-1920px py-10 text-white"></div> {/* พท.สีขาว */}
         <div className="overflow-y-auto"></div> {/* scroll bar */}
           <div className="w-[90vw] h-[100vh] m-auto border-20 border-x-gray-400 bg-yellow-100 px-8">  {/* เนื้อหา */}
-            <h1 className="inline-block text-yellow-950 border border-b-yellow-950 text-3xl font-bold mb-4 py-6">เมนูยอดนิยม</h1>
-            <div className="flex flex-center justify-center items-center space-x-8"><PostTop1 rep_name="ก๋วยเตี๋ยวเรือ"/>
-              <div className="flex flex-col p-6 space-y-6">
-              <PostTop2and3 rep_name="noob insi"/>
-              <PostTop2and3 rep_name="kuy isad"/>
+            <h1 className="text-yellow-950 text-3xl font-bold mb-4 pl-16 pt-16">เมนูยอดนิยม</h1>
+            <div className="flex flex-center justify-center items-center space-x-8"><PostTop1 rep_name="ก๋วยเตี๋ยวเรือ" Img="https://s359.kapook.com/pagebuilder/26fcc205-e197-4429-9b2e-2082dd3b7383.jpg"/>
+              <div className="flex flex-col p-6 space-y-14">
+              <PostTop2and3 rep_name="noob insi" Img="https://images.deliveryhero.io/image/fd-th/LH/lkhi-hero.jpg"/>
+              <PostTop2and3 rep_name="kuy isad" Img="https://cdn.usarestaurants.info/assets/uploads/049ec03201bfbd5eb2edb23b3ee74d9d_-united-states-california-los-angeles-county-whittier-241880-raku-teriyaki-and-sushi-rollhtm.jpg"/>
               </div>
             </div>
+            <h1 className="text-xl text-gray-700 grid justify-end px-40 pt-6">ดูเพิ่มเตืม</h1>
           </div>
+          
           <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}
           <Footer/>
           <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}

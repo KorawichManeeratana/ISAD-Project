@@ -1,16 +1,11 @@
 "use client"
-import React, { Component} from 'react'
-import { Progress } from "@/components/ui/progress"
-import Footer from '../components/Footer'
+import React, { Component } from 'react'
+import { SensitiveSearch } from '../components/SensitiveSearch'
 
-class RecipePage extends React.Component {
-  render(){
+export default class page extends Component {
+  render() {
     return (
-      <div>
-        recipe
-      </div>
+      <div></div>
     )
   }
 }
-
-export default RecipePage

@@ -62,8 +62,8 @@ const config: Config = {
   			'600': '600px'
   		},
   		fontFamily: {
-  			kanit: ['Kanit']
-  		},
+			kanit: ['Kanit']
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
