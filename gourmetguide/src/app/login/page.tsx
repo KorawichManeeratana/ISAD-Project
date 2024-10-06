@@ -57,8 +57,6 @@ export default class page extends Component {
     }
     try {
       this.setErrorLogin("");
-      console.log("Name:", name);
-      console.log("Password:", password);
       if (!name && !password) {
         this.setErrorLogin("Please Commits all form first!!");
       } else {

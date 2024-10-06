@@ -13,10 +13,14 @@ class Home extends React.Component {
   constructor(props : any){
     super(props)
   }
+
   public setSensitiveVisible(turn : boolean){
     this.setState({
       sensitiveVisible : turn
     })
+  }
+  public handleClose(){
+    this.setSensitiveVisible(false)
   }
   render() {
     return (
@@ -29,7 +33,7 @@ class Home extends React.Component {
             max={1000}
             step={10}
             Cap={100}
-            Visible={this.state.sensitiveVisible}
+            Visible={this.handleClose.bind(this)}
             />
         )}
         <div className="bg-grey-900 text-white" id="background"> {/* รูปพื้นหลังในหน้า home หลัง search */}
@@ -73,7 +77,6 @@ class Home extends React.Component {
             </div>
             <h1 className="text-xl text-gray-700 grid justify-end px-40 pt-6">ดูเพิ่มเตืม</h1>
           </div>
-          
           <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}
           <Footer/>
           <div className="bg-white w-1920px h-1680px py-10 text-white"></div> {/* พท.สีขาว */}

@@ -19,17 +19,16 @@ export const SensitiveSearch = ({
   max: number,
   step: number,
   Cap: number,
-  Visible : boolean,
+  Visible : Function
 }) => {
   const progressRef: any = useRef(null);
-  const [showSearch, setShowSearch]: [showSearch : boolean, setShowSearch : any] = useState(Visible);
+  const [showSearch, setShowSearch]: [showSearch : boolean, setShowSearch : any] = useState(true);
   const [minValue, setMinValue]: [minValue: any, setMinValue: any] = useState(initialMin);
   const [maxValue, setMaxValue]: [maxValue: any, setMaxValue: any] = useState(initialMax);
 
   const handleCloseModal = () => {
-    console.log("beforeHandle:", showSearch)
     setShowSearch(false);
-    console.log("AfterHandle:", showSearch)
+    Visible();
   };
 
   const handleMax = (e: any) => {
@@ -56,16 +55,9 @@ export const SensitiveSearch = ({
         }
       }
     }
-    useEffect(() => {
-        if (progressRef.current) {
-          progressRef.current.style.left = (minValue / max) * step + "%";
-          progressRef.current.style.right =
-            step - (maxValue / max) * step + "%;";
-        }
-      }, []);
   return (
     <div>
-      <Modal isVisible={showSearch} onClose={() => handleCloseModal()}>
+      <Modal isVisible={true} onClose={() => handleCloseModal()}>
         <div className="w-[600px] h-[500px] bg-white rounded-3xl">
           <div className="flex pt-8 justify-center items-center">
             <Search />

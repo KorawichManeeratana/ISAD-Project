@@ -8,10 +8,10 @@ import { redirect } from "next/navigation";
 const cookie = cookies();
 
 export default class loginSystem {
-    public static async getValue(connection: any, query: string, params: any[]) {
+    public static async getValue(connection: any, query: string) {
         try {
-            const [rows] = await connection.query(query, params);
-            console.log("rows:", rows[0])
+            const [rows] = await connection.query(query);
+            console.log("q:", query)
             if (rows.length > 0) {
                 return rows[0];
             } else {
@@ -29,7 +29,7 @@ export default class loginSystem {
 
         try {
             connection = await mysqlPool;
-            const result = await loginSystem.getValue(connection, `SELECT ac_id, password, role FROM account WHERE email=? OR username=?`, [email, email]);
+            const result = await loginSystem.getValue(connection, `SELECT ac_id, password, role FROM account WHERE email=${email} OR username=${email}`);
             console.log("rowsInCheck:", result)
             console.log("password:", result.password)
             console.log("id:", result.ac_id)
