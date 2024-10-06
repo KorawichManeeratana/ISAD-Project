@@ -1,7 +1,7 @@
 "use client";
 import React, { Component } from "react";
-import Search from "../components/Seacrh";
-import Modal from "../components/modal";
+import Search from "./Seacrh";
+import Modal from "../modal";
 import { useState, useEffect, useRef } from "react";
 
 export const SensitiveSearch = ({

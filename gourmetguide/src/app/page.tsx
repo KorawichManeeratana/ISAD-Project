@@ -1,10 +1,10 @@
 "use client"
 import React from "react";
-import Seacrh from "./components/Seacrh";
+import Seacrh from "./components/Search/Seacrh";
 import PostTop1 from "./components/topRecommend/recipesTop1"
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 import Footer from "./components/Footer"
-import { SensitiveSearch } from "./components/SensitiveSearch";
+import { SensitiveSearch } from "./components/Search/SensitiveSearch";
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   state = {
