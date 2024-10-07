@@ -1,3 +1,4 @@
+/* Body */
 .box {
     width: 100vw;
     height: 100vh;
@@ -7,34 +8,136 @@
     padding: 35px;
 }
 
-.box > div {
-    margin-right: 100px;
+/* Word Size */
+h1 {
+    font-size: 64px;
 }
 
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 36px;
+}
+
+h4 {
+    font-size: 24px;
+}
+
+.box > div {
+    margin-right: 60px;
+}
+
+/* Left Side Box */
+.side-box {
+    margin-left: 40px;
+}
+
+.badge {
+    font-size: 24px;
+    margin-top: 70px;
+}
+
+/* New Recipe Button */
+.side-btn {
+    margin-top: 300px;
+}
+
+.side-btn a {
+    display: inline-block;
+}
+
+.new-recipe {
+    background: #FFD27A;
+    font-size: 32px;
+    padding: .5rem 1.5rem;
+    border-radius: 55px;
+}
+
+/* Right Side Box */
 .box2 {
-    width: 1450px;
-    height: 750px;
+    width: max-content;
     background-color: white;
     border-radius: 25px;
-    border: 1px solid black;
     padding: 30px;
 }
 
-.Find-Recipes-Box {
+/* Find Recipe And Search Bar */
+.find-recipes-box {
     width: 425px;
     height: 200px;
-    border: 1px solid black;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
+.search-bar{
+    width: 390px;
+    height: 40px;
+    border-radius: 55px;
+    border: 1px solid black;
+    padding: 5px 10px;
+}
+
+.search-bar-input{
+    width: 370px;
+    outline: none;
+    border: none;
+    background: transparent;
+}
+
+/* Menu Box */
 .box3 {
     width: 940px;
-    height: 250px;
+    height: 270px;
     background-color: #FEFFE7;
     border-radius: 25px;
+    position: relative;
+    text-align: center;
+}
+
+.detail-line{
+    display: flex;
+    margin-top: 20px;
+}
+
+.detail-box {
+    display: flex;
+    margin-left: 30px;
+}
+
+.detail-box2 {
+    margin-left: 120px;
+    display: flex;
+}
+
+.detail-input1 {
+    width: 680px;
     border: 1px solid black;
+    border-radius: 55px;
+}
+
+.detail-input2 {
+    width: 120px;
+    border: 1px solid black;
+    border-radius: 55px;
+}
+
+/* Delete Button */
+.box3-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.delete-btn {
+    background: white;
+    color: red;
+    font-size: 24px;
+    padding: .5rem 1rem;
+    border-radius: 55px;
 }
 
 /* Make the Find-Recipes-Box and box3 align side by side */
@@ -43,19 +146,36 @@
     align-items: flex-start;
 }
 
+/* Table Box */
 .box4 {
     width: 1350px;
     height: 440px;
     background-color: #FEFFE7;
     margin: 10px;
     border-radius: 25px;
-    border: 1px solid black;
+    position: relative;
 }
 
-.h1 {
-    font-size: 64px;
+table {
+    width: 100%;
 }
 
-.h2 {
-    font-size: 40px;
+th {
+    font-size: 24px;
+}
+
+/* Finish Button */
+.box4-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.finish-btn {
+    background: white;
+    font-size: 24px;
+    padding: .5rem 1rem;
+    border-radius: 55px;
+    right:    0;
+    bottom:   0;
 }
