@@ -20,6 +20,7 @@ export default class SearchResultCard extends Component<{rep_name?: string, name
         this.setState({
             changeColorBookMark : turn
         })
+        console.log("")
     }
 
     public handleColor(){
@@ -34,12 +35,12 @@ export default class SearchResultCard extends Component<{rep_name?: string, name
     return (
       <div className="font-kanit">
         <div className="flex p-4">
-          <div className="w-600">
-            <img src={this.props.Img} alt="NAN" className="w-600 h-64" />
+          <div className="w-auto">
+            <img src={this.props.Img} alt="NAN" className="w-600 h-64 object-cover object-center"/>
             <div className="bg-white h-10 px-8 flex justify-end items-center shadow-md">
               <span className="text-gray-600 text-sm">สร้างโดย {this.props.name}</span>
-              <Image
-                src={logoAccount /*this.props.userPFP */}
+              <img
+                src={this.props.userPFP}
                 alt="profile"
                 className="w-6 h-6 rounded-full ml-2"
               />

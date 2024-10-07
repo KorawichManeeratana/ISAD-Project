@@ -1,8 +1,6 @@
 "use client";
 import React, { Component } from "react";
 import Modal from "../components/modal";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 import Loading from "../components/loading";
 
 export default class page extends Component {

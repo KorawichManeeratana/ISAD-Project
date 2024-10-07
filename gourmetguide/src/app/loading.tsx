@@ -6,7 +6,7 @@ import Modal from './components/modal'
 export default function loading() {
   return (
     <>
-    <div className="flex items-center justify-center items-center height-[90vw]">
+    <div className="flex justify-center items-center height-[90vw]">
     <Modal isVisible={true} onClose={(false)}><><Loading/></></Modal>
     </div>
     </>

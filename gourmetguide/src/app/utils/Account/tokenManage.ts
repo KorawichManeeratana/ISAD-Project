@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-import { mysqlPool } from "../database/dbConnect";
+import db from "@/app/utils/database/db";
 
 export default class tokenManage {
     public constructor() {}
@@ -15,12 +15,12 @@ export default class tokenManage {
         let connection;
 
         try {
-            connection = await mysqlPool;
-            await connection.execute(`UPDATE account SET token=? WHERE ac_id=?`, [refresh, ac_id])
+            connection = (await db.get())?.getConnection();
+            await (await connection)?.execute(`UPDATE account SET token=? WHERE ac_id=?`, [refresh, ac_id])
         } catch (error) {
             console.log("getNewToken Failed!!");
         } finally {
-            if (connection) connection.end();
+            if (connection) (await connection).release();
         }
 
         return {access, refresh};
@@ -29,9 +29,9 @@ export default class tokenManage {
     public static async checkRefreshToken(refresh: string): Promise<Boolean> {
         let connection;
         try {
-            connection = await mysqlPool;
+            connection = (await db.get())?.getConnection();
             const refreshData = jwt.verify(refresh, process.env.REFRESH_JWTSECRET);
-            const userToken : any = await connection.execute(`SELECT token FROM account WHERE ac_id=?`, [refreshData.id])
+            const userToken : any = await (await connection)?.execute(`SELECT token FROM account WHERE ac_id=?`, [refreshData.id])
 
             if (refresh === userToken[0].token) { return true }
 
@@ -41,7 +41,7 @@ export default class tokenManage {
             console.log("Token Error");
             return false;
         }finally {
-            if (connection) connection.end();
+            if (connection) (await connection).release();
         }
     }
 }

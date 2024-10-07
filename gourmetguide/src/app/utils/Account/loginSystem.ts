@@ -1,5 +1,5 @@
 
-import { mysqlPool } from '@/app/utils/database/dbConnect'
+import db from '@/app/utils/database/db'
 import tokenManage from "./tokenManage";
 import { cookies } from 'next/headers'
 const bcrypt = require('bcrypt')
@@ -10,7 +10,7 @@ const cookie = cookies();
 export default class loginSystem {
     public static async getValue(connection: any, query: string) {
         try {
-            const [rows] = await connection.query(query);
+            const [rows] = await (await connection)?.execute(query);
             console.log("q:", query)
             if (rows.length > 0) {
                 return rows[0];
@@ -28,7 +28,7 @@ export default class loginSystem {
         let connection;
 
         try {
-            connection = await mysqlPool;
+            connection = (await db.get())?.getConnection();
             const result = await loginSystem.getValue(connection, `SELECT ac_id, password, role FROM account WHERE email=${email} OR username=${email}`);
             console.log("rowsInCheck:", result)
             console.log("password:", result.password)
@@ -48,7 +48,7 @@ export default class loginSystem {
             console.log(`${email} does not exist in database.`); 
             return false;
         }finally {
-            if (connection) connection.end();
+            if (connection) (await connection).release();
         }
 
         redirect('/');
