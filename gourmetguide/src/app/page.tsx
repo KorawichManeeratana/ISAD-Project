@@ -5,6 +5,7 @@ import PostTop1 from "./components/topRecommend/recipesTop1"
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 import Footer from "./components/Footer"
 import { SensitiveSearch } from "./components/Search/SensitiveSearch";
+import Ddata from './setest/data.json'
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   state = {
@@ -58,7 +59,7 @@ class Home extends React.Component {
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
               </svg>
-              <Seacrh /> {/* เรียกใช้ search bar จาก folder components */}
+              <Seacrh data={Ddata}/> {/* เรียกใช้ search bar จาก folder components */}
               <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl" onClick={() => this.setSensitiveVisible(true)}>
                 ค้นหาแบบละเอียด
               </button>
