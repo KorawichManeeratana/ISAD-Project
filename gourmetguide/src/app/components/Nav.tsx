@@ -11,34 +11,18 @@ import Logo from "../image/real logo.png";
 
 class Header extends React.Component {
   state = {
-    showModal: false,
-    showModal2: false,
-    errorLogin: "",
-    errorRegister: "",
+    showReport: false,
   };
   constructor(props: any) {
     super(props);
   }
-  public setErrorLogin(word: string) {
+
+  public setShowReport(check: boolean) {
     this.setState({
-      errorLogin: word,
+      showReport: check,
     });
   }
-  public setErrorRegister(word: string) {
-    this.setState({
-      errorRegister: word,
-    });
-  }
-  public setShowModal2(check: boolean) {
-    this.setState({
-      showModal2: check,
-    });
-  }
-  public setShowModal(check: boolean) {
-    this.setState({
-      showModal: check,
-    });
-  }
+
   render() {
     return (
       <div>
@@ -76,7 +60,7 @@ class Header extends React.Component {
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>โปรไฟล์</DropdownMenuItem>
-                  <DropdownMenuItem>รายงานปัญหา</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => this.setShowReport(true)}>รายงานปัญหา</DropdownMenuItem>
                   <DropdownMenuItem>รายการโปรด</DropdownMenuItem>
                   <DropdownMenuItem>ล็อคเอ้าท์</DropdownMenuItem>
                 </DropdownMenuContent>
@@ -84,6 +68,40 @@ class Header extends React.Component {
             </ul>
           </div>
         </div>
+        <Modal isVisible={this.state.showReport} onClose={() => this.setShowReport(false)}><div className="w-[1260px] h-[620px]  bg-white rounded-lg p-8">
+          <div className="flex flex-col justify-center items-center">
+        <h2 className="text-2xl font-bold mb-4">รายงานปัญหา</h2>
+        <div className="space-y-2"> {/* checkbox */}
+          <div>
+          <input type="checkbox"></input>
+          <span className="ml-2">การแสดงความคิดเห็นที่ไม่เหมาะสม</span>
+          </div>
+          <div>
+          <input type="checkbox"></input>
+          <span className="ml-2">ภาพ/เนื้อหาที่ไม่เหมาะสม</span>
+          </div>
+          <div>
+          <input type="checkbox"></input>
+          <span className="ml-2">ข้อความสแปม</span>
+          </div>
+          <div>
+          <input type="checkbox"></input>
+          <span className="ml-2">ฉันแค่ไม่ชอบโพสต์นี้</span>
+          </div>
+        </div>
+        <div className="space-y-4">
+          <h1>คำอธิบายเพิ่มเติม</h1>
+          <textarea className="w-[893px] h-[199px] px-4 pt-2 border border-black rounded-md" placeholder="ต้องการอธิบายอะไรเพิ่มเติมเกี่ยวกับการรายงาน"></textarea>
+        </div>
+        </div>
+        <div className="flex justify-end items-end space-x-4 mt-4"><button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1">
+                  ยินยัน
+           </button>
+           <button className="text-xl bg-white text-black border-2 border-yellow-500 rounded-full px-12 py-1">
+                  ยกเลิก
+          </button></div>
+          </div>
+        </Modal>
       </div>
     );
   }

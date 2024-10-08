@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Seacrh from "./components/Search/Seacrh";
 import PostTop1 from "./components/topRecommend/recipesTop1";
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 import Footer from "./components/Footer";
@@ -54,7 +53,7 @@ class Home extends React.Component {
             min={0}
             max={1000}
             step={10}
-            Cap={100}
+            Cap={1000}
             Visible={this.handleClose.bind(this)}
           />
         )}
@@ -86,12 +85,13 @@ class Home extends React.Component {
               </svg>
               <div>
                 <div>
-                  <input
+                  <form><input
                     type="text"
                     placeholder="ค้นหาสูตรอาหาร"
                     className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
                     onChange={(e) => this.handleSearch(e)}
-                  />
+                  /></form>
+                  
                 </div>
               </div>
               <button
