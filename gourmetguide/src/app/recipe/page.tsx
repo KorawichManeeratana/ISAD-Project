@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import SearchResultCard from "../components/SearchResultCard";
 import Link from "next/link";
 import Loading from "../loading";
+import { SensitiveSearch } from "../components/Search/SensitiveSearch";
 
 type Data = {
   rep_id: number;
@@ -19,6 +20,7 @@ type Data = {
 
 export default class page extends Component<{ searchParams: any }> {
   state = {
+    sensitiveVisible: false,
     items: [],
     searchResult: "",
     isloading: true,
@@ -36,7 +38,11 @@ export default class page extends Component<{ searchParams: any }> {
       searchResult: word,
     });
   }
-
+  public setSensitiveVisible(turn: boolean) {
+    this.setState({
+      sensitiveVisible: turn,
+    });
+  }
   public setItems(data: any) {
     this.setState({
       items: data,
@@ -96,11 +102,25 @@ export default class page extends Component<{ searchParams: any }> {
       this.handleSensitiveSearch();
     }
   }
+  public handleClose() {
+    this.setSensitiveVisible(false);
+  }
 
   render() {
     return (
       <div className="bg-gray-200">
         {this.state.isloading && <Loading />}
+        {this.state.sensitiveVisible && (
+          <SensitiveSearch
+            initialMin={100}
+            initialMax={500}
+            min={0}
+            max={1000}
+            step={10}
+            Cap={1000}
+            Visible={this.handleClose.bind(this)}
+          />
+        )}
         <div className="overflow-y-auto"></div> {/* scroll bar */}
         <div className="w-[90vw] min-h-[900px] flex-grow  m-auto border-20 pt-10 border-x-gray-400 bg-yellow-100 px-8">
           <div className="flex items-center justify-center mt-8">
@@ -139,7 +159,7 @@ export default class page extends Component<{ searchParams: any }> {
                 ยินยัน
               </Link>
             </button>
-            <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl">
+            <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl" onClick={() => this.setSensitiveVisible(true)}>
               ค้นหาแบบละเอียด
             </button>
           </div>
@@ -151,7 +171,7 @@ export default class page extends Component<{ searchParams: any }> {
             </div>
             <div className="flex justify-end items-end">
               <button className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6  rounded-l-3xl rounded-r-3xl">
-                ค้นหาแบบละเอียด
+                คำนวณแคลอรี่
               </button>
               <button className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6 ml-8 mr-28 rounded-l-3xl rounded-r-3xl">
                 ค้นหาแบบละเอียด
