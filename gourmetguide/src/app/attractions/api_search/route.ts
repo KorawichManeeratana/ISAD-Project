@@ -1,27 +1,71 @@
 import db from "@/app/utils/database/db";
+import { qb } from "@/app/utils/database/qb";
 
 export async function POST(req: Response) {
   try {
-    const connection = (await db.get())?.getConnection();
-    const { search } = await req.json();
+    let {
+      search,
+      minValue,
+      maxValue,
+      minTime,
+      maxTime,
+    }: {
+      search: string;
+      minValue: number;
+      maxValue: number;
+      minTime: number;
+      maxTime: number;
+    } = await req.json();
+    const newSearch = search.split(",");
     console.log("Search:", search);
-    let command = `SELECT * FROM recipes JOIN account ON (recipes.ac_id = account.ac_id) WHERE rep_name LIKE "%${search}%"`;
-    console.log("command :", command);
-    const data: any = await (await connection)?.query(command);
-    (await connection)?.release();
-    if (data?.length > 0){
-      return Response.json(data, { status: 201 });
-    }else{
-      return Response.json({Message: "ไม่พบสูตรอาหาร"}, {status: 201});
+    let query = qb
+      .selectFrom("recipes")
+      .innerJoin("account", "recipes.ac_id", "account.ac_id")
+      .innerJoin("ingredientUsage", "ingredientUsage.rep_id", "recipes.rep_id")
+      .innerJoin("ingredient", "ingredient.ing_id", "ingredientUsage.ing_id")
+      .select([
+        "recipes.rep_id",
+        "recipes.rep_name",
+        "recipes.calories",
+        "recipes.calories",
+        "recipes.rep_date",
+        "recipes.rep_des",
+        "recipes.rep_img",
+        "recipes.rep_step",
+        "recipes.rep_time",
+        "account.username",
+        "ing_name",
+      ])
+      .where((eb) =>
+        eb.or([
+          ...newSearch.map((word) =>
+            eb("recipes.rep_name", "like", `%${word}%`)
+          ),
+          ...newSearch.map((word) =>
+            eb("ingredient.ing_name", "like", `%${word}%`)
+          ),
+        ])
+      );
+    if (minTime && maxTime) {
+      console.log("เข้า time", maxTime, minTime);
+      query = query.where((eb) => eb.between("recipes.rep_time", minTime, maxTime));
     }
-  } catch {
-    Error;
-  }
-  {
-    console.log("error: ", Error);
+    if (minValue && maxValue) {
+      console.log("เข้า calories", minValue, maxValue);
+      query = query.where((eb) => eb.between("recipes.calories", minValue, maxValue));
+    }
+    let result = await query.execute();
+    console.log("result:", result);
+    if (result?.length > 0) {
+      return Response.json(result, { status: 201 });
+    } else {
+      return Response.json({ Message: "ไม่พบสูตรอาหาร" }, { status: 201 });
+    }
+  } catch (error) {
+    console.log("error: ", error);
     return Response.json(
       {
-        error: Error,
+        error: error,
       },
       { status: 500 }
     );
@@ -31,16 +75,16 @@ export async function POST(req: Response) {
 export async function POSTSENSITIVE(req: Response) {
   try {
     const connection = (await db.get())?.getConnection();
-    const {search} = await req.json();
+    const { search } = await req.json();
     console.log("Search:", search);
     let command = `SELECT * FROM recipes JOIN account ON (recipes.ac_id = account.ac_id) WHERE rep_name LIKE "%${search}%"`;
     console.log("command :", command);
-    const data : any = await (await connection)?.query(command);
+    const data: any = await (await connection)?.query(command);
     (await connection)?.release();
-    if (data?.length > 0){
+    if (data?.length > 0) {
       return Response.json(data, { status: 201 });
-    }else{
-      return Response.json({Message: "ไม่พบสูตรอาหาร"}, {status: 201});
+    } else {
+      return Response.json({ Message: "ไม่พบสูตรอาหาร" }, { status: 201 });
     }
   } catch {
     Error;

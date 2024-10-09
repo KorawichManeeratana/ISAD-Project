@@ -20,13 +20,24 @@ type Data = {
 
 export default class page extends Component<{ searchParams: any }> {
   state = {
+    isCalculateOpen: false,
     sensitiveVisible: false,
     items: [],
     searchResult: "",
-    isloading: true,
+    isloading: false,
+    calculate: new Array<{
+      rep_name: string;
+      caloreis: number;
+    }>(),
+    sum: 0,
   };
   constructor(props: any) {
     super(props);
+  }
+  public setCalculate(data: { rep_name: string; caloreis: number }[]) {
+    this.setState({
+      calculate: data,
+    });
   }
   public setIsLoading(turn: boolean) {
     this.setState({
@@ -48,20 +59,27 @@ export default class page extends Component<{ searchParams: any }> {
       items: data,
     });
   }
+
+  public addCalculate(sugyhang: { rep_name: string; caloreis: number }) {
+    this.setCalculate([...this.state.calculate, sugyhang]);
+    console.log("calculate:", this.state.calculate);
+  }
+
   async componentDidUpdate(prevProps: Readonly<{ searchParams: any }>) {
     if (
-      this.props.searchParams.searchResult !==
-      prevProps.searchParams.searchResult
+      JSON.stringify(this.props.searchParams) !==
+      JSON.stringify(prevProps.searchParams)
     ) {
-      this.handleNormalSearch();
+      this.handleSearch();
     }
   }
 
   async componentDidMount() {
-    this.handleNormalSearch();
+    console.log("searhParams:", JSON.stringify(this.props.searchParams));
+    this.handleSearch();
   }
 
-  private async handleNormalSearch() {
+  private async handleSearch() {
     this.setIsLoading(true);
     let res = await fetch("http://localhost:3000/attractions/api_search/", {
       method: "POST",
@@ -70,40 +88,40 @@ export default class page extends Component<{ searchParams: any }> {
       },
       body: JSON.stringify({
         search: this.props.searchParams.searchResult,
+        minValue: this.props.searchParams.minValue,
+        maxValue: this.props.searchParams.maxValue,
+        minTime: this.props.searchParams.minTime,
+        maxTime: this.props.searchParams.maxTime,
       }),
     });
     let data: any = await res.json();
-    console.log("data[0]:", data[0]);
-    this.setItems(data[0]);
+    console.log("data:", data);
+    this.setItems(data);
     this.setIsLoading(false);
   }
 
-  private async handleSensitiveSearch() {
-    this.setIsLoading(true);
-    let res = await fetch("http://localhost:3000/attractions/api_search/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        search: this.props.searchParams.searchResult,
-      }),
-    });
-    let data: any = await res.json();
-    this.setItems(data[0]);
-    this.setIsLoading(false);
-  }
-
-  private async performSearch(searchQuery: string | string[]) {
-    this.setIsLoading(true);
-    if (Array.isArray(searchQuery)) {
-      this.handleNormalSearch();
-    } else {
-      this.handleSensitiveSearch();
-    }
-  }
   public handleClose() {
     this.setSensitiveVisible(false);
+  }
+
+  public startcalculate() {
+    let sum = 0;
+    this.state.calculate.forEach((value) => {
+      sum += value.caloreis;
+    });
+    this.setState({ sum: sum });
+  }
+
+  public clear() {
+    this.setState({
+      calculate: [],
+      sum: 0,
+    });
+  }
+  public setIsCalculateOpen(turn: boolean) {
+    this.setState({
+      isCalculateOpen: turn,
+    });
   }
 
   render() {
@@ -123,6 +141,53 @@ export default class page extends Component<{ searchParams: any }> {
         )}
         <div className="overflow-y-auto"></div> {/* scroll bar */}
         <div className="w-[90vw] min-h-[900px] flex-grow  m-auto border-20 pt-10 border-x-gray-400 bg-yellow-100 px-8">
+          {this.state.isCalculateOpen && (
+            <div className="w-[25vw] h-[60vh] bg-white fixed right-0 rounded-l-lg shadow-xl p-2">
+              {/*กรองคำนวณแคลอรี่ */}
+              <button
+                className="text-bold absolute right-0 mr-2"
+                onClick={() => {
+                  this.setIsCalculateOpen(false);
+                }}
+              >
+                {" "}
+                X{" "}
+              </button>
+              <h1 className=" border-b-2 border-black font-kanit text-center text-2xl ">
+                คำนวณแคลอรี่
+              </h1>
+              <div className="overflow-auto w-[100%] h-[75%] border mt-4">
+                {this.state.calculate.map((value, index) => (
+                  <React.Fragment key={index}>
+                    <div className="flex justify-between">
+                      <p>{value.rep_name}</p>
+                      <p>{value.caloreis}</p>
+                    </div>
+                  </React.Fragment>
+                ))}
+              </div>
+              <div className="flex justify-between items-center h-[15%] p-2">
+                <p className="text-bold font-kanit text-lg">
+                  ผลการคำนวณ: {this.state.sum}
+                </p>
+                <div className="flex gap-3">
+                  <div className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded-l-3xl rounded-r-3xl">
+                    <button
+                      onClick={this.startcalculate.bind(this)}
+                      className=""
+                    >
+                      ยืนยัน
+                    </button>
+                  </div>
+                  <div className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded-l-3xl rounded-r-3xl">
+                    <button onClick={this.clear.bind(this)} className="">
+                      ล้างรายการ
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="flex items-center justify-center mt-8">
             <svg
               className="bi bi-search mr-10 t"
@@ -145,7 +210,7 @@ export default class page extends Component<{ searchParams: any }> {
               </div>
             </div>
             <button
-              onClick={() => this.handleNormalSearch()}
+              onClick={() => this.handleSearch()}
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
             >
               <Link
@@ -159,7 +224,10 @@ export default class page extends Component<{ searchParams: any }> {
                 ยินยัน
               </Link>
             </button>
-            <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl" onClick={() => this.setSensitiveVisible(true)}>
+            <button
+              className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
+              onClick={() => this.setSensitiveVisible(true)}
+            >
               ค้นหาแบบละเอียด
             </button>
           </div>
@@ -170,7 +238,12 @@ export default class page extends Component<{ searchParams: any }> {
               </h1>
             </div>
             <div className="flex justify-end items-end">
-              <button className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6  rounded-l-3xl rounded-r-3xl">
+              <button
+                onClick={() => {
+                  this.setIsCalculateOpen(true);
+                }}
+                className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6  rounded-l-3xl rounded-r-3xl"
+              >
                 คำนวณแคลอรี่
               </button>
               <button className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6 ml-8 mr-28 rounded-l-3xl rounded-r-3xl">
@@ -191,13 +264,16 @@ export default class page extends Component<{ searchParams: any }> {
                     calories={attractions.calories}
                     cookTimes={attractions.rep_time}
                     likes={attractions.likes}
+                    calculatefunction={this.addCalculate.bind(this)}
                   />
                 </div>
               </React.Fragment>
             ))
           ) : (
-            <div className="mt-10 self-center"> {/* Vertically center content */}
-                <h1 className="text-center text-2xl">ไม่พบสูตรอาหารที่ต้องการ</h1> 
+            <div className="mt-10 self-center">
+              {" "}
+              {/* Vertically center content */}
+              <h1 className="text-center text-2xl">ไม่พบสูตรอาหารที่ต้องการ</h1>
             </div>
           )}
         </div>

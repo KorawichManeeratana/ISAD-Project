@@ -97,7 +97,7 @@ class Header extends React.Component {
         <div className="flex justify-end items-end space-x-4 mt-4"><button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1">
                   ยินยัน
            </button>
-           <button className="text-xl bg-white text-black border-2 border-yellow-500 rounded-full px-12 py-1">
+           <button onClick = {() => this.setShowReport(false)} className="text-xl bg-white text-black border-2 border-yellow-500 rounded-full px-12 py-1">
                   ยกเลิก
           </button></div>
           </div>

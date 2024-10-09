@@ -3,7 +3,7 @@ import logoAccount from "../image/logoaccount.png";
 import Image from "next/image";
 
 
-export default class SearchResultCard extends Component<{rep_name?: string, name?: string,  Img?: string , userPFP?: string, descriptions?: string, calories? : number, cookTimes?: number, likes?: number}> {
+export default class SearchResultCard extends Component<{rep_name?: string, name?: string,  Img?: string , userPFP?: string, descriptions?: string, calories? : number, cookTimes?: number, likes?: number, calculatefunction? : Function}> {
     state = {
         changeColor : false,
         changeColorBookMark : false
@@ -92,6 +92,7 @@ export default class SearchResultCard extends Component<{rep_name?: string, name
             </div>
           </div>
         </div>
+        <button onClick={() => {this.props.calculatefunction!({rep_name : this.props.rep_name, caloreis : this.props.calories})}}>click me</button>
       </div>
     );
   }

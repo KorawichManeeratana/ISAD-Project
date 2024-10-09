@@ -7,6 +7,8 @@ import { SensitiveSearch } from "./components/Search/SensitiveSearch";
 import Ddata from "./setest/data.json";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
+
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   state = {
@@ -43,6 +45,12 @@ class Home extends React.Component {
     let searchResult: any = document.querySelector(".search");
     this.setSearchResult(searchResult.value)
   }
+
+  public handleSubmit = (e : any) => {
+    e.preventDefault();
+    location.assign(`http://localhost:3000/recipe?searchResult=${this.state.searchResult}`)
+  };
+
   render() {
     return (
       <div className="font-kanit bg-gray-200">
@@ -51,7 +59,7 @@ class Home extends React.Component {
             initialMin={100}
             initialMax={500}
             min={0}
-            max={1000}
+            max={2000}
             step={10}
             Cap={1000}
             Visible={this.handleClose.bind(this)}
@@ -85,7 +93,7 @@ class Home extends React.Component {
               </svg>
               <div>
                 <div>
-                  <form><input
+                  <form onSubmit={this.handleSubmit} ><input
                     type="text"
                     placeholder="ค้นหาสูตรอาหาร"
                     className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"

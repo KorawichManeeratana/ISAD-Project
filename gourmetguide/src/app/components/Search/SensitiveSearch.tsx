@@ -13,18 +13,33 @@ interface SensitiveSearchProps {
   Visible: () => void;
 }
 
-export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue: number; maxValue: number, searchTags: string[] }> {
+export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue: number; maxValue: number, searchTags: string[] , minTime : number | null, maxTime: number | null}> {
   progressRef = React.createRef<HTMLDivElement>(); // Simplify ref creation
   
   state = {
     searchTags: [],  // Initialize as an empty array
     minValue: this.props.initialMin,
     maxValue: this.props.initialMax,
+    minTime : null,
+    maxTime : null 
   };
 
   constructor(props: SensitiveSearchProps) {
     super(props);
   }
+
+  public setMinTime(value : number){
+    this.setState({
+      minTime : value
+    })
+  }
+
+  public setMaxTime(value : number){
+    this.setState({
+      maxTime: value
+    })
+  }
+
   public setMinValue(value : number){
     this.setState({
       minValue : value
@@ -75,7 +90,7 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
   
   handleSummitSearchTag = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
-    console.log("SearchTag:", this.state.searchTags)
+    
     const form = e.currentTarget;
     const inputElement = form.elements.namedItem("searchInput") as HTMLInputElement; // Give a name to the input
     const newTag = inputElement.value.trim();// Check if a tag is empty
@@ -85,6 +100,7 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
         searchTags: [...prevState.searchTags, newTag], // Add new tag to the array
       }));
       inputElement.value = "";  // Clear the input field after submission
+      console.log("SearchTag:", this.state.searchTags)
     }
   };
 
@@ -183,26 +199,32 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
             </div>
             {/* ส่วนของ input เวลาในการทำ */}
             <div className="flex justify-center items-center space-x-8">
-              <span className="p-2 font-semibold"> Min</span>
+              <span className="p-2 font-semibold">Min</span>
               <input
                 type="number"
                 placeholder="เวลาเร็วที่สุด"
-                className="w-24 rounded-md border broder-gray-400"
+                className="minTime w-24 rounded-md border broder-gray-400"
+                onChange={(e) => this.setMinTime(parseInt(e.target.value))}
               />
               <div className="ml-2 font-semibold text-lg"> - </div>
               <span className="p-2 font-semibold"> Max</span>
               <input
                 type="number"
                 placeholder="เวลานานสุด"
-                className="w-24 rounded-md border broder-gray-400"
+                className="maxTime w-24 rounded-md border broder-gray-400"
+                onChange={(e) => this.setMaxTime(parseInt(e.target.value))}
               />
             </div>
             <div className="flex justify-end px-8 py-6">
               <button className="cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl">
-              <Link  href={{
+              <Link onClick={() => {this.handleCloseModal()}} href={{
                 pathname: '/recipe',
                 query: {
-                  searchResult  : this.state.searchTags.join(",")
+                  searchResult  : this.state.searchTags.join(","),
+                  minValue : this.state.minValue,
+                  maxValue : this.state.maxValue,
+                  minTime : this.state.minTime,
+                  maxTime : this.state.maxTime 
                 }
               }}>ค้นหา</Link>
               </button>
