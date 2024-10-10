@@ -21,8 +21,6 @@ export default class page extends Component {
     }
 
     public async uploadPic() {
-        const file = document.querySelector("input")!;
-        const button = document.querySelector(".change");
         const img: HTMLImageElement = document.querySelector('.image')!;
         
         let a = new FormData();

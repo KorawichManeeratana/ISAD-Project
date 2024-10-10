@@ -159,7 +159,7 @@ export default class page extends Component<{ searchParams: any }> {
               <div className="overflow-auto w-[100%] h-[75%] border mt-4">
                 {this.state.calculate.map((value, index) => (
                   <React.Fragment key={index}>
-                    <div className="flex justify-between">
+                    <div className="flex justify-between p-2">
                       <p>{value.rep_name}</p>
                       <p>{value.caloreis}</p>
                     </div>
@@ -246,8 +246,8 @@ export default class page extends Component<{ searchParams: any }> {
               >
                 คำนวณแคลอรี่
               </button>
-              <button className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6 ml-8 mr-28 rounded-l-3xl rounded-r-3xl">
-                ค้นหาแบบละเอียด
+              <button onClick={() => location.assign("http://localhost:3000/createpost")} className="bg-white hover:bg-yellow-600 text-yellow-800 font-medium py-2 px-6 ml-8 mr-28 rounded-l-3xl rounded-r-3xl">
+                สร้างสูตรอาหาร
               </button>
             </div>
           </div>
@@ -256,6 +256,8 @@ export default class page extends Component<{ searchParams: any }> {
               <React.Fragment key={attractions.rep_id}>
                 <div className="py-6 flex flex-col justify-center items-center">
                   <SearchResultCard
+                    ac_id={attractions.ac_id}
+                    rep_id={attractions.rep_id}
                     rep_name={attractions.rep_name}
                     name={attractions.username}
                     Img={attractions.rep_img}
@@ -265,6 +267,7 @@ export default class page extends Component<{ searchParams: any }> {
                     cookTimes={attractions.rep_time}
                     likes={attractions.likes}
                     calculatefunction={this.addCalculate.bind(this)}
+                    showButton={this.state.isCalculateOpen}
                   />
                 </div>
               </React.Fragment>

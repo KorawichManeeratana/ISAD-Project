@@ -10,6 +10,7 @@ export async function POST(req: any) {
     const { name, email, password } = await req.json();
     let bigga = await bcrypt.hash(password, 10);
     await qb.insertInto("account").values({username : name, password : bigga, email:email, role:"user"}).execute();
+    
     /* (await connection)?.execute(
       `INSERT INTO account value(default, '${name}', '${bigga}', '${email}', default, '${"user"}')`
     );
