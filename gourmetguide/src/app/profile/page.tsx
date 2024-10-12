@@ -5,6 +5,7 @@ import Image from 'next/image';
 import './page.css';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import Link from 'next/link';
 
 export default class page extends Component {
 render(){
@@ -27,24 +28,21 @@ render(){
                 <p className ="text-yellow-600">ดิชั้นอยากจะแชร์สูตรอาหารที่ค้นพบขึ้นจากโลกกรูเม่ให้ทุกๆคนได้ลองนำไปทำดูค่ะ</p>
             </div>
           <br></br>
-          <div className="justify-left space-x-2 space-y-5">
-            <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-16 w-30">
-              Profile
-            </button>
-            <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-16 w-30">
-              Edit
-            </button>
-            <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-16 w-30">
-            +
-            </button>
+          <div className="py-6">
+            <div>
+              <Link href='/edit_profile'>
+                <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-14 w-30 text-xl font-bold">
+                  Edit Profile
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
         </div>
-
       </div>
       <div className='p-10'>
         <div className='bg-yellow-100 h-full border-solid border-4 border-black rounded-lg'>
-          <div className='grid grid-cols-6 gap-2 p-2'>
+          <div className='grid grid-cols-6 gap-2 bg-white'>
             <Image id='recipe_com' src={cat} alt={'aun nigga'}></Image>
             <Image id='recipe_com' src={cat} alt={'aun nigga'}></Image>
             <Image id='recipe_com' src={cat} alt={'aun nigga'}></Image>     
