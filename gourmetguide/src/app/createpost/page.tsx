@@ -28,10 +28,10 @@ export default class page extends Component {
         c = document.querySelector(".repCal");
         let repCal = c.value;
         c = document.querySelector(".repHour");
-        let repHour = c.value;
+        let repHour : number = c.value;
         c = document.querySelector(".repMin");
         let repMin = c.value;
-        let time = repMin;
+        let time = (parseInt(repMin) + repHour * 60).toString();
         c = document.querySelector(".repDes");
         let repDes = c.value;
 

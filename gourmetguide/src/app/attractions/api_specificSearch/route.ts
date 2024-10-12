@@ -17,7 +17,7 @@ export async function POST(req: any) {
         "account.userPFP",
         "recipes.rep_ing",
         "recipes.likes",
-      ]).where("recipes.rep_id", "=", rep_id).execute();
+      ]).where("recipes.rep_id", "=", rep_id).execute();     
       return Response.json(data, { status: 201 });
     } catch {
       Error;

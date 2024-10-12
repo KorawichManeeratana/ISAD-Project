@@ -55,6 +55,11 @@ export async function POST(req: Response) {
     }
     let result = await query.execute();
     console.log("result:", result);
+
+    if (result[0].calories > 60){
+      result[0].calories /= 60 
+    }
+    
     if (result?.length > 0) {
       return Response.json(result, { status: 201 });
     } else {

@@ -6,11 +6,12 @@ import { qb } from "../database/qb";
 export default class tokenManage {
     public constructor() {}
 
-    public static async getNewToken(ac_id: number, user_role: string, userPFP: string): Promise<{access: string, refresh: string}> {
+    public static async getNewToken(ac_id: number, user_role: string, userPFP: string, username : string): Promise<{access: string, refresh: string}> {
         const userInfo = {
             id: ac_id,
             role: user_role,
-            PFP : userPFP
+            PFP : userPFP,
+            name : username
         }
         const access: string = jwt.sign(userInfo, process.env.ACCESS_JWTSECRET, { expiresIn: '1h' });
         const refresh: string = jwt.sign(userInfo, process.env.REFRESH_JWTSECRET);

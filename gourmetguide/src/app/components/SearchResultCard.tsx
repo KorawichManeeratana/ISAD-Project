@@ -34,6 +34,7 @@ export default class SearchResultCard extends Component<{
     rep_date : "",
     isLikeClick: false,
     displayedLikes: parseInt(JSON.stringify(this.props.likes)),
+    cookTime: ""
   };
   constructor(props: any) {
     super(props);
@@ -115,6 +116,11 @@ export default class SearchResultCard extends Component<{
   handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.name]: e.target.checked });
   };
+  public setCookTime(value : string){
+    this.setState({
+      cookTime : value
+    })
+  }
 
   private static formatDate(date: Date) {
     let output: string;
@@ -125,7 +131,17 @@ export default class SearchResultCard extends Component<{
     ].join("-");
     return output;
   }
-
+  componentDidMount(): void {
+      this.checkCalories(this.props.cookTimes!);
+  }
+  public checkCalories(value : number){
+    if (value > 60){
+      let keep = Math.round(value / 60) + " ชั่วโมง : " + (value % 60)
+      this.setCookTime(keep)
+    }else{
+      this.setCookTime(value.toString())
+    }
+  }
   handleSunmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission
 
@@ -263,7 +279,7 @@ export default class SearchResultCard extends Component<{
               </div>
             </div>
           </Link>
-          <div className=" bg-white w-[600px] h-auto shadow-md relative">
+          <div className=" bg-white w-[600px] h-auto shadow-md relative -z-1">
             <div className="grid grid-cols-3 justify-center">
               <button
                 className="pl-6 pb-2"
@@ -295,7 +311,7 @@ export default class SearchResultCard extends Component<{
                 <div>
                   <span className="text-gray-600 mr-2">เวลาในการทำ</span>
                   <span className="text-gray-500 font-medium">
-                    {this.props.cookTimes} นาที
+                    {this.state.cookTime} นาที
                   </span>
                 </div>
                 <div className="flex justify-center pr-4">

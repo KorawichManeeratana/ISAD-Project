@@ -7,6 +7,7 @@ export default class page extends Component<{ searchParams: any }> {
     recipe: [],
     isLikeClick: false,
     displayedLikes: 0,
+    cookTime: "",
   };
 
   constructor(props: any) {
@@ -41,6 +42,12 @@ export default class page extends Component<{ searchParams: any }> {
       this.MinusDisplayedLikes(this.state.displayedLikes);
     }
   };
+  public setCookTime(value : string){
+    this.setState({
+      cookTime : value
+    })
+  }
+
   public setRecipes(data: any) {
     this.setState({
       recipe: data,
@@ -48,9 +55,19 @@ export default class page extends Component<{ searchParams: any }> {
     console.log("recipe", this.state.recipe[0]);
   }
 
-  public componentDidMount(){
-      this.getRecipe();
+  public async componentDidMount(){
+      await this.getRecipe();
+      this.checkCalories(this.state.recipe[0].rep_time!);
   };
+
+  public checkCalories(value : number){
+    if (value > 60){
+      let keep = Math.round(value / 60) + " ชั่วโมง :" + (value % 60)
+      this.setCookTime(keep)
+    }else{
+      this.setCookTime(value.toString())
+    }
+  }
 
    public async getRecipe(){
     console.log("rep id :", this.props.searchParams.rep_id);
@@ -107,7 +124,7 @@ export default class page extends Component<{ searchParams: any }> {
               />{" "}
               <div className="flex justify-between px-6">
                 <p className="text-yellow-800">แคลอรี่: {this.state.recipe[0]?.calories} kcal</p>
-                <p className="text-yellow-800">เวลาในการทำ: {this.state.recipe[0]?.rep_time} นาที</p>
+                <p className="text-yellow-800">เวลาในการทำ: {this.state.cookTime} นาที</p>
               </div>
             </div>
           </div>

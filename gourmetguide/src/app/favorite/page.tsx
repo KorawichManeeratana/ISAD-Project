@@ -22,15 +22,16 @@ export default class Favorite extends Component {
     this.setState({
       cookieValue : value
     })
+    
   }
   public setAllFavData(value : []){
     this.setState({
       allFavData : value
     })
   }
-
-  componentDidMount() {
-    this.getCookieValue();
+  async componentDidMount() {
+    await this.getCookieValue();
+    this.getAllFavourite();
   }
 
   getCookie(name: string): string | null {
@@ -49,7 +50,6 @@ export default class Favorite extends Component {
     if (cookieValue) {
       try {
         const decodedToken = jwtDecode(cookieValue); // Decode the JWT
-        console.log("decodeData:", decodedToken);
         this.setCookieValue(decodedToken); // Update state with decoded data
       } catch (error) {
         console.error("Error decoding JWT:", error);
@@ -58,7 +58,8 @@ export default class Favorite extends Component {
   }
 
   public async getAllFavourite(){
-    let res = await fetch("http://localhost:3000/attractions/api_search/", {
+    console.log("cookieinFav:", this.state.cookieValue.id)
+    let res = await fetch("http://localhost:3000/attractions/api_getAllfavourite/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +73,6 @@ export default class Favorite extends Component {
     this.setAllFavData(data);
   }
   render() {
-    console.log("cookiesInFav:", this.state.cookieValue)
     return (
       <>
         <div className='flex justify-center bg-gray-100 h-[92vh]'>
@@ -82,7 +82,7 @@ export default class Favorite extends Component {
               <input className=' focus:outline-none search border-solid border-gray-200 border-[1px] w-[30%] px-[2%] py-[1vh] bg-white rounded-full' type="text" placeholder='Search' />
             </div>
             <div className='h-[80%] flex flex-wrap gap-[7%] justify-center overflow-scroll'>
-            {this.state.favorite.map((attractions: any) => (
+            {this.state.allFavData.map((attractions: any) => (
               <React.Fragment key={attractions.rep_id}>
                 <FavoriteCard
                 rep_name={attractions.rep_name}
@@ -91,6 +91,7 @@ export default class Favorite extends Component {
                 rep_img={attractions.rep_img}
                 rep_time={attractions.rep_time}
                 ac_id = {attractions.ac_id}
+                calories={attractions.calories}
                 />
               </React.Fragment>
             ))}

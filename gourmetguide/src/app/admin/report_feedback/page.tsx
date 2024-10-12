@@ -1,14 +1,21 @@
 'use client';
 import React, { Component } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 export default class report_feedback extends Component {
   state : any = {
     isAdmin: false,
+    cookieValue: null,
   };
   public setIsAdmin(value : boolean){
     this.setState({
       isAdmin : value 
+    })
+  }
+
+  public setCookieValue(value : JwtPayload){
+    this.setState({
+      cookieValue : value
     })
   }
   public kickUser(){
@@ -32,27 +39,31 @@ export default class report_feedback extends Component {
   checkAdminRole() {
     const token = this.getCookie('token'); // Replace 'token' with your cookie name
     if (token) {
-      // Decode the JWT (assuming you're using JWTs)
-      // You'll need the 'jwt-decode' package
       try {
         const decodedToken : any = jwtDecode(token);
+        console.log(decodedToken.role)
         if (decodedToken.role === 'admin') {
-          this.setIsAdmin(true)
+          this.setIsAdmin(true);
+          this.setCookieValue(decodedToken);
+        }else{
+          this.setIsAdmin(false);
+          this.kickUser();
         }
+        this.setCookieValue(decodedToken);
       } catch (error) {
         console.error('Error decoding token:', error);
       }
     }
   }
+
   render() {
 
     if (!this.state.isAdmin) {
-      this.kickUser();
       <div className='flex justify-center items-center bg-black w-full h-full'>
         <h1 className='text-3xl text-white'>ACCESS DENIED</h1>
       </div>
     }
-    
+
     return (
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Manage Reports</h1>
