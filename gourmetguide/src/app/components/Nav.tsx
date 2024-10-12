@@ -13,15 +13,20 @@ import Modal from "./modal";
 import Image from "next/image";
 import React, { Component, FormEvent } from "react";
 import Logo from "../image/real logo.png";
+import {jwtDecode} from 'jwt-decode';
+import LogoAccount from "../image/logoaccount.png"
+
 
 class Header extends React.Component {
-  state = {
+  state : any = {
     showReport: false,
     description: "", 
     check1: false, 
     check2: false, 
     check3: false,
+    cookieValue: null,
   };
+
   constructor(props: any) {
     super(props);
   }
@@ -56,6 +61,12 @@ class Header extends React.Component {
     })
   }
 
+  public setAccessData(data : string){
+    this.setState({
+      accessData : data
+    })
+  }
+
   handleChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({ description: e.target.value });
   };
@@ -63,6 +74,12 @@ class Header extends React.Component {
   handleChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ [e.target.name]: e.target.checked });
   };
+  
+  public setCookieValue(value : any){
+    this.setState({
+      cookieValue : value
+    })
+  }
 
   private static formatDate(date: Date) {
     let output: string;
@@ -72,6 +89,33 @@ class Header extends React.Component {
       date.getDate().toString().padStart(2, "0"),
     ].join("-");
     return output;
+  }
+
+  componentDidMount() {
+    this.getCookieValue();
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken = jwtDecode(cookieValue); // Decode the JWT
+        this.setCookieValue(decodedToken); // Update state with decoded data
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
   }
 
   handleSunmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -113,6 +157,13 @@ class Header extends React.Component {
       console.log("Report Failed!!");
     }
   }
+  public reload(){
+    window.location.reload()
+  }
+  public logout(){
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    window.location.reload()
+  }
 
   render() {
     return (
@@ -144,27 +195,25 @@ class Header extends React.Component {
                   สูตรอาหาร
                 </Link>
               </li>
-              <p className="hover:underline ">
-                <Link href="/login">เข้าสู่ระบบ</Link>
-              </p>
-              <DropdownMenu>
+              {this.state.cookieValue ? (<DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarImage className="border rounded-full w-full h-full border-black" src={this.state.cookieValue.PFP}/>
+                    <AvatarFallback ><Image  src={LogoAccount} alt="CN"/></AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>โปรไฟล์</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => this.setShowReport(true)}>
-                    รายงานปัญหา
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>รายการโปรด</DropdownMenuItem>
-                  <DropdownMenuItem>ล็อคเอ้าท์</DropdownMenuItem>
+                  {this.state.cookieValue.role === "admin" && <DropdownMenuItem onClick={() => location.assign("http://localhost:3000/admin")}>Admin</DropdownMenuItem>}
+                  <DropdownMenuItem onClick={() => location.assign("http://localhost:3000/favorite")}>รายการโปรด</DropdownMenuItem>
+                  <DropdownMenuItem onClick={this.logout}>ล็อคเอ้าท์</DropdownMenuItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
+              </DropdownMenu>):
+              (<p className="hover:underline ">
+                <Link href="/login">เข้าสู่ระบบ</Link>
+              </p>)}
             </ul>
           </div>
         </div>

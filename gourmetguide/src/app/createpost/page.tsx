@@ -14,12 +14,6 @@ export default class page extends Component {
       errorCreate : word
     })
   }
-    private static formatDate(date: Date) {
-    let output: string;
-    output = ([date.getFullYear(), (date.getMonth() + 1).toString().padStart(2, '0'), (date.getDate().toString().padStart(2, "0"))].join('-'));
-    return output;
-    }
-
     public async uploadPic() {
         const img: HTMLImageElement = document.querySelector('.image')!;
         
@@ -37,11 +31,14 @@ export default class page extends Component {
         let repHour = c.value;
         c = document.querySelector(".repMin");
         let repMin = c.value;
-        let time = repHour+":"+repMin;
+        let time = repMin;
         c = document.querySelector(".repDes");
         let repDes = c.value;
+
         let repImg:any = document.querySelector(".repImg")!;
-        let repDate = page.formatDate(new Date())
+
+        c = document.querySelector(".repIng")
+        let repIng = c.value;
 
         if (!repName || !repStep || !repImg || !repMin){
           this.setErrorCreate("Please commits all form first!")
@@ -54,7 +51,7 @@ export default class page extends Component {
         a.append("rep_time", time);
         a.append("rep_des", repDes);
         a.append("rep_img", repImg.files![0]);
-        a.append("rep_date", repDate.toString());
+        a.append("rep_ing", repIng);
 
 
 

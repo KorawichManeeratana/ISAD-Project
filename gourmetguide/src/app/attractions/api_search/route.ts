@@ -21,13 +21,10 @@ export async function POST(req: Response) {
     let query = qb
       .selectFrom("recipes")
       .innerJoin("account", "recipes.ac_id", "account.ac_id")
-      .innerJoin("ingredientUsage", "ingredientUsage.rep_id", "recipes.rep_id")
-      .innerJoin("ingredient", "ingredient.ing_id", "ingredientUsage.ing_id")
       .select([
         "account.ac_id",
         "recipes.rep_id",
         "recipes.rep_name",
-        "recipes.calories",
         "recipes.calories",
         "recipes.rep_date",
         "recipes.rep_des",
@@ -35,7 +32,8 @@ export async function POST(req: Response) {
         "recipes.rep_step",
         "recipes.rep_time",
         "account.username",
-        "ing_name",
+        "account.userPFP",
+        "recipes.likes"
       ])
       .where((eb) =>
         eb.or([
@@ -43,7 +41,7 @@ export async function POST(req: Response) {
             eb("recipes.rep_name", "like", `%${word}%`)
           ),
           ...newSearch.map((word) =>
-            eb("ingredient.ing_name", "like", `%${word}%`)
+            eb("recipes.rep_ing", "like", `%${word}%`)
           ),
         ])
       );

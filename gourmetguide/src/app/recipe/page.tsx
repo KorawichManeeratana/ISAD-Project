@@ -4,6 +4,7 @@ import SearchResultCard from "../components/SearchResultCard";
 import Link from "next/link";
 import Loading from "../loading";
 import { SensitiveSearch } from "../components/Search/SensitiveSearch";
+import { jwtDecode } from "jwt-decode";
 
 type Data = {
   rep_id: number;
@@ -19,7 +20,7 @@ type Data = {
 };
 
 export default class page extends Component<{ searchParams: any }> {
-  state = {
+  state : any = {
     isCalculateOpen: false,
     sensitiveVisible: false,
     items: [],
@@ -30,6 +31,7 @@ export default class page extends Component<{ searchParams: any }> {
       caloreis: number;
     }>(),
     sum: 0,
+    cookieValue: null,
   };
   constructor(props: any) {
     super(props);
@@ -59,6 +61,34 @@ export default class page extends Component<{ searchParams: any }> {
       items: data,
     });
   }
+  public setCookieValue(value : any){
+    this.setState({
+      cookieValue : value
+    })
+  }
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken = jwtDecode(cookieValue); // Decode the JWT
+        console.log("decodeData:", decodedToken);
+        this.setCookieValue(decodedToken); // Update state with decoded data
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
+  }
 
   public addCalculate(sugyhang: { rep_name: string; caloreis: number }) {
     this.setCalculate([...this.state.calculate, sugyhang]);
@@ -77,6 +107,7 @@ export default class page extends Component<{ searchParams: any }> {
   async componentDidMount() {
     console.log("searhParams:", JSON.stringify(this.props.searchParams));
     this.handleSearch();
+    this.getCookieValue();
   }
 
   private async handleSearch() {
@@ -106,7 +137,7 @@ export default class page extends Component<{ searchParams: any }> {
 
   public startcalculate() {
     let sum = 0;
-    this.state.calculate.forEach((value) => {
+    this.state.calculate.forEach((value : any) => {
       sum += value.caloreis;
     });
     this.setState({ sum: sum });
@@ -125,6 +156,7 @@ export default class page extends Component<{ searchParams: any }> {
   }
 
   render() {
+    console.log("recipeCookies:", this.state.cookieValue)
     return (
       <div className="bg-gray-200">
         {this.state.isloading && <Loading />}
@@ -157,7 +189,7 @@ export default class page extends Component<{ searchParams: any }> {
                 คำนวณแคลอรี่
               </h1>
               <div className="overflow-auto w-[100%] h-[75%] border mt-4">
-                {this.state.calculate.map((value, index) => (
+                {this.state.calculate.map((value : any, index : number) => (
                   <React.Fragment key={index}>
                     <div className="flex justify-between p-2">
                       <p>{value.rep_name}</p>
@@ -261,13 +293,15 @@ export default class page extends Component<{ searchParams: any }> {
                     rep_name={attractions.rep_name}
                     name={attractions.username}
                     Img={attractions.rep_img}
-                    userPFP="https://th.bing.com/th/id/OIP.rPXouxu-tJ0c9R3AKI6tCwHaEK?rs=1&pid=ImgDetMain"
+                    userPFP={attractions.userPFP}
                     descriptions={attractions.rep_des}
                     calories={attractions.calories}
                     cookTimes={attractions.rep_time}
                     likes={attractions.likes}
                     calculatefunction={this.addCalculate.bind(this)}
                     showButton={this.state.isCalculateOpen}
+                    rep_date = {attractions.rep_date}
+                    searcherac_id = {this.state.cookieValue.id}
                   />
                 </div>
               </React.Fragment>

@@ -1,9 +1,60 @@
 'use client';
 import React, { Component } from 'react'
 import './page.css';
+import { jwtDecode } from 'jwt-decode';
 
 export default class manange_recipes_page extends Component {
+  state : any = {
+    isAdmin: false,
+  };
+  public setIsAdmin(value : boolean){
+    this.setState({
+      isAdmin : value 
+    })
+  }
+  public kickUser(){
+    location.assign("http://localhost:3000")
+  }
+  componentDidMount() {
+    this.checkAdminRole();
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  checkAdminRole() {
+    const token = this.getCookie('token'); // Replace 'token' with your cookie name
+    if (token) {
+      // Decode the JWT (assuming you're using JWTs)
+      // You'll need the 'jwt-decode' package
+      try {
+        const decodedToken : any = jwtDecode(token);
+        if (decodedToken.role === 'admin') {
+          this.setIsAdmin(true)
+        }
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }
   render() {
+
+    if (!this.state.isAdmin) {
+      this.kickUser();
+      <div className='flex justify-center items-center bg-black w-full h-full'>
+        <h1 className='text-3xl text-white'>ACCESS DENIED</h1>
+      </div>
+
+    }
+    
     return ( 
       <div className="box">
         {/* Left Side */}

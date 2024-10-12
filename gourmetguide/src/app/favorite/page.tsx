@@ -2,9 +2,77 @@
 
 import React, { Component, Fragment } from 'react'
 import FavoriteCard from '../components/favoriteCard'
+import { jwtDecode, JwtPayload } from 'jwt-decode'
 
 export default class Favorite extends Component {
+  state : any = {
+    favorite : [],
+    cookieValue : null,
+    allFavData : [],
+  }
+  constructor(props : any){
+    super(props)
+  }
+  public setFavorite(data : []){
+    this.setState({
+      favorite : data
+    })
+  }
+  public setCookieValue(value : JwtPayload){
+    this.setState({
+      cookieValue : value
+    })
+  }
+  public setAllFavData(value : []){
+    this.setState({
+      allFavData : value
+    })
+  }
+
+  componentDidMount() {
+    this.getCookieValue();
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken = jwtDecode(cookieValue); // Decode the JWT
+        console.log("decodeData:", decodedToken);
+        this.setCookieValue(decodedToken); // Update state with decoded data
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
+  }
+
+  public async getAllFavourite(){
+    let res = await fetch("http://localhost:3000/attractions/api_search/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ac_id : this.state.cookieValue.id,
+      }),
+    });
+    let data: any = await res.json();
+    console.log("data:", data);
+    this.setAllFavData(data);
+  }
   render() {
+    console.log("cookiesInFav:", this.state.cookieValue)
     return (
       <>
         <div className='flex justify-center bg-gray-100 h-[92vh]'>
@@ -14,14 +82,19 @@ export default class Favorite extends Component {
               <input className=' focus:outline-none search border-solid border-gray-200 border-[1px] w-[30%] px-[2%] py-[1vh] bg-white rounded-full' type="text" placeholder='Search' />
             </div>
             <div className='h-[80%] flex flex-wrap gap-[7%] justify-center overflow-scroll'>
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
-              <FavoriteCard />
+            {this.state.favorite.map((attractions: any) => (
+              <React.Fragment key={attractions.rep_id}>
+                <FavoriteCard
+                rep_name={attractions.rep_name}
+                rep_id={attractions.rep_id}
+                rep_des={attractions.rep_des}
+                rep_img={attractions.rep_img}
+                rep_time={attractions.rep_time}
+                ac_id = {attractions.ac_id}
+                />
+              </React.Fragment>
+            ))}
+
             </div>
           </div>
         </div>

@@ -1,11 +1,11 @@
 "use client"
 import React, { Component } from 'react'
-import SearchResultCard from '../components/SearchResultCard'
+import Bookmark from '../components/Bookmark'
 
 export default class page extends Component {
   render() {
     return (
-      <div>1</div>
+      <div><Bookmark width={16} height={16}/></div>
     )
   }
 }

@@ -13,6 +13,7 @@ export default class page extends Component {
     showModal: true,
     errorLogin: "",
     loading: false,
+    
   };
   constructor(props: any) {
     super(props);
@@ -62,8 +63,8 @@ export default class page extends Component {
       } else {
         if (
           !(await checkLoginAction(
-            JSON.stringify(name),
-            JSON.stringify(password)
+            name,
+            password
           ))
         ) {
           this.setErrorLogin("Login Failed");

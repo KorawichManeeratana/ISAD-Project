@@ -104,7 +104,12 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
     }
   };
 
-
+  handleRemoveTag = (tagToRemove: string) => {
+    this.setState((prevState) => ({
+      searchTags: prevState.searchTags.filter(tag => tag !== tagToRemove),
+    }));
+  };
+  
   render() {
     const { min = 0, max = 1000, step = 1 } = this.props; // Default props in render too
     const { minValue, maxValue } = this.state;
@@ -134,11 +139,12 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
             <div className="w-[500px] h-[100px] border border-x-transparent border-b-gray-600 rounded-md">
                 {this.state.searchTags.map((tag, index) => (
                   <span
-                    key={index}
-                    className="mr-2 mt-2 bg-gray-200 rounded-md px-2 py-1 text-sm"
-                  >
-                    {tag}
-                  </span>
+                  key={index}
+                  onClick={() => this.handleRemoveTag(tag)} // Add onClick handler
+                  className="cursor-pointer mr-2 mt-2 bg-gray-200 rounded-md px-2 py-1 text-sm"
+                >
+                  {tag} <span className="text-gray-600 font-bold">x</span> {/* Add a little "x" */}
+                </span>
                 ))}
               </div>
             </div>

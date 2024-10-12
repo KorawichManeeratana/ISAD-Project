@@ -7,7 +7,6 @@ import { SensitiveSearch } from "./components/Search/SensitiveSearch";
 import Ddata from "./setest/data.json";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
 
 // หน้า homepage หลักเลย
 class Home extends React.Component {
