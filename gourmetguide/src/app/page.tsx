@@ -50,6 +50,31 @@ class Home extends React.Component {
     location.assign(`http://localhost:3000/recipe?searchResult=${this.state.searchResult}`)
   };
 
+  componentDidMount(): void {
+      //this.getTrending();
+  }
+
+  public async getTrending(){
+    try{
+      let res = await fetch("http://localhost:3000/attractions/api_trendingRecipe/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          reo_id : "",
+        }),
+      });
+        if(res.ok){
+          let data = await res.json();
+          this.setItems(data);
+        }
+      }
+    catch(error){
+      console.log("Error:", error)
+    }
+  }
+
   render() {
     return (
       <div className="font-kanit bg-gray-200">
@@ -130,7 +155,7 @@ class Home extends React.Component {
           </h1>
           <div className="flex flex-center justify-center items-center space-x-8">
             <PostTop1
-              rep_name="ก๋วยเตี๋ยวเรือ"
+              rep_name="ก๋วยเตี๋ยว"
               Img="https://s359.kapook.com/pagebuilder/26fcc205-e197-4429-9b2e-2082dd3b7383.jpg"
             />
             <div className="flex flex-col p-6 space-y-14">
@@ -144,9 +169,16 @@ class Home extends React.Component {
               />
             </div>
           </div>
-          <h1 className="text-xl text-gray-700 grid justify-end px-40 pt-6">
+          <Link
+                  href={{
+                    pathname: "/recipe",
+                    query: {
+                      searchResult: "",
+                    },
+                  }}
+                ><h1 className="text-xl text-gray-700 grid justify-end px-40 pt-6">
             ดูเพิ่มเตืม
-          </h1>
+          </h1></Link>
         </div>
         <div className="bg-white w-1920px h-1680px py-10 text-white"></div>{" "}
         {/* พท.สีขาว */}

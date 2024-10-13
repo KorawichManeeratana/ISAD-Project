@@ -13,8 +13,9 @@ import Modal from "./modal";
 import Image from "next/image";
 import React, { Component, FormEvent } from "react";
 import Logo from "../image/real logo.png";
-import {jwtDecode} from 'jwt-decode';
+import {jwtDecode, JwtPayload} from 'jwt-decode';
 import LogoAccount from "../image/logoaccount.png"
+import { cookies } from "next/headers";
 
 
 class Header extends React.Component {
@@ -90,9 +91,19 @@ class Header extends React.Component {
     ].join("-");
     return output;
   }
+  async componentDidUpdate(prevState: any) {
+    if (
+      this.state.cookieValue && prevState.cookieValue &&
+      JSON.stringify(this.state.cookieValue) !== JSON.stringify(prevState.cookieValue)
+    ) {
+      console.log("Cookie value changed. Reloading...");
+      await new Promise(resolve => setTimeout(resolve, 0)); // Micro-task delay
+      window.location.reload();
+    }
+  }
 
-  componentDidMount() {
-    this.getCookieValue();
+  public async componentDidMount() {
+    await this.getCookieValue();
   }
 
   getCookie(name: string): string | null {
@@ -166,6 +177,7 @@ class Header extends React.Component {
   }
 
   render() {
+    console.log("cookies:", this.state.cookieValue)
     return (
       <div>
         <div className="grid grid-cols-2">

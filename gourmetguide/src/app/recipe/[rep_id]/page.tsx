@@ -97,6 +97,10 @@ export default class page extends Component<{ searchParams: any }> {
     console.log("data:", data);
     this.setRecipes(data);
 
+    if (this.state.recipe[0]) { // Check if data is available
+      this.checkCalories(this.state.recipe[0].rep_time!); 
+    }
+    
   } catch (error) {
     console.error("Error fetching recipe:", error);
      // Handle the error appropriately, perhaps set an error state or display a message to the user

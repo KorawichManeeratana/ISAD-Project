@@ -188,6 +188,7 @@ export default class SearchResultCard extends Component<{
         <Modal
           isVisible={this.state.showReport}
           onClose={() => this.setShowReport(false)}
+          
         >
           <div className="w-[1260px] h-[620px]  bg-white rounded-lg p-8">
             <form onSubmit={this.handleSunmit.bind(this)}>
@@ -279,7 +280,7 @@ export default class SearchResultCard extends Component<{
               </div>
             </div>
           </Link>
-          <div className=" bg-white w-[600px] h-auto shadow-md relative -z-1">
+          <div className=" bg-white w-[600px] h-auto shadow-md relative -z-0">
             <div className="grid grid-cols-3 justify-center">
               <button
                 className="pl-6 pb-2"

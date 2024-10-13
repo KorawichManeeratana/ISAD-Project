@@ -25,18 +25,19 @@ export default class FavoriteCard extends Component<{
         })
     }
     componentDidMount(): void {
-        this.checkCalories(this.props.rep_time!);
+        this.checkCalories(this.props.rep_time ?? 0);
     }
-    public async removeFav(){
+
+    public removeFav = async () => {
         let res = await fetch("http://localhost:3000/attractions/api_aorfavourite/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              rep_id : this.props.rep_id,
-              isClick : true,
-              ac_id : this.props.ac_id,
+              rep_id: this.props.rep_id,
+              isClick: true,
+              ac_id: this.props.ac_id,
             }),
           });
           if(res.ok){
@@ -47,7 +48,7 @@ export default class FavoriteCard extends Component<{
           window.location.reload()
       }
 
-    public checkCalories(value : number){
+    public checkCalories = (value: number) =>{
         if (value > 60){
           let keep = Math.round(value / 60) + " ชั่วโมง : " + (value % 60)
           this.setCookTIme(keep)

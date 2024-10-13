@@ -156,6 +156,7 @@ export default class page extends Component<{ searchParams: any }> {
   }
 
   render() {
+    const searcherac_id = this.state.cookieValue ? this.state.cookieValue.id : null;
     console.log("recipeCookies:", this.state.cookieValue)
     return (
       <div className="bg-gray-200">
@@ -174,7 +175,7 @@ export default class page extends Component<{ searchParams: any }> {
         <div className="overflow-y-auto"></div> {/* scroll bar */}
         <div className="w-[90vw] min-h-[900px] flex-grow  m-auto border-20 pt-10 border-x-gray-400 bg-yellow-100 px-8">
           {this.state.isCalculateOpen && (
-            <div className="w-[25vw] h-[60vh] bg-white fixed right-0 rounded-l-lg shadow-xl p-2">
+            <div className="w-[25vw] h-[60vh] bg-white fixed right-0 rounded-l-lg shadow-xl p-2 z-10">
               {/*กรองคำนวณแคลอรี่ */}
               <button
                 className="text-bold absolute right-0 mr-2"
@@ -301,7 +302,7 @@ export default class page extends Component<{ searchParams: any }> {
                     calculatefunction={this.addCalculate.bind(this)}
                     showButton={this.state.isCalculateOpen}
                     rep_date = {attractions.rep_date}
-                    searcherac_id = {this.state.cookieValue.id}
+                    searcherac_id = {searcherac_id}
                   />
                 </div>
               </React.Fragment>

@@ -71,7 +71,6 @@ class Admin_page extends React.Component{
     console.log("admin?:", this.state.isAdmin)
 
     if (!this.state.isAdmin) {
-      this.kickUser();
       <div className='flex justify-center items-center bg-black w-full h-full'>
         <h1 className='text-3xl text-white'>ACCESS DENIED</h1>
       </div>
