@@ -8,7 +8,7 @@ export type recipes = "rep_id" | "rep_name" | "rep_des" | "calories" | "rep_date
 
 export type tools = "t_id" | "t_name";
 
-
+export type Report = "report_id" | "report_type" | "report_des" | "status" | "created_date";
 
 
 

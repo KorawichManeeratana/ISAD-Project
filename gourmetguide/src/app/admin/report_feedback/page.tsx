@@ -1,11 +1,13 @@
 'use client';
 import React, { Component } from 'react';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import Reportform from '@/app/components/Reportform';
 
 export default class report_feedback extends Component {
   state : any = {
     isAdmin: false,
     cookieValue: null,
+    item : []
   };
   public setIsAdmin(value : boolean){
     this.setState({
@@ -21,8 +23,16 @@ export default class report_feedback extends Component {
   public kickUser(){
     location.assign("http://localhost:3000")
   }
+
+  public setItem(info : []){
+      this.setState({
+        item : info
+      });
+  }
+
   componentDidMount() {
     this.checkAdminRole();
+    this.getReport();
   }
 
   getCookie(name: string): string | null {
@@ -56,8 +66,25 @@ export default class report_feedback extends Component {
     }
   }
 
+  public async getReport(){
+    try {
+      let data = await fetch("http://localhost:3000/attractions/api_reportFeedback", {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+        },
+        body: "",
+          });
+  
+        let info = await data.json();
+        console.log(info);
+        this.setItem(info);
+    } catch(error){
+        console.log("Error : ", error);
+    }
+  }
   render() {
-
+    console.log("item : ", this.state.item);
     if (!this.state.isAdmin) {
       <div className='flex justify-center items-center bg-black w-full h-full'>
         <h1 className='text-3xl text-white'>ACCESS DENIED</h1>
@@ -79,26 +106,39 @@ export default class report_feedback extends Component {
             <i className="fas fa-search"></i>
           </button>
         </div>
-
+        
         {/* Yellow box with specified dimensions */}
         <div 
-          className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4"
-          style={{ width: '1500px', height: '900px' }} // Setting width and height to 1820x650
-        >
-          <table className="table-auto w-full">
-            <thead>
-              <tr>
-                <th className="px-4 py-2">ID</th>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">Problem</th>
-                <th className="px-4 py-2">Status</th>
-                <th className="px-4 py-2">Report Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Empty table body as requested */}
-            </tbody>
-          </table>
+          className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4  space-y-4 divide-y divide-dashed"
+          style={{ width: '1500px', height: '900px' }}> 
+          <div className='header'>
+            <div className='grid grid-cols-5 underline'>
+                <div className="basis-1/2">ID</div>
+                <div className="basis-1/2">Username</div>
+                <div className="basis-1/2">Problem</div>
+                <div className="basis-1/2">Status</div>
+                <div className="basis-1/2">Reportdate</div>
+            </div>
+        </div>
+        {this.state.item && this.state.item.length > 0 ? ( // Check if items exists and is not empty
+            this.state.item.map((attractions: any) => (
+              <React.Fragment key={attractions.ac_id}>
+                  <Reportform 
+                  id = {attractions.ac_id}
+                  username = {attractions.username}
+                  problem = {attractions.report_des}
+                  status = {attractions.status}
+                  created_date = {attractions.created_date}
+                  />
+              </React.Fragment>
+            ))
+          ) : (
+            <div className="mt-10 self-center">
+              {" "}
+              {/* Vertically center content */}
+              <h1 className="text-center text-2xl">ไม่พบเรื่องรับแจ้ง</h1>
+            </div>
+          )}
 
           {/* Pagination buttons aligned to the right */}
           <div className="absolute bottom-4 right-4 flex justify-end mt-4 items-end">

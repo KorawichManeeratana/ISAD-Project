@@ -109,6 +109,7 @@ class Admin_page extends React.Component{
           </p>
           </div>
     </div>
+    
   )}}
 }
 
