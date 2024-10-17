@@ -7,15 +7,18 @@ import { qb } from '@/app/utils/database/qb';
 const bcrypt = require("bcrypt");
 
 export async function POST(req : any) {
+    const {deleted, report_id} = await req.json();
     try{
         let report = await qb.selectFrom("Report").innerJoin("account", "Report.ac_id", "account.ac_id").select([
-            "account.ac_id",
+            "Report.report_id",
             "account.username",
             "Report.report_des",
             "Report.status",
             "Report.created_date"
         ]).execute();
-        console.log(report);
+        // if(deleted){
+        //     await qb.deleteFrom("Report").where("report_id", "=", report_id).execute();
+        // }
         return Response.json(report, {status: 201});
     }
     catch(error){

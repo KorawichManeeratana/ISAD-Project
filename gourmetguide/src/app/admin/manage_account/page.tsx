@@ -2,11 +2,14 @@
 import React, { Component } from 'react'
 import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import Userform from '@/app/components/Userform';
 
 export default class manage_account_page extends Component {
   state : any = {
     isAdmin: false,
     cookieValue : null,
+    deleted : false,
+    item : []
   };
   public setIsAdmin(value : boolean){
     this.setState({
@@ -23,6 +26,7 @@ export default class manage_account_page extends Component {
   }
   componentDidMount() {
     this.checkAdminRole();
+    this.getUserform();
   }
 
   getCookie(name: string): string | null {
@@ -55,7 +59,36 @@ export default class manage_account_page extends Component {
       }
     }
   }
-
+  public setItem(info : []){
+    this.setState({
+      item : info
+    });
+}
+  public async getUserform(){
+    try {
+      let data = await fetch("http://localhost:3000/attractions/api_manageUser", {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          deleted : this.state.deleted,
+        }),         
+          });
+  
+        let info = await data.json();
+        console.log(info);
+        this.setItem(info);
+    } catch(error){
+        console.log("Error : ", error);
+    }
+  }
+  public deleteForm(turn : boolean){
+    this.setState({
+      deleted : turn
+  })
+  this.getUserform()
+  }
   render() {
 
     if (!this.state.isAdmin) {
@@ -81,30 +114,34 @@ export default class manage_account_page extends Component {
         </div>
   
         {/* Yellow box with specified dimensions */}
-        <div className="yellow-box">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>First sign in</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Empty table body */}
-            </tbody>
-          </table>
-  
-          {/* Pagination buttons aligned to the right */}
-          <div className="pagination">
-            <button className="previous" disabled>Previous</button>
-            <button className="page active">1</button>
-            <button className="page">2</button>
-            <button className="page">...</button>
-            <button className="page">20</button>
-            <button className="next">Next</button>
-          </div>
+        <div className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4  space-y-4 divide-y divide-dashed"style={{ width: '1500px', height: '900px' }}>
+        <div className='header'>
+            <div className='grid grid-cols-5 underline'>
+                <div className="basis-1/2">ID</div>
+                <div className="basis-1/2">Username</div>
+                <div className="basis-1/2">Email</div>
+                <div className="basis-1/2">Role</div>
+            </div>
+        </div>
+        {this.state.item && this.state.item.length > 0 ? ( // Check if items exists and is not empty
+            this.state.item.map((attractions: any) => (
+              <React.Fragment key={attractions.ac_id}>
+                  <Userform 
+                  id = {attractions.ac_id}
+                  username = {attractions.username}
+                  email = {attractions.email}
+                  role = {attractions.role}
+                  />
+              </React.Fragment>
+            ))
+          ) : (
+            
+            <div className="mt-10 self-center">
+              {" "}
+              {/* Vertically center content */}
+              <h1 className="text-center text-2xl">ไม่พบเรื่องรับแจ้ง</h1>
+            </div>
+          )}              
         </div>
       </div>
     )

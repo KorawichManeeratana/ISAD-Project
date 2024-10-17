@@ -7,6 +7,7 @@ export default class report_feedback extends Component {
   state : any = {
     isAdmin: false,
     cookieValue: null,
+    deleted : false,
     item : []
   };
   public setIsAdmin(value : boolean){
@@ -66,6 +67,13 @@ export default class report_feedback extends Component {
     }
   }
 
+  public deleteForm(turn : boolean){
+    this.setState({
+      deleted : turn
+  })
+  this.getReport()
+  }
+
   public async getReport(){
     try {
       let data = await fetch("http://localhost:3000/attractions/api_reportFeedback", {
@@ -73,7 +81,9 @@ export default class report_feedback extends Component {
           headers: {
           "Content-Type": "application/json",
         },
-        body: "",
+        body: JSON.stringify({
+          deleted : this.state.deleted,
+        }),         
           });
   
         let info = await data.json();
@@ -108,23 +118,22 @@ export default class report_feedback extends Component {
         </div>
         
         {/* Yellow box with specified dimensions */}
-        <div 
-          className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4  space-y-4 divide-y divide-dashed"
-          style={{ width: '1500px', height: '900px' }}> 
+        <div className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4  space-y-4 divide-y divide-dashed"style={{ width: '1500px', height: '900px' }}> 
           <div className='header'>
-            <div className='grid grid-cols-5 underline'>
+            <div className='grid grid-cols-6 underline'>
                 <div className="basis-1/2">ID</div>
                 <div className="basis-1/2">Username</div>
                 <div className="basis-1/2">Problem</div>
                 <div className="basis-1/2">Status</div>
                 <div className="basis-1/2">Reportdate</div>
+                <div className="basis-1/2"></div>
             </div>
-        </div>
+          </div>
         {this.state.item && this.state.item.length > 0 ? ( // Check if items exists and is not empty
             this.state.item.map((attractions: any) => (
-              <React.Fragment key={attractions.ac_id}>
+              <React.Fragment key={attractions.report_id}>
                   <Reportform 
-                  id = {attractions.ac_id}
+                  id = {attractions.report_id}
                   username = {attractions.username}
                   problem = {attractions.report_des}
                   status = {attractions.status}
@@ -133,38 +142,13 @@ export default class report_feedback extends Component {
               </React.Fragment>
             ))
           ) : (
+            
             <div className="mt-10 self-center">
               {" "}
               {/* Vertically center content */}
               <h1 className="text-center text-2xl">ไม่พบเรื่องรับแจ้ง</h1>
             </div>
-          )}
-
-          {/* Pagination buttons aligned to the right */}
-          <div className="absolute bottom-4 right-4 flex justify-end mt-4 items-end">
-            <button 
-              className="px-3 py-2 rounded-l-md bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:bg-gray-400" 
-              disabled>
-              Previous
-            </button>
-            <button 
-              className="px-3 py-2 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 bg-blue-500 text-white">
-              1
-            </button>
-            <button 
-              className="px-3 py-2 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 bg-gray-300 text-gray-700">
-              2
-            </button>
-            <button className="px-3 py-2 bg-gray-300 text-gray-700">...</button>
-            <button 
-              className="px-3 py-2 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 bg-gray-300 text-gray-700">
-              20
-            </button>
-            <button 
-              className="px-3 py-2 rounded-r-md bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:bg-gray-400">
-              Next
-            </button>
-          </div>
+          )}         
         </div>
       </div>
     );
