@@ -28,16 +28,17 @@ export default class FavoriteCard extends Component<{
         this.checkCalories(this.props.rep_time ?? 0);
     }
 
-    public removeFav = async () => {
-        let res = await fetch("http://localhost:3000/attractions/api_aorfavourite/", {
+    public async removeFav(){
+      if (this.props.rep_id) {console.log("rep_id:", this.props.rep_id)}
+      console.log("ac_id:", this.props.ac_id)
+        let res = await fetch("http://localhost:3000/attractions/api_removeFav/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
               rep_id: this.props.rep_id,
-              isClick: true,
-              ac_id: this.props.ac_id,
+              ac_id: this.props.ac_id
             }),
           });
           if(res.ok){

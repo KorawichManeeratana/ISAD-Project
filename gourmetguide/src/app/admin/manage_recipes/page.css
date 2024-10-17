@@ -3,7 +3,7 @@
     width: 100vw;
     height: 100vh;
     background-color: #FFF6E0;
-    display: flex;
+    display: grid-2;
     align-items: flex-start;
     padding: 35px;
 }
@@ -55,14 +55,6 @@ h4 {
     border-radius: 55px;
 }
 
-/* Right Side Box */
-.box2 {
-    width: max-content;
-    background-color: white;
-    border-radius: 25px;
-    padding: 30px;
-}
-
 /* Find Recipe And Search Bar */
 .find-recipes-box {
     width: 425px;
@@ -89,14 +81,6 @@ h4 {
 }
 
 /* Menu Box */
-.box3 {
-    width: 940px;
-    height: 270px;
-    background-color: #FEFFE7;
-    border-radius: 25px;
-    position: relative;
-    text-align: center;
-}
 
 .detail-line{
     display: flex;
@@ -147,14 +131,6 @@ h4 {
 }
 
 /* Table Box */
-.box4 {
-    width: 1350px;
-    height: 440px;
-    background-color: #FEFFE7;
-    margin: 10px;
-    border-radius: 25px;
-    position: relative;
-}
 
 table {
     width: 100%;

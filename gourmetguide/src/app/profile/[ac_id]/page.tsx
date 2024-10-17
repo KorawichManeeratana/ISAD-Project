@@ -78,7 +78,7 @@ export default class page extends Component<{ searchParams: any }> {
               <div className="p-4">
                 <Avatar>
                   <AvatarImage
-                    src={this.state.prof_detail.userPFP}
+                    src={this.state.prof_detail.userPFP!}
                     className="rounded-full"
                     width={200}
                     height={200}
@@ -122,7 +122,7 @@ export default class page extends Component<{ searchParams: any }> {
                 <div className="flex items-center justify-between w-full">
                   {" "}
                   {/* New div for header */}
-                  <h1 className="text-white pl-4"> สูตรอาหารของคุณ </h1>
+                  <h1 className="text-white pl-4 text-xl"> สูตรอาหารของคุณ </h1>
                   <div
                     className="pr-6 pt-2 cursor-pointer"
                     onClick={() => this.setIsClick(!this.state.isClick)}

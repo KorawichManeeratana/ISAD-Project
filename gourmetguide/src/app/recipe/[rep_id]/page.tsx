@@ -57,7 +57,7 @@ export default class page extends Component<{ searchParams: any }> {
 
   public async componentDidMount(){
       await this.getRecipe();
-      this.checkCalories(this.state.recipe[0].rep_time!);
+      if(this.state.recipe[0]) {this.checkCalories(this.state.recipe[0].rep_time!)};
   };
 
   public checkCalories(value : number){

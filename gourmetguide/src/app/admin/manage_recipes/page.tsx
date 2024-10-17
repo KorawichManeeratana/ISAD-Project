@@ -2,15 +2,22 @@
 import React, { Component } from 'react'
 import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import Managerecipecard from "../../components/managerecipecard"
 
 export default class manange_recipes_page extends Component {
   state : any = {
     isAdmin: false,
     cookieValue: null,
+    allRecipe : [],
   };
   public setIsAdmin(value : boolean){
     this.setState({
       isAdmin : value 
+    })
+  }
+  public setAllRecipe(value: []){
+    this.setState({
+      allRecipe: value
     })
   }
 
@@ -22,8 +29,9 @@ export default class manange_recipes_page extends Component {
   public kickUser(){
     location.assign("http://localhost:3000")
   }
-  componentDidMount() {
-    this.checkAdminRole();
+  public async componentDidMount() {
+    await this.checkAdminRole();
+    this.getRecipe();
   }
 
   getCookie(name: string): string | null {
@@ -57,6 +65,23 @@ export default class manange_recipes_page extends Component {
     }
   }
 
+  public async getRecipe(){
+    let res = await fetch("http://localhost:3000/attractions/api_getAllRecipe/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: ""
+    });
+    if(res.ok){
+      let data: any = await res.json();
+      console.log("data:", data);
+      this.setAllRecipe(data);
+    }else{
+      console.log("Error Occur when fetching Recipe Data")
+    }
+  }
+
   render() {
 
     if (!this.state.isAdmin) {
@@ -67,7 +92,8 @@ export default class manange_recipes_page extends Component {
     }
 
     return ( 
-      <div className="box">
+      <div className="w-[100vw] h-[100vh] p-[35px] bg-yellow-600">
+        <div className='flex w-full h-full'>
         {/* Left Side */}
         <div className='side-box'>
           <h1>Manage<br />Recipes</h1>
@@ -81,69 +107,57 @@ export default class manange_recipes_page extends Component {
           </div>
         </div>
         {/* Right Side */}
-        <div className="box2">
-          <div className="flex-container">
-            {/* Find Recipes Box */}
-            <div className="find-recipes-box">
-              <h2>Find Recipes</h2>
-              <div className='search-bar'>
-                  <input className = 'search-bar-input' type="text" placeholder='ค้นหาสูตรอาหาร'/>
+        <div className="box2 w-[95%] h-full bg-white rounded-lg space-y-2 px-4">
+        <h1 className='flex justify-center text-yellow-700 text-3xl'>Find Recipes</h1>
+          <div className='space-y-4 flex justify-end'>
+              
+              <div className=''>
+                  <form  ><input
+                    type="text"
+                    placeholder="ค้นหาสูตรอาหาร"
+                    className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                    
+                  /></form>
+                  
+                </div>
+              
+              <button
+                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
+              >ยืนยัน
+              </button>
               </div>
+              <div className='bg-yellow-50 w-full h-[85%] pl-4 space-y-4'>
+              <div className='grid grid-cols-5 underline justify-center items-center'>
+                <div className="basis-1/2">รหัสสูครอาหาร</div>
+                <div className="basis-1/2">ชื่อสูครอาหาร</div>
+                <div className="basis-1/2">ผู้สร้างสูครอาหาร</div>
+                <div className="basis-1/2">แก้ไข</div>
+                <div className="basis-1/2">ลบ</div>
             </div>
-            {/* Menu Box */}
-            <div className="box3">
-              <h3 className ="h3">Menu Name</h3>
-              <div className='detail-box'>
-                {/* Line 1 */}
-                <h4>คำอธิบาย :</h4><input className = 'detail-input1'type="text"/>
-              </div>
-              <div className='detail-line'>
-                {/* Line 2 */}
-                <div className='detail-box'>
-                  <h4>ราคา :</h4><input className = 'detail-input2'type="text"/>
+            {this.state.allRecipe && this.state.allRecipe.length > 0 ? ( // Check if items exists and is not empty
+            this.state.allRecipe.map((attractions: any) => (
+              <React.Fragment key={attractions.rep_id}>
+                <div className="">
+                  <Managerecipecard
+                  rep_id={attractions.rep_id}
+                  rep_name={attractions.rep_name}
+                  owner={attractions.username}
+                  />
                 </div>
-                <div className='detail-box2'>
-                  <h4>ประเภท :</h4><input className = 'detail-input2'type="text"/>
-                </div>
-              </div>
-              <div className='detail-line'>
-                {/* Line 3 */}
-                <div className='detail-box'>
-                  <h4>แคลอรี่ :</h4><input className = 'detail-input2'type="text"/>
-                </div>
-                <div className='detail-box2'>
-                  <h4>เวลาในการทำ :</h4><input className = 'detail-input2'type="text"/>
-                </div>
-              </div>
-              <div className='box3-btn'>
-                  <a href='#' className='delete-btn'>ลบสูตรอาหาร</a>
-              </div>
+              </React.Fragment>
+            ))
+          ) : (
+            <div className="mt-10 self-center">
+              {" "}
+              {/* Vertically center content */}
+              <h1 className="text-center text-2xl">ไม่พบสูตรอาหารที่ต้องการ</h1>
             </div>
+          )}
           </div>
-          {/* Table Box */}
-          <div className="box4">
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>เเก้ไข</th>
-                    <th>วัตถุดิบ</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
-                    <th>ลบ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* recipe data*/}
-                </tbody>
-              </table>
-            </div>
-            <div className='box4-btn'>
-              <a href='#' className='finish-btn'>เสร็จสิ้น</a>
-            </div>
           </div>
-        </div>        
-      </div>
+          
+        </div>
+      </div>       
     )
   }
 }

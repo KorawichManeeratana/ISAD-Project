@@ -81,7 +81,7 @@ export default class Favorite extends Component {
               <h1 className=' text-[2rem] mb-[5vh]'>Favorite menu 😋</h1>
               <input className=' focus:outline-none search border-solid border-gray-200 border-[1px] w-[30%] px-[2%] py-[1vh] bg-white rounded-full' type="text" placeholder='Search' />
             </div>
-            <div className='h-[80%] flex flex-wrap gap-[7%] justify-center overflow-scroll'>
+            <div className='h-[80%] flex flex-wrap gap-[7%] overflow-scroll'>
             {this.state.allFavData.map((attractions: any) => (
               <React.Fragment key={attractions.rep_id}>
                 <FavoriteCard

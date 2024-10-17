@@ -10,10 +10,16 @@ import Link from "next/link";
 
 // หน้า homepage หลักเลย
 class Home extends React.Component {
-  state = {
+  state : any = {
     sensitiveVisible: false,
     items: [],
     searchResult : "",
+    top1name : "",
+    top1pic : "",
+    top2name : "",
+    top2pic : "",
+    top3name : "",
+    top3pic : "",
   };
   constructor(props: any) {
     super(props);
@@ -22,6 +28,36 @@ class Home extends React.Component {
     this.setState({
       items: data,
     });
+  }
+  public setTop1Name(value : string){
+    this.setState({
+      top1name : value
+    })
+  }
+  public setTop1Pic(value : string){
+    this.setState({
+      top1pic : value
+    })
+  }
+  public setTop2Name(value : string){
+    this.setState({
+      top2name : value
+    })
+  }
+  public setTop2Pic(value : string){
+    this.setState({
+      top2pic : value
+    })
+  }
+  public setTop3Name(value : string){
+    this.setState({
+      top3name : value
+    })
+  }
+  public setTop3Pic(value : string){
+    this.setState({
+      top3pic : value
+    })
   }
 
   public setSearchResult(word : string){
@@ -51,7 +87,7 @@ class Home extends React.Component {
   };
 
   componentDidMount(): void {
-      //this.getTrending();
+      this.getTrending();
   }
 
   public async getTrending(){
@@ -67,7 +103,14 @@ class Home extends React.Component {
       });
         if(res.ok){
           let data = await res.json();
+          console.log("data:", data)
           this.setItems(data);
+          this.setTop1Name(this.state.items[0].rep_name)
+          this.setTop1Pic(this.state.items[0].rep_img)
+          this.setTop2Name(this.state.items[1].rep_name)
+          this.setTop2Pic(this.state.items[1].rep_img)
+          this.setTop3Name(this.state.items[2].rep_name)
+          this.setTop3Pic(this.state.items[2].rep_img)
         }
       }
     catch(error){
@@ -76,6 +119,8 @@ class Home extends React.Component {
   }
 
   render() {
+    console.log("items:", this.state.items)
+    
     return (
       <div className="font-kanit bg-gray-200">
         {this.state.sensitiveVisible && (
@@ -155,17 +200,17 @@ class Home extends React.Component {
           </h1>
           <div className="flex flex-center justify-center items-center space-x-8">
             <PostTop1
-              rep_name="ก๋วยเตี๋ยว"
-              Img="https://s359.kapook.com/pagebuilder/26fcc205-e197-4429-9b2e-2082dd3b7383.jpg"
+              rep_name={this.state.top1name}
+              Img={this.state.top1pic}
             />
             <div className="flex flex-col p-6 space-y-14">
               <PostTop2and3
-                rep_name="noob insi"
-                Img="https://images.deliveryhero.io/image/fd-th/LH/lkhi-hero.jpg"
+                rep_name={this.state.top2name}
+                Img={this.state.top2pic}
               />
               <PostTop2and3
-                rep_name="kuy isad"
-                Img="https://cdn.usarestaurants.info/assets/uploads/049ec03201bfbd5eb2edb23b3ee74d9d_-united-states-california-los-angeles-county-whittier-241880-raku-teriyaki-and-sushi-rollhtm.jpg"
+                rep_name={this.state.top3name}
+                Img={this.state.top3pic}
               />
             </div>
           </div>
