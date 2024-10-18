@@ -2,14 +2,35 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import React, { Component } from "react";
 
 export default class Reportform extends Component<{
+  ac_id: number;
   rep_id: number;
   rep_name: string;
   owner: string;
 }> {
+  public async getDeleteAccount(){
+    try{
+
+      let res = await fetch("http://localhost:3000/attractions/api_deleteAccount",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ac_id : this.props.ac_id
+        })
+      });
+      if(res.ok){
+        console.log("Account delete Success!!")
+        window.location.reload();
+      }
+    }catch(error){
+      console.log("Error Occur when trying to delete this account")
+    }
+  }
   render() {
     return (
       <div className="">
-        <div className="grid grid-cols-5 bg-slate-700 text-white p-1">
+        <div className="grid grid-cols-5 bg-slate-700 text-white p-1 hover:bg-white hover:text-black">
           <div className="basis-1/4">{this.props.rep_id}</div>
           <div className="basis-1/2">{this.props.rep_name}</div>
           <div className="basis-1/2">{this.props.owner}</div>

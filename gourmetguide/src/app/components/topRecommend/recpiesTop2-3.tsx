@@ -23,7 +23,7 @@ export default class recipesPost extends Component<{
           ><img
             src={this.props.Img}
             alt="Failed"
-            className="h-[250px] w-full"
+            className="h-[250px] w-full object-cover object-center"
           ></img></Link>
           <div className="text-xl font-[kanit] text-yellow-400 flex justify-left pt-4 pl-4">
             {this.props.rep_name}

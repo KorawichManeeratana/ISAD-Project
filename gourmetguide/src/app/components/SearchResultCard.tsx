@@ -272,11 +272,17 @@ export default class SearchResultCard extends Component<{
                 <span className="text-gray-600 text-sm">
                   สร้างโดย {this.props.name}
                 </span>
+                <Link href={{
+                  pathname: `/profile/${this.props.ac_id}`,
+                  query: {
+                    blahblah: this.props.ac_id,
+                  },
+                }}>
                 <img
                   src={this.props.userPFP}
                   alt="profile"
                   className="w-6 h-6 rounded-full ml-2"
-                />
+                /></Link>
               </div>
             </div>
           </Link>

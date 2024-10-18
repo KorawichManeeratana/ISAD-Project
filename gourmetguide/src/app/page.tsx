@@ -14,10 +14,13 @@ class Home extends React.Component {
     sensitiveVisible: false,
     items: [],
     searchResult : "",
+    top1id:"",
     top1name : "",
     top1pic : "",
+    top2id:"",
     top2name : "",
     top2pic : "",
+    top3id:"",
     top3name : "",
     top3pic : "",
   };
@@ -29,6 +32,11 @@ class Home extends React.Component {
       items: data,
     });
   }
+  public setTop1ID(value : string){
+    this.setState({
+      top1id : value
+    })
+  }
   public setTop1Name(value : string){
     this.setState({
       top1name : value
@@ -39,6 +47,11 @@ class Home extends React.Component {
       top1pic : value
     })
   }
+  public setTop2ID(value : string){
+    this.setState({
+      top2id : value
+    })
+  }
   public setTop2Name(value : string){
     this.setState({
       top2name : value
@@ -47,6 +60,11 @@ class Home extends React.Component {
   public setTop2Pic(value : string){
     this.setState({
       top2pic : value
+    })
+  }
+  public setTop3ID(value : string){
+    this.setState({
+      top3id : value
     })
   }
   public setTop3Name(value : string){
@@ -105,10 +123,13 @@ class Home extends React.Component {
           let data = await res.json();
           console.log("data:", data)
           this.setItems(data);
+          this.setTop1ID(this.state.items[0].rep_id)
           this.setTop1Name(this.state.items[0].rep_name)
           this.setTop1Pic(this.state.items[0].rep_img)
+          this.setTop2ID(this.state.items[1].rep_id)
           this.setTop2Name(this.state.items[1].rep_name)
           this.setTop2Pic(this.state.items[1].rep_img)
+          this.setTop3ID(this.state.items[2].rep_id)
           this.setTop3Name(this.state.items[2].rep_name)
           this.setTop3Pic(this.state.items[2].rep_img)
         }
@@ -200,15 +221,18 @@ class Home extends React.Component {
           </h1>
           <div className="flex flex-center justify-center items-center space-x-8">
             <PostTop1
+            rep_id={this.state.top1id}
               rep_name={this.state.top1name}
               Img={this.state.top1pic}
             />
             <div className="flex flex-col p-6 space-y-14">
               <PostTop2and3
+              rep_id={this.state.top2id}
                 rep_name={this.state.top2name}
                 Img={this.state.top2pic}
               />
               <PostTop2and3
+              rep_id={this.state.top3id}
                 rep_name={this.state.top3name}
                 Img={this.state.top3pic}
               />

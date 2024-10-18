@@ -17,7 +17,7 @@ export default class recipesPost extends Component<{rep_id?:number, rep_name?: s
             query: {
               rep_id : this.props.rep_id
             }}}
-          ><img src={this.props.Img} alt="Failed"></img></Link>
+          ><img className="object cover "src={this.props.Img} alt="Failed"></img></Link>
           {/* inbox picture Set */}
             <div className="text-xl font-[kanit] text-yellow-400 flex justify-left pt-4 pl-4">
               {this.props.rep_name}

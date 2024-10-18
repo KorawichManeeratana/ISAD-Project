@@ -139,6 +139,7 @@ export default class manange_recipes_page extends Component {
               <React.Fragment key={attractions.rep_id}>
                 <div className="">
                   <Managerecipecard
+                  ac_id={attractions.ac_id}
                   rep_id={attractions.rep_id}
                   rep_name={attractions.rep_name}
                   owner={attractions.username}

@@ -9,16 +9,32 @@ import Link from "next/link";
 import Heart from "@/app/components/heart";
 import CadeshowRecipe from "@/app/components/cadeshowRecipe";
 import RecipesPost1 from "@/app/components/topRecommend/recipesInProf";
+import { JwtPayload } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import { decode } from "punycode";
 
 export default class page extends Component<{ searchParams: any }> {
   state: any = {
     userData: [],
     prof_detail: [],
     isClick: false,
+    cookieValue: null,
+    cookieID : null,
   };
 
   constructor(props: any) {
     super(props);
+  }
+  public setCookieID(value : number){
+    this.setState({
+      cookieID : value
+    })
+  }
+  public setCookieValue(value : JwtPayload){
+    this.setState({
+      cookieValue : value
+    })
+    
   }
 
   public setUserData(value: []) {
@@ -40,9 +56,34 @@ export default class page extends Component<{ searchParams: any }> {
   }
 
   public async componentDidMount() {
-    await this.getUserInfo();
+    await this.getCookieValue();
+    this.getUserInfo();
   }
 
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken : any = jwtDecode(cookieValue); // Decode the JWT
+        
+        this.setCookieValue(decodedToken); // Update state with decoded data
+        this.setCookieID(decodedToken.id)
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
+  }
   public async getUserInfo() {
     try{
       let res = await fetch(
@@ -67,6 +108,7 @@ export default class page extends Component<{ searchParams: any }> {
   }
 
   render() {
+    console.log("CookieID:", this.state.cookieID)
     console.log("user:", this.state.userData[0]);
     return (
       <div className="bg-gray-400 relative z-10">
@@ -102,13 +144,13 @@ export default class page extends Component<{ searchParams: any }> {
                 <br></br>
                 <div className="py-6">
                   <div>
-                    <Link href={{
+                    {(this.props.searchParams.blahblah == this.state.cookieID) && <Link href={{
                   pathname: `/edit_profile/${this.props.searchParams.blahblah}`
                 }}>
                       <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-14 w-30 text-xl font-bold">
                         Edit Profile
                       </button>
-                    </Link>
+                    </Link>}
                   </div>
                 </div>
               </div>

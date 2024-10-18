@@ -15,6 +15,8 @@ export default class FavoriteCard extends Component<{
 }> {
     state = {
         cookTime: "",
+        id_rep : this.props.rep_id,
+        ac_id : this.props.ac_id
     }
     constructor(props : any){
         super(props)
@@ -28,17 +30,15 @@ export default class FavoriteCard extends Component<{
         this.checkCalories(this.props.rep_time ?? 0);
     }
 
-    public async removeFav(){
-      if (this.props.rep_id) {console.log("rep_id:", this.props.rep_id)}
-      console.log("ac_id:", this.props.ac_id)
+   /*  public async removeFav(){
         let res = await fetch("http://localhost:3000/attractions/api_removeFav/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              rep_id: this.props.rep_id,
-              ac_id: this.props.ac_id
+              rep_id: this.state.id_rep,
+              ac_id: this.state.ac_id
             }),
           });
           if(res.ok){
@@ -47,7 +47,7 @@ export default class FavoriteCard extends Component<{
             console.log("Error Removing favourite")
           }
           window.location.reload()
-      }
+      } */
 
     public checkCalories = (value: number) =>{
         if (value > 60){
@@ -89,9 +89,6 @@ export default class FavoriteCard extends Component<{
             <p>เวลาในการทำ: {this.state.cookTime} นาที</p>
           </div>
           <div className="">
-          <button onClick={this.removeFav} className="bg-red-400 px-[0.7em] py-[0.2em] rounded-xl text-white absolute right-0 bottom-0">
-              remove
-            </button>
           </div>
           <button className="absolute top-0 right-0 mt-[5%] mr-[5%]">
             <Heart rep_id={this.props.rep_id} width={16} height={16} />
