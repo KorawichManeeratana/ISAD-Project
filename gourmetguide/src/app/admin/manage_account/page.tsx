@@ -3,13 +3,15 @@ import React, { Component } from 'react'
 import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Userform from '@/app/components/Userform';
+import { Search } from 'lucide-react';
 
 export default class manage_account_page extends Component {
   state : any = {
     isAdmin: false,
     cookieValue : null,
     deleted : false,
-    item : []
+    item : [],
+    search : ""
   };
   public setIsAdmin(value : boolean){
     this.setState({
@@ -27,6 +29,12 @@ export default class manage_account_page extends Component {
   componentDidMount() {
     this.checkAdminRole();
     this.getUserform();
+  }
+
+  public setSearch(inp : string){
+    this.setState({
+      search : inp
+    })
   }
 
   getCookie(name: string): string | null {
@@ -107,10 +115,8 @@ export default class manage_account_page extends Component {
             type="text"
             placeholder="ค้นหาผู้ใช้งาน"
             className="input"
+            onChange={e => this.setSearch(e.target.value)}
           />
-          <button className="search-button">
-            <i className="fas fa-search"></i>
-          </button>
         </div>
   
         {/* Yellow box with specified dimensions */}
@@ -123,8 +129,11 @@ export default class manage_account_page extends Component {
                 <div className="basis-1/2">Role</div>
             </div>
         </div>
-        {this.state.item && this.state.item.length > 0 ? ( // Check if items exists and is not empty
-            this.state.item.map((attractions: any) => (
+        {this.state.item && this.state.item.length > 0? ( // Check if items exists and is not empty
+            this.state.item.filter((attractions: any) => 
+              this.state.search === "" || 
+              attractions.username.toLowerCase().includes(this.state.search.toLowerCase())
+          ).map((attractions: any) => (
               <React.Fragment key={attractions.ac_id}>
                   <Userform 
                   id = {attractions.ac_id}
@@ -134,7 +143,7 @@ export default class manage_account_page extends Component {
                   />
               </React.Fragment>
             ))
-          ) : (
+          ) : ( 
             
             <div className="mt-10 self-center">
               {" "}
