@@ -2,13 +2,15 @@
 import React, { Component } from 'react';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Reportform from '@/app/components/Reportform';
+import { Search } from 'lucide-react';
 
 export default class report_feedback extends Component {
   state : any = {
     isAdmin: false,
     cookieValue: null,
     deleted : false,
-    item : []
+    item : [],
+    search : ""
   };
   public setIsAdmin(value : boolean){
     this.setState({
@@ -34,6 +36,12 @@ export default class report_feedback extends Component {
   componentDidMount() {
     this.checkAdminRole();
     this.getReport();
+  }
+
+  public setSearch(inp : string){
+    this.setState({
+      search : inp
+    })
   }
 
   getCookie(name: string): string | null {
@@ -110,11 +118,9 @@ export default class report_feedback extends Component {
           <input 
             type="text"
             placeholder="ค้นหาผู้ใช้งาน" 
-            className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" 
+            className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={e => this.setSearch(e.target.value)} 
           />
-          <button className="px-3 py-2 ml-2 rounded-md bg-gray-300 text-gray-700 hover:bg-gray-400 focus:outline-none focus:bg-gray-400">
-            <i className="fas fa-search"></i>
-          </button>
         </div>
         
         {/* Yellow box with specified dimensions */}
@@ -130,7 +136,10 @@ export default class report_feedback extends Component {
             </div>
           </div>
         {this.state.item && this.state.item.length > 0 ? ( // Check if items exists and is not empty
-            this.state.item.map((attractions: any) => (
+            this.state.item.filter((attractions: any) => 
+              this.state.search === "" || 
+              attractions.username.toLowerCase().includes(this.state.search.toLowerCase())
+          ).map((attractions: any) => (
               <React.Fragment key={attractions.report_id}>
                   <Reportform 
                   id = {attractions.report_id}
