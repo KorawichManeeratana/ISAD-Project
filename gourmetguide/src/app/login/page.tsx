@@ -5,6 +5,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { checkLoginAction } from "../utils/Account/ServerActionUser";
 import Loading from "../components/loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class page extends Component {
   state = {
@@ -42,6 +44,10 @@ export default class page extends Component {
     this.setState({
       showModal: check,
     });
+  }
+
+  public notify(){
+    toast.success("Login succesfully!!!")
   }
 
   private async handleSubmitLogin(e: any) {
@@ -137,7 +143,7 @@ export default class page extends Component {
                 </div>
               )}
               <div className="space-x-14 my-8">
-                <button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1">
+                <button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1" onClick={() => this.notify()}>
                   เข้าสู่ระบบ
                 </button>
                 <a

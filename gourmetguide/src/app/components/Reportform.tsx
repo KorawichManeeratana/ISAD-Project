@@ -1,6 +1,7 @@
 import { Separator } from '@radix-ui/react-dropdown-menu'
 import React, { Component } from 'react'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Reportform extends Component <{
     id : number,
@@ -32,12 +33,19 @@ export default class Reportform extends Component <{
         }),
           });    
         if(de.ok){
+          await this.timeout(2000);
           window.location.reload();
           console.log(de);
         }
     }catch(error){
       console.log("Error : ", error);
     }
+  }
+  public notify(){
+    toast("Report has been deleted....");
+  }
+  public timeout(delay : number){
+    return new Promise( res => setTimeout(res, delay) );
   }
   render() {
     return (
@@ -50,6 +58,7 @@ export default class Reportform extends Component <{
                 <div className="basis-1/2">{new Date(this.props.created_date).toLocaleDateString()}</div>
                 <div className='flex justify-center items-center h-full'>
                   <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => this.setDelete(true)}>Delete</button>
+                  <ToastContainer/>
                 </div>
             </div>
       </div>

@@ -107,7 +107,7 @@ export default class page extends Component {
         img.src = b.message;
     }
     public notify(){
-      toast("Recipe has been created")
+      toast.success("Recipe has been created")
     }
   render() {
     return (
