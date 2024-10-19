@@ -149,7 +149,9 @@ export default class page extends Component<{ searchParams: any }> {
         this.setDescription(this.state.recipe[0].rep_des);
         this.setIngredient(this.state.recipe[0].rep_ing);
         this.setStep(this.state.recipe[0].rep_step);
-        await this.checkUser();
+        if(this.state.cookieValue.role != "admin"){
+          await this.checkUser();
+        }
       }
 
       if (this.state.recipe[0]) {
@@ -168,7 +170,7 @@ export default class page extends Component<{ searchParams: any }> {
     }
   }
 
-  public async updateRecipe() {
+  public async getUpdateRecipe() {
     this.setIsLoading(true);
     let a = new FormData();
 
@@ -380,7 +382,7 @@ export default class page extends Component<{ searchParams: any }> {
             <div className="bg-white w-[1471px] h-auto px-10 py-4 rounded-lg shadow-lg flex justify-end">
               <div className="flex space-x-4">
                 <button
-                  onClick={() => this.updateRecipe()}
+                  onClick={() => this.getUpdateRecipe()}
                   className=" border border-yellow-800 flex py-2 px-4 rounded-2xl"
                 >
                   <p>บันทึก</p>

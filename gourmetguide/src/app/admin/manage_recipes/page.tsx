@@ -6,6 +6,7 @@ import Managerecipecard from "../../components/managerecipecard"
 import Link from 'next/link';
 import { Search } from 'lucide-react';
 
+
 export default class manange_recipes_page extends Component {
   state : any = {
     isAdmin: false,
@@ -40,7 +41,7 @@ export default class manange_recipes_page extends Component {
   }
 
   public async componentDidMount() {
-    await this.checkAdminRole();
+    await this.checkRole();
     this.getRecipe();
   }
 
@@ -55,7 +56,7 @@ export default class manange_recipes_page extends Component {
     return null;
   }
 
-  checkAdminRole() {
+  checkRole() {
     const token = this.getCookie('token'); // Replace 'token' with your cookie name
     if (token) {
       try {
