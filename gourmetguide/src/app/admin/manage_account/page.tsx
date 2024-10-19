@@ -110,11 +110,11 @@ export default class manage_account_page extends Component {
         <h1 className="heading">Manage Accounts</h1>
   
         {/* Search bar aligned to the right */}
-        <div className="search-bar">
+        <div className="mb-4 flex justify-end">
           <input
             type="text"
             placeholder="ค้นหาผู้ใช้งาน"
-            className="input"
+            className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
             onChange={e => this.setSearch(e.target.value)}
           />
         </div>
@@ -148,7 +148,7 @@ export default class manage_account_page extends Component {
             <div className="mt-10 self-center">
               {" "}
               {/* Vertically center content */}
-              <h1 className="text-center text-2xl">ไม่พบเรื่องรับแจ้ง</h1>
+              <h1 className="text-center text-2xl">ไม่พบผู้ใช้งาน</h1>
             </div>
           )}              
         </div>

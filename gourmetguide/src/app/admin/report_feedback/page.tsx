@@ -118,7 +118,7 @@ export default class report_feedback extends Component {
           <input 
             type="text"
             placeholder="ค้นหาผู้ใช้งาน" 
-            className="px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+            className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
             onChange={e => this.setSearch(e.target.value)} 
           />
         </div>

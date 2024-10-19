@@ -4,12 +4,14 @@ import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Managerecipecard from "../../components/managerecipecard"
 import Link from 'next/link';
+import { Search } from 'lucide-react';
 
 export default class manange_recipes_page extends Component {
   state : any = {
     isAdmin: false,
     cookieValue: null,
     allRecipe : [],
+    search : ""
   };
   public setIsAdmin(value : boolean){
     this.setState({
@@ -30,6 +32,13 @@ export default class manange_recipes_page extends Component {
   public kickUser(){
     location.assign("http://localhost:3000")
   }
+
+  public setSearch(inp : string){
+    this.setState({
+      search : inp
+    })
+  }
+
   public async componentDidMount() {
     await this.checkAdminRole();
     this.getRecipe();
@@ -119,7 +128,7 @@ export default class manange_recipes_page extends Component {
                     type="text"
                     placeholder="ค้นหาสูตรอาหาร"
                     className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    
+                    onChange={e => this.setSearch(e.target.value)}
                   /></form>
                   
                 </div>
@@ -127,14 +136,17 @@ export default class manange_recipes_page extends Component {
               </div>
               <div className='bg-yellow-50 w-full h-[85%] pl-4 space-y-4 overflow-y-auto'>
               <div className='grid grid-cols-5 underline justify-center items-center'>
-                <div className="basis-1/2">รหัสสูครอาหาร</div>
-                <div className="basis-1/2">ชื่อสูครอาหาร</div>
-                <div className="basis-1/2">ผู้สร้างสูครอาหาร</div>
+                <div className="basis-1/2">รหัสสูตรอาหาร</div>
+                <div className="basis-1/2">ชื่อสูตรอาหาร</div>
+                <div className="basis-1/2">ผู้สร้างสูตรอาหาร</div>
                 <div className="basis-1/2">แก้ไข</div>
                 <div className="basis-1/2">ลบ</div>
             </div>
             {this.state.allRecipe && this.state.allRecipe.length > 0 ? ( // Check if items exists and is not empty
-            this.state.allRecipe.map((attractions: any) => (
+            this.state.allRecipe.filter((attractions: any) => 
+              this.state.search === "" || 
+              attractions.rep_name.toLowerCase().includes(this.state.search.toLowerCase())
+          ).map((attractions: any) => (
               <React.Fragment key={attractions.rep_id}>
                 <div className="">
                   <Managerecipecard
