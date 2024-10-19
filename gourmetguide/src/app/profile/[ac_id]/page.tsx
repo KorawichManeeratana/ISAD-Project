@@ -135,7 +135,7 @@ export default class page extends Component<{ searchParams: any }> {
                     {this.state.prof_detail.username}
                   </h1>
                   <h1 className="text-xl text-yellow-700">
-                    Chef and restaurateur
+                    UID: {this.props.searchParams.blahblah}
                   </h1>
                   <p className="text-yellow-600">
                     {this.state.prof_detail.profile_des}

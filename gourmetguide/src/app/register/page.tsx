@@ -59,20 +59,6 @@ export default class page extends Component {
 
     try {
       this.setloading(true);
-      /* let resCheckUser = fetch("http://localhost:3000/attractions/api_checkUser/",{
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({email : email, name : name})
-            })
-    
-            const {user} = await (await resCheckUser).json();
-            if (user){
-              this.setErrorRegister("This account is already exists!");
-              return;
-            }
- */
       let res = await fetch("http://localhost:3000/attractions/api_register/", {
         method: "POST",
         headers: {

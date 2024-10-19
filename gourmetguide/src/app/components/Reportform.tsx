@@ -47,7 +47,7 @@ export default class Reportform extends Component <{
                 <div className="basis-1/2">{this.props.username}</div>
                 <div className="basis-1/2">{this.props.problem}</div>
                 <div className="basis-1/2">{this.props.status}</div>
-                <div className="basis-1/2">{this.props.created_date}</div>
+                <div className="basis-1/2">{new Date(this.props.created_date).toLocaleDateString()}</div>
                 <div className='flex justify-center items-center h-full'>
                   <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => this.setDelete(true)}>Delete</button>
                 </div>

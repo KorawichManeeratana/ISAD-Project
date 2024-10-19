@@ -122,7 +122,7 @@ export default class manage_account_page extends Component {
         {/* Yellow box with specified dimensions */}
         <div className="relative overflow-x-auto bg-yellow-200 p-4 rounded-md mb-4  space-y-4 divide-y divide-dashed"style={{ width: '1500px', height: '900px' }}>
         <div className='header'>
-            <div className='grid grid-cols-5 underline'>
+            <div className='grid grid-cols-6 underline'>
                 <div className="basis-1/2">ID</div>
                 <div className="basis-1/2">Username</div>
                 <div className="basis-1/2">Email</div>

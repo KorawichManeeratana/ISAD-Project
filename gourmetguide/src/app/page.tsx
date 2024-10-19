@@ -4,7 +4,6 @@ import PostTop1 from "./components/topRecommend/recipesTop1";
 import PostTop2and3 from "./components/topRecommend/recpiesTop2-3";
 import Footer from "./components/Footer";
 import { SensitiveSearch } from "./components/Search/SensitiveSearch";
-import Ddata from "./setest/data.json";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
@@ -99,7 +98,7 @@ class Home extends React.Component {
     this.setSearchResult(searchResult.value)
   }
 
-  public handleSubmit = (e : any) => {
+  public SearchQuery = (e : any) => {
     e.preventDefault();
     location.assign(`http://localhost:3000/recipe?searchResult=${this.state.searchResult}`)
   };
@@ -183,7 +182,7 @@ class Home extends React.Component {
               </svg>
               <div>
                 <div>
-                  <form onSubmit={this.handleSubmit} ><input
+                  <form onSubmit={this.SearchQuery} ><input
                     type="text"
                     placeholder="ค้นหาสูตรอาหาร"
                     className="search text-black w-96 px-4 py-2 rounded-l-3xl rounded-r-3xl border border-gray-400px focus:outline-none focus:ring-2 focus:ring-yellow-500"

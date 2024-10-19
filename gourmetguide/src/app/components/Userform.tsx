@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { Component } from 'react'
 
 export default class Userform extends Component <{
@@ -37,11 +38,49 @@ export default class Userform extends Component <{
   render() {
     return (
         <div className=''>
-            <div className='grid grid-cols-5 bg-white text-black p-1 rounded-lg'>
-                <div className="basis-1/4">{this.props.id}</div>
-                <div className="basis-1/2">{this.props.username}</div>
-                <div className="basis-1/2">{this.props.email}</div>
-                <div className="basis-1/2">{this.props.role}</div>
+            <div className='grid grid-cols-6 bg-white text-black p-1 rounded-lg'>
+            <Link
+            href={{
+              pathname: `/profile/${this.props.id}/`,
+              query: {
+                blahblah: this.props.id,
+              },
+            }}
+          ><div className="basis-1/4">{this.props.id}</div></Link>
+                <Link
+            href={{
+              pathname: `/profile/${this.props.id}/`,
+              query: {
+                blahblah: this.props.id,
+              },
+            }}
+          ><div className="basis-1/2">{this.props.username}</div></Link>
+                <Link
+            href={{
+              pathname: `/profile/${this.props.id}/`,
+              query: {
+                blahblah: this.props.id,
+              },
+            }}
+          ><div className="basis-1/2">{this.props.email}</div></Link>
+                <Link
+            href={{
+              pathname: `/profile/${this.props.id}/`,
+              query: {
+                blahblah: this.props.id,
+              },
+            }}
+          ><div className="basis-1/2">{this.props.role}</div></Link>
+                <Link
+            href={{
+              pathname: `/edit_profile/${this.props.id}/`,
+              query: {
+                blahblah: this.props.id,
+              },
+            }}
+          ><div className='flex justify-center items-center h-full'>
+          <button type="button" className='bg-yellow-600 w-40 h-10 rounded-lg'>Edit</button>
+          </div></Link>
                 <div className='flex justify-center items-center h-full'>
                 <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => this.setDelete(true)}>Delete</button>
                 </div>

@@ -6,17 +6,25 @@ import React from 'react'
 import { Component } from 'react'
 import { jwtDecode } from 'jwt-decode'
 
-export default class Edit_profile extends Component{
+export default class Edit_profile extends Component<{searchParams : any}>{
     state : any = {
         cookieValue : null,
         oldUserData : [],
         username: "",
         prof_des: "",
         email: "",
+        userPFP:"",
     }
     constructor(props : any){
         super(props)
     }
+
+    public setUserPFP(value : string){
+      this.setState({
+        userPFP: value
+      })
+    }
+
     public setCookieValue(value : JwtPayload){
         this.setState({
             cookieValue : value
@@ -103,7 +111,7 @@ export default class Edit_profile extends Component{
       }
 
       public async getUserInfo(){
-        const keep_ad = this.state.cookieValue ? this.state.cookieValue.id : null
+        const keep_ad = this.props.searchParams.blahblah
         try{
             let res = await fetch(
                 "http://localhost:3000/attractions/api_getUserInfo/",
@@ -124,6 +132,7 @@ export default class Edit_profile extends Component{
                 this.setUserName(data[0].username)
                 this.setEmail(data[0].email)
                 this.setProf_Des(data[0].profile_des)
+                this.setUserPFP(data[0].userPFP)
               }
               
         }catch(error){
@@ -131,14 +140,13 @@ export default class Edit_profile extends Component{
         }
       }
     render(){
-        const userPic = this.state.cookieValue ? this.state.cookieValue.PFP : null;
         console.log("CookieInedit:", this.state.cookieValue)
         return (
             <div>
                 <div className='bg-yellow-500 min-h-screen'>
                     <div className='flex flex-col first:flexjustify-center items-center gap-6 p-10'>
                             <Avatar>
-                                <AvatarImage src={userPic}  className='rounded-full' width={250} height={300} />
+                                <AvatarImage src={this.state.userPFP}  className='rounded-full' width={250} height={300} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <div className='pt-6 flex justify-start px-44'><label className=" w-[200px] h-20 text-3xl font-kanit bg-yellow-300 flex justify-center items-center text-black px-16 py-4 rounded-xl shadow-2xl" htmlFor="pic">Upload</label>
