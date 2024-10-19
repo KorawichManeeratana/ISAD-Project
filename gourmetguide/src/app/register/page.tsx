@@ -2,6 +2,8 @@
 import React, { Component } from "react";
 import Modal from "../components/modal";
 import Loading from "../components/loading";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class page extends Component {
   state = {
@@ -83,6 +85,9 @@ export default class page extends Component {
       this.setloading(false);
       console.log("Error during registration.", error);
     }
+  }
+  public notify(){
+    toast.success("Reister succesfully!!!")
   }
   render() {
     return (
@@ -171,9 +176,10 @@ export default class page extends Component {
                 </div>
               )}
               <div className="justify-center items-center my-8">
-                <button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1">
+                <button className="text-xl bg-yellow-500 text-white border border-black rounded-full px-12 py-1" onClick={() => this.notify()}>
                   ลงทะเบียน
                 </button>
+                <ToastContainer/>
                 <div className="flex flex-row space-x-4 justify-center items-center">
                   <p className="">มีบัญชีอยู่แล้ว?</p>
                   <a

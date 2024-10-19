@@ -11,14 +11,14 @@ export default class Reportform extends Component<{
   public async getDeleteAccount() {
     try {
       let res = await fetch(
-        "http://localhost:3000/attractions/api_deleteAccount",
+        "http://localhost:3000/attractions/api_deleteRecipe",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            ac_id: this.props.ac_id,
+            rep_id: this.props.rep_id,
           }),
         }
       );
@@ -79,7 +79,7 @@ export default class Reportform extends Component<{
               </svg>
             </div>
           </Link>
-          <div className="basis-1/2">X</div>
+          <div className="basis-1/2 cursor-pointer" onClick={() => this.getDeleteAccount()}>X</div>
         </div>
       </div>
     );

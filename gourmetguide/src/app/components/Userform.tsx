@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import React, { Component } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Userform extends Component <{
     id : number,
@@ -28,6 +30,7 @@ export default class Userform extends Component <{
               }),
                 });    
               if(de.ok){
+                await this.timeout(2000);
                 window.location.reload();
                 console.log(de);
               }
@@ -35,6 +38,14 @@ export default class Userform extends Component <{
             console.log("Error : ", error);
           }
         }
+       
+    public notify(){
+      toast.success("User has been deleted....");
+    }
+    public timeout(delay: number) {
+      return new Promise( res => setTimeout(res, delay) );
+    }
+    
   render() {
     return (
         <div className=''>
@@ -82,7 +93,8 @@ export default class Userform extends Component <{
           <button type="button" className='bg-yellow-600 w-40 h-10 rounded-lg'>Edit</button>
           </div></Link>
                 <div className='flex justify-center items-center h-full'>
-                <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => this.setDelete(true)}>Delete</button>
+                <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => {this.setDelete(true); this.notify()}}>Delete</button>
+                <ToastContainer />
                 </div>
             </div>
         </div>
