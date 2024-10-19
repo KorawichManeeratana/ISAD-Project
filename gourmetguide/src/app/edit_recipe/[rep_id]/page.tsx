@@ -87,6 +87,7 @@ export default class page extends Component<{ searchParams: any }> {
   }
 
   public async componentDidMount() {
+    await this.checkUser();
     await this.getRecipe();
     if (this.state.recipe[0]) {
       this.checkCalories(this.state.recipe[0].rep_time!);
@@ -142,6 +143,11 @@ export default class page extends Component<{ searchParams: any }> {
       }
     } catch (error) {
       console.error("Error fetching recipe:", error);
+    }
+  }
+  public checkUser(){
+    if (this.state.ac_id !== this.state.cookieID){
+      location.assign("http://localhost:3000/")
     }
   }
 
