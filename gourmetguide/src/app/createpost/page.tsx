@@ -1,9 +1,11 @@
 "use client"
+import { jwtDecode, JwtPayload } from 'jwt-decode'
 import React, { Component } from 'react'
 
 export default class page extends Component {
   state = {
-    errorCreate : ""
+    errorCreate : "",
+    cookieid: null,
   }
   constructor(props : any){
     super(props)
@@ -13,6 +15,43 @@ export default class page extends Component {
     this.setState({
       errorCreate : word
     })
+  }
+  public setCookieID(value : number){
+    this.setState({
+      cookieid : value
+    })
+  }
+  public setCookieValue(value : JwtPayload){
+    this.setState({
+      cookieValue : value
+    })
+  }
+  async componentDidMount() {
+    await this.getCookieValue();
+  }
+
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken : any = jwtDecode(cookieValue); // Decode the JWT
+        this.setCookieValue(decodedToken); // Update state with decoded data
+        this.setCookieID(decodedToken.id)
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
   }
     public async uploadPic() {
         const img: HTMLImageElement = document.querySelector('.image')!;
@@ -52,6 +91,7 @@ export default class page extends Component {
         a.append("rep_des", repDes);
         a.append("rep_img", repImg.files![0]);
         a.append("rep_ing", repIng);
+        a.append("ac_id", this.state.cookieid!)
 
 
 

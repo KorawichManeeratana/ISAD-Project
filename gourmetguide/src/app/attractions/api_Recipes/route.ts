@@ -12,13 +12,14 @@ export async function POST(req: Request) {
     const rep_time = parseInt(form.get("rep_time") as string);
     const rep_step = form.get("rep_step") as string;
     const rep_ing = form.get("rep_ing") as string;
+    const ac_id = parseInt(form.get("ac_id") as string);
 
     const path = await pictureManager.savePicture(
       form.get("rep_img") as File,
       "/images/menuPic"
     );
 
-    await qb.insertInto("recipes").values({rep_name: rep_name, rep_des: rep_des, calories: calories, rep_date: formatDate(new Date()).toString(), rep_img : path, rep_time : rep_time, rep_step: rep_step, ac_id: 13, rep_ing: rep_ing}).execute();
+    await qb.insertInto("recipes").values({rep_name: rep_name, rep_des: rep_des, calories: calories, rep_date: formatDate(new Date()).toString(), rep_img : path, rep_time : rep_time, rep_step: rep_step, ac_id: ac_id, rep_ing: rep_ing}).execute();
     return Response.json({ message: path }, { status: 201 });
   } catch (error)
   {

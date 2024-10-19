@@ -292,7 +292,7 @@ export default class SearchResultCard extends Component<{
                 className="pl-6 pb-2"
                 onClick={this.handleColorBookMark.bind(this)}
               >
-                <div className="flex justify-start"><Bookmark ac_id={this.props.ac_id} rep_id={this.props.rep_id} width={28} height={28}/></div>
+                <div className="flex justify-start"><Bookmark ac_id={this.props.searcherac_id} rep_id={this.props.rep_id} width={28} height={28}/></div>
               </button>
 
               <h2 className="text-xl font-normal tracking-tight text-gray-800 pt-4">

@@ -145,7 +145,7 @@ export default class page extends Component<{ searchParams: any }> {
         body: JSON.stringify({
           rep_id : this.props.searchParams.rep_id,
           isClick : this.state.isClick,
-          ac_id : this.state.recipe[0]?.ac_id,
+          ac_id : this.state.cookieid,
         }),
       });
       if(res.ok){

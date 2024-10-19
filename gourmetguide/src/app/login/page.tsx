@@ -67,14 +67,15 @@ export default class page extends Component {
             password
           ))
         ) {
+          this.setLoading(false);
           this.setErrorLogin("Login Failed");
         }
       }
-      this.setLoading(true);
+      this.setLoading(false);
       name = "";
       password = "";
     } catch (error) {
-      this.setLoading(true);
+      this.setLoading(false);
       console.log("Login Failed", error);
     }
   }
@@ -100,7 +101,7 @@ export default class page extends Component {
                   เข้าสู่ระบบ
                 </h3>
                 <div className='flex flex-row items-center justify-center py-4 text-yellow-500 font-normal bg-white space-x-6"'>
-                  <h3 className="text-black font-normal text-xl mb-5 flex justify-center items-center mt-6">
+                  <h3 className="text-black font-normal text-xl mb-5 flex justify-center items-center mt-6 mr-9">
                     อีเมล:
                   </h3>
                   <input

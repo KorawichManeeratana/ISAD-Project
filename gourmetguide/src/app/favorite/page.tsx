@@ -22,8 +22,8 @@ export default class Favorite extends Component {
     this.setState({
       cookieValue : value
     })
-    
   }
+  
   public setAllFavData(value : []){
     this.setState({
       allFavData : value
