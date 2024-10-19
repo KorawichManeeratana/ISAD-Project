@@ -53,7 +53,8 @@ export default class page extends Component {
       }
     }
   }
-    public async uploadPic() {
+
+  public async uploadPic() {
         const img: HTMLImageElement = document.querySelector('.image')!;
         
         let a = new FormData();

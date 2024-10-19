@@ -86,12 +86,25 @@ export default class page extends Component<{ searchParams: any }> {
     console.log("recipe", this.state.recipe[0]);
   }
 
+  public setCookieID(value : number){
+    this.setState({
+      cookieID: value
+    })
+  }
+  
+  public setCookieValue(value: JwtPayload) {
+    this.setState({
+      cookieValue : value
+    })
+  }
+
   public async componentDidMount() {
-    await this.checkUser();
     await this.getRecipe();
+    this.getCookieValue();
     if (this.state.recipe[0]) {
       this.checkCalories(this.state.recipe[0].rep_time!);
     }
+    
   }
 
   public checkCalories(value: number) {
@@ -128,7 +141,7 @@ export default class page extends Component<{ searchParams: any }> {
       if (res.ok) {
         console.log("data:", data);
         this.setRecipes(data);
-        this.setAc_ID(this.state.recipe[0].ac_id);
+        this.setAc_ID(data[0].ac_id);
         this.setRep_name(this.state.recipe[0].rep_name);
         this.setCalories(this.state.recipe[0].calories);
         this.setHour(Math.floor(this.state.recipe[0].rep_time / 60));
@@ -136,6 +149,7 @@ export default class page extends Component<{ searchParams: any }> {
         this.setDescription(this.state.recipe[0].rep_des);
         this.setIngredient(this.state.recipe[0].rep_ing);
         this.setStep(this.state.recipe[0].rep_step);
+        await this.checkUser();
       }
 
       if (this.state.recipe[0]) {
@@ -145,9 +159,12 @@ export default class page extends Component<{ searchParams: any }> {
       console.error("Error fetching recipe:", error);
     }
   }
+
   public checkUser(){
-    if (this.state.ac_id !== this.state.cookieID){
-      location.assign("http://localhost:3000/")
+    console.log("this.state.ac_id:", this.state.ac_id)
+    console.log("this.state.cookieID:", this.state.cookieID)
+    if (this.state.ac_id != this.state.cookieID){
+      /* location.assign("http://localhost:3000/") */
     }
   }
 
@@ -202,6 +219,30 @@ export default class page extends Component<{ searchParams: any }> {
       console.log("Update Recipe Error");
     }
   }
+  getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  getCookieValue() {
+    const cookieValue = this.getCookie('token');
+    if (cookieValue) {
+      try {
+        const decodedToken : any = jwtDecode(cookieValue); // Decode the JWT
+        this.setCookieValue(decodedToken); // Update state with decoded data
+        this.setCookieID(decodedToken.id)
+      } catch (error) {
+        console.error("Error decoding JWT:", error);
+      }
+    }
+  }
+  
 
   render() {
     return (
