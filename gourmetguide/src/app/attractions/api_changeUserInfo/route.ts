@@ -4,46 +4,26 @@ import { error } from "console";
 import { isInt16Array } from "util/types";
 const bcrypt = require("bcrypt");
 import { qb } from "@/app/utils/database/qb";
+import pictureManager from "@/app/utils/pictureManage/picManager";
 
 export async function POST(req: Response) {
-  const { username, profile_des, email, ac_id } = await req.json();
+  const form = await req.formData()
+  const username = form.get("username") as string;
+  const profile_des = form.get("profile_des") as string;
+  const email = form.get("email") as string;
+  const ac_id = parseInt(form.get("ac_id") as string);
+
+  const path = await pictureManager.savePicture(
+    form.get("profile_img") as File,
+    "/images/clientPFP"
+  );
   try {
-
-    if(username && profile_des && email){
-        await qb.updateTable("account").set({username : username, email : email, profile_des : profile_des}).where("ac_id", "=", ac_id).execute();
+        await qb.updateTable("account").set({username : username, email : email, profile_des : profile_des, userPFP: path}).where("ac_id", "=", ac_id).execute();
         return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    if(username && profile_des && !email){
-        await qb.updateTable("account").set({username : username, profile_des : profile_des}).where("ac_id", "=", ac_id).execute();
-        return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    if(username && email && !profile_des){
-        await qb.updateTable("account").set({username : username, email : email}).where("ac_id", "=", ac_id).execute();
-        return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    if (username && !email && !profile_des){
-        await qb.updateTable("account").set("account.username", username).where("ac_id", "=", ac_id).execute();
-        return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    if(profile_des && !username && !email){
-        await qb.updateTable("account").set("account.profile_des", profile_des).where("ac_id", "=", ac_id).execute();
-        return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    if(email && !profile_des && !username){
-        await qb.updateTable("account").set("account.email", email).where("ac_id", "=", ac_id).execute();
-        return Response.json({Message : "Update Information Success!"}, {status : 201})
-    }
-
-    
   } catch (error) {
-    console.log("Fetching user data Failed.");
+    console.log("Update user data Failed.");
     return Response.json(
-      { Message: "Fetch user Info failed" },
+      { Message: "Update user Info failed" },
       { status: 500 }
     );
   }

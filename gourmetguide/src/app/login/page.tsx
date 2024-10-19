@@ -101,14 +101,14 @@ export default class page extends Component {
                 </h3>
                 <div className='flex flex-row items-center justify-center py-4 text-yellow-500 font-normal bg-white space-x-6"'>
                   <h3 className="text-black font-normal text-xl mb-5 flex justify-center items-center mt-6">
-                    ชื่อผู้ใช้งาน:
+                    อีเมล:
                   </h3>
                   <input
                     onChange={() => {
                       this.setErrorLogin("");
                     }}
                     type="text"
-                    placeholder="กรอกชื่อผู้ใช้งาน"
+                    placeholder="กรอกอีเมลผู้ใช้งาน"
                     className="name text-black w-96 px-4 py-2 border border-black rounded-l-3xl rounded-r-3xl focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent flex justify-center items-center ml-6"
                   ></input>
                 </div>
@@ -128,9 +128,6 @@ export default class page extends Component {
                 <div className="flex flex-row items-center justify-center py-4 font-normal bg-white">
                   <input type="checkbox"></input>
                   <p className="ml-2">จำฉันไว้</p>
-                  <p className="hover:underline ml-40 text-gray-500">
-                    ลืมรหัสผ่าน?
-                  </p>
                 </div>
               </div>
               {this.state.errorLogin && (

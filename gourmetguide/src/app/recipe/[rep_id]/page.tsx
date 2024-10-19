@@ -79,11 +79,12 @@ export default class page extends Component<{ searchParams: any }> {
   public async componentDidMount(){
       await this.getRecipe();
       if(this.state.recipe[0]) {this.checkCalories(this.state.recipe[0].rep_time!)};
+      this.getCookieValue();
   };
 
   public checkCalories(value : number){
     if (value > 60){
-      let keep = Math.round(value / 60) + " ชั่วโมง :" + (value % 60)
+      let keep = Math.floor(value / 60) + " ชั่วโมง :" + (value % 60)
       this.setCookTime(keep)
     }else{
       this.setCookTime(value.toString())
@@ -260,7 +261,7 @@ export default class page extends Component<{ searchParams: any }> {
             {/*ข้อมูลที่เหลือ */}
             <div className="bg-white w-[1471px] h-auto px-10 py-4 rounded-lg shadow-lg flex justify-end">
               <div className="flex space-x-4">
-              {(this.props.searchParams.rep_id == this.state.cookieid) && <Link href={{
+              {(this.state.ac_id == this.state.cookieid) && <Link href={{
                   pathname: `/edit_recipe/${this.props.searchParams.rep_id}`,
                   query: {
                     rep_id: this.props.searchParams.rep_id,

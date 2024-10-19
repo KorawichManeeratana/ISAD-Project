@@ -13,7 +13,6 @@ export default class Edit_profile extends Component{
         username: "",
         prof_des: "",
         email: "",
-        
     }
     constructor(props : any){
         super(props)
@@ -72,20 +71,21 @@ export default class Edit_profile extends Component{
         }
       }
       public async changeUserInfo(){
+        let a = new FormData();
+        let profImg: any = document.querySelector(".profile_Img")!;
+
+        a.append("username", this.state.username);
+        a.append("email", this.state.email);
+        a.append("profile_des", this.state.prof_des);
+        a.append("profile_img", profImg.files![0]);
+        a.append("ac_id", this.state.oldUserData.ac_id);
+
         try{
           let res = await fetch(
             "http://localhost:3000/attractions/api_changeUserInfo/",
             {
               method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                username : this.state.username,
-                email : this.state.email,
-                profile_des : this.state.prof_des,
-                ac_id: this.state.oldUserData.ac_id,
-              }),
+              body: a
             }
           );
           if (res.ok) {
@@ -117,9 +117,15 @@ export default class Edit_profile extends Component{
                   }),
                 }
               );
-              let data = await res.json();
-              console.log("datainedit:", data[0])
-              this.setOldUserData(data[0]);
+              if(res.ok){
+                let data = await res.json();
+                console.log("datainedit:", data[0])
+                this.setOldUserData(data[0]);
+                this.setUserName(data[0].username)
+                this.setEmail(data[0].email)
+                this.setProf_Des(data[0].profile_des)
+              }
+              
         }catch(error){
             console.log(error);
         }
@@ -136,21 +142,21 @@ export default class Edit_profile extends Component{
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                             <div className='pt-6 flex justify-start px-44'><label className=" w-[200px] h-20 text-3xl font-kanit bg-yellow-300 flex justify-center items-center text-black px-16 py-4 rounded-xl shadow-2xl" htmlFor="pic">Upload</label>
-                <input type='file' className='repImg hidden' name="pic" id="pic"></input>
+                <input type='file' className='profile_Img hidden' name="pic" id="pic"></input>
                 </div>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 text-2xl'>
                         <div>
                             <h4>Username</h4>
-                            <input className='userName p-2' placeholder={this.state.oldUserData.username} onChange={(e) => this.setUserName(e.target.value)} value={this.state.userName}/>
+                            <input className='userName p-2' value={this.state.username} onChange={(e) => this.setUserName(e.target.value)}/>
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <input className='email p-2' placeholder={this.state.oldUserData.email} onChange={(e) => this.setEmail(e.target.value)} value={this.state.email}/>
+                            <input className='email p-2' value={this.state.email} onChange={(e) => this.setEmail(e.target.value)}/>
                         </div>
                         <div>
                             <h4>Description</h4>
-                            <textarea className='profile_Des w-[800px] h-[20vh] p-2' placeholder={this.state.oldUserData.profile_des} onChange={(e) => this.setProf_Des(e.target.value)} value={this.state.prof_des}/>
+                            <textarea className='profile_Des w-[800px] h-[20vh] p-2' value={this.state.prof_des} onChange={(e) => this.setProf_Des(e.target.value)}/>
                         </div>
                         <div>
                             <br/>

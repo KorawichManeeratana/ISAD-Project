@@ -80,7 +80,7 @@ class Admin_page extends React.Component{
       
     <div className='admin_main_page flex flex-col justify-center items-center'>
         <div className='admin_main_1'>
-          {this.state.cookieValue? (<img src={this.state.cookieValue.PFP} alt={'aun nigga'} width={100} height={100}></img>) :
+          {this.state.cookieValue? (<img className="border border-black rounded-full object-cover" src={this.state.cookieValue.PFP} alt={'aun nigga'} width={100} height={100}></img>) :
         (<Image src={logoAcc} alt={'aun nigga'} width={100} height={100}></Image>)}
           <h1 className='text-2xl'>WELCOME ADMIN: {this.state.cookieValue.name}</h1>
           </div>

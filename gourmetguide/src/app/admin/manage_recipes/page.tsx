@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Managerecipecard from "../../components/managerecipecard"
+import Link from 'next/link';
 
 export default class manange_recipes_page extends Component {
   state : any = {
@@ -103,7 +104,9 @@ export default class manange_recipes_page extends Component {
             <li><a href="#">มีวัตถุดิบอันตราย</a></li>
           </div>
           <div className="side-btn">
-            <a href='#' className='new-recipe'>New Recipe</a>
+            <Link href={{
+              pathname: `/createpost/`,
+            }}><p className='new-recipe'>New Recipe</p></Link>
           </div>
         </div>
         {/* Right Side */}
@@ -120,13 +123,9 @@ export default class manange_recipes_page extends Component {
                   /></form>
                   
                 </div>
-              
-              <button
-                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
-              >ยืนยัน
-              </button>
+            
               </div>
-              <div className='bg-yellow-50 w-full h-[85%] pl-4 space-y-4'>
+              <div className='bg-yellow-50 w-full h-[85%] pl-4 space-y-4 overflow-y-auto'>
               <div className='grid grid-cols-5 underline justify-center items-center'>
                 <div className="basis-1/2">รหัสสูครอาหาร</div>
                 <div className="basis-1/2">ชื่อสูครอาหาร</div>
