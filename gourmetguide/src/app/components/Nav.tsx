@@ -221,6 +221,8 @@ class Header extends React.Component {
                     pathname: `/profile/'${this.state.cookieValue.id}'`,
                   query: {blahblah  : this.state.cookieValue.id}}}><DropdownMenuItem>โปรไฟล์</DropdownMenuItem></Link>
                   {this.state.cookieValue.role === "admin" && <DropdownMenuItem onClick={() => location.assign("http://localhost:3000/admin")}>Admin</DropdownMenuItem>}
+                  <Link href={{
+                    pathname: `/createpost/`}}><DropdownMenuItem>สร้างสูตรอาหาร</DropdownMenuItem></Link>
                   <DropdownMenuItem onClick={() => location.assign("http://localhost:3000/favorite")}>รายการโปรด</DropdownMenuItem>
                   <DropdownMenuItem onClick={this.logout}>ล็อคเอ้าท์</DropdownMenuItem>
                 </DropdownMenuContent>

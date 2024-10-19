@@ -164,7 +164,7 @@ export default class page extends Component<{ searchParams: any }> {
     console.log("this.state.ac_id:", this.state.ac_id)
     console.log("this.state.cookieID:", this.state.cookieID)
     if (this.state.ac_id != this.state.cookieID){
-      /* location.assign("http://localhost:3000/") */
+       location.assign("http://localhost:3000/") 
     }
   }
 
