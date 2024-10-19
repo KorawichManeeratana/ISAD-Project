@@ -16,14 +16,21 @@ import { decode } from "punycode";
 export default class page extends Component<{ searchParams: any }> {
   state: any = {
     userData: [],
-    prof_detail: [],
+    username: "",
+    prof_des: "",
     isClick: false,
     cookieValue: null,
     cookieID : null,
+    prof_pic : "",
   };
 
   constructor(props: any) {
     super(props);
+  }
+  public setprof_pic(value : string){
+    this.setState({
+      prof_pic : value
+    })
   }
   public setCookieID(value : number){
     this.setState({
@@ -36,14 +43,18 @@ export default class page extends Component<{ searchParams: any }> {
     })
     
   }
-
   public setUserData(value: []) {
     this.setState({
       userData: value,
     });
   }
+  public setUserName(value: string) {
+    this.setState({
+      username: value,
+    });
+  }
 
-  public setProf_Detail(value: []) {
+  public setProf_Detail(value: string) {
     this.setState({
       prof_detail: value,
     });
@@ -101,7 +112,9 @@ export default class page extends Component<{ searchParams: any }> {
       let data: any = await res.json();
       console.log("data:", data[0]);
       this.setUserData(data);
-      this.setProf_Detail(data[0]);
+      this.setUserName(data[0].username);
+      this.setProf_Detail(data[0].prof_des);
+      this.setprof_pic(data[0].userPFP)
     }catch(error){
       console.log("error:", error);
     }
@@ -109,7 +122,6 @@ export default class page extends Component<{ searchParams: any }> {
 
   render() {
     console.log("CookieID:", this.state.cookieID)
-    console.log("user:", this.state.userData[0]);
     return (
       <div className="bg-gray-400 relative z-10">
         <div className="overflow-y-auto"></div> {/* scroll bar */}
@@ -120,7 +132,7 @@ export default class page extends Component<{ searchParams: any }> {
               <div className="p-4">
                 <Avatar>
                   <AvatarImage
-                    src={this.state.prof_detail.userPFP!}
+                    src={this.state.prof_pic}
                     className="rounded-full"
                     width={200}
                     height={200}
@@ -132,20 +144,21 @@ export default class page extends Component<{ searchParams: any }> {
               <div className="flex flex-col items-start space-x-4">
                 <div>
                   <h1 className="text-4xl text-yellow-700">
-                    {this.state.prof_detail.username}
+                    {this.state.username}
                   </h1>
                   <h1 className="text-xl text-yellow-700">
                     UID: {this.props.searchParams.blahblah}
                   </h1>
                   <p className="text-yellow-600">
-                    {this.state.prof_detail.profile_des}
+                    {this.state.prof_des}
                   </p>
                 </div>
                 <br></br>
                 <div className="py-6">
                   <div>
                     {(this.props.searchParams.blahblah == this.state.cookieID) && <Link href={{
-                  pathname: `/edit_profile/${this.props.searchParams.blahblah}`
+                  pathname: `/edit_profile/${this.props.searchParams.blahblah}`,
+                  query: {blahblah : this.props.searchParams.blahblah},
                 }}>
                       <button className="bg-white text-yellow-700 py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl h-14 w-30 text-xl font-bold">
                         Edit Profile

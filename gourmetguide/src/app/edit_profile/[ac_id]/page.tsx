@@ -81,6 +81,11 @@ export default class Edit_profile extends Component<{searchParams : any}>{
       public async changeUserInfo(){
         let a = new FormData();
         let profImg: any = document.querySelector(".profile_Img")!;
+        console.log("username", this.state.username);
+        console.log("email", this.state.email);
+        console.log("profile_des", this.state.prof_des);
+        console.log("profile_img", profImg.files![0]);
+        console.log("ac_id", this.state.oldUserData.ac_id);
 
         a.append("username", this.state.username);
         a.append("email", this.state.email);
@@ -111,7 +116,6 @@ export default class Edit_profile extends Component<{searchParams : any}>{
       }
 
       public async getUserInfo(){
-        const keep_ad = this.props.searchParams.blahblah
         try{
             let res = await fetch(
                 "http://localhost:3000/attractions/api_getUserInfo/",
@@ -121,7 +125,7 @@ export default class Edit_profile extends Component<{searchParams : any}>{
                     "Content-Type": "application/json",
                   },
                   body: JSON.stringify({
-                    ac_id: keep_ad,
+                    ac_id: this.props.searchParams.blahblah,
                   }),
                 }
               );
