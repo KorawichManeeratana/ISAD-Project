@@ -4,6 +4,8 @@ import './page.css';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Userform from '@/app/components/Userform';
 import { Search } from 'lucide-react';
+import Link from 'next/link';
+import path from 'path';
 
 export default class manage_account_page extends Component {
   state : any = {
@@ -150,8 +152,15 @@ export default class manage_account_page extends Component {
               {/* Vertically center content */}
               <h1 className="text-center text-2xl">ไม่พบผู้ใช้งาน</h1>
             </div>
-          )}              
+          )}                        
         </div>
+          <div>
+            <Link href={{pathname :'/admin'}}>
+              <button 
+              className='bg-yellow-200 hover:bg-yellow-700 rounded-lg text-xl' 
+              style={{ width: '100px', height: '50px' }}>Back</button>
+            </Link>
+          </div>  
       </div>
     )
   }

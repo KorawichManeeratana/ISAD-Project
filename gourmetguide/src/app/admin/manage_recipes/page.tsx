@@ -106,7 +106,7 @@ export default class manange_recipes_page extends Component {
       <div className="w-[100vw] h-[100vh] p-[35px] bg-yellow-600">
         <div className='flex w-full h-full'>
         {/* Left Side */}
-        <div className='side-box'>
+        <div className='grid grid-rows-2 gap-5 side-box'>
           <h1>Manage<br />Recipes</h1>
           <div className="badge">
             <li><a href="#">คนทำเยอะที่สุด</a></li>
@@ -116,8 +116,15 @@ export default class manange_recipes_page extends Component {
           <div className="side-btn">
             <Link href={{
               pathname: `/createpost/`,
-            }}><p className='new-recipe'>New Recipe</p></Link>
+            }}><p className='new-recipe bg-yellow-200 hover:bg-yellow-700'>New Recipe</p></Link>
           </div>
+          <div className=''>
+            <Link href={{pathname :'/admin'}}>
+              <button 
+              className='bg-yellow-200 hover:bg-yellow-700 rounded-lg text-xl' 
+              style={{ width: '100px', height: '50px' }}>Back</button>
+            </Link>
+          </div> 
         </div>
         {/* Right Side */}
         <div className="box2 w-[95%] h-full bg-white rounded-lg space-y-2 px-4">
@@ -167,10 +174,10 @@ export default class manange_recipes_page extends Component {
             </div>
           )}
           </div>
-          </div>
-          
+          </div>  
         </div>
-      </div>       
+      </div>      
+       
     )
   }
 }

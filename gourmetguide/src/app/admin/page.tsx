@@ -80,13 +80,13 @@ class Admin_page extends React.Component{
       
     <div className='admin_main_page flex flex-col justify-center items-center'>
         <div className='admin_main_1'>
-          {this.state.cookieValue? (<img className="border border-black rounded-full object-cover" src={this.state.cookieValue.PFP} alt={'aun nigga'} width={100} height={100}></img>) :
-        (<Image src={logoAcc} alt={'aun nigga'} width={100} height={100}></Image>)}
+          {this.state.cookieValue? (<img className="border border-black rounded-full object-cover" src={this.state.cookieValue.PFP} alt={'noting'} width={100} height={100}></img>) :
+        (<Image src={logoAcc} alt={'noting'} width={100} height={100}></Image>)}
           <h1 className='text-2xl'>WELCOME ADMIN: {this.state.cookieValue.name}</h1>
           </div>
         <div className='admin_c'>
           <Link href="/admin/manage_account">
-          <Image src={logoMan} alt={'aun nigga'} width={100} height={100}></Image>
+          <Image src={logoMan} alt={'noting'} width={100} height={100}></Image>
           </Link>
           <p>
           <Link href="/admin/manage_account">จัดการแอคเคาท์</Link>
@@ -94,7 +94,7 @@ class Admin_page extends React.Component{
           </div>
         <div className='admin_c'>
           <Link href="/admin/manage_recipes">
-          <Image src={logoRec} alt={'aun nigga'} width={100} height={100}></Image>
+          <Image src={logoRec} alt={'noting'} width={100} height={100}></Image>
           </Link>
           <p>
           <Link href="/admin/manage_recipes">จัดการสูตรอาหาร</Link>
@@ -102,7 +102,7 @@ class Admin_page extends React.Component{
           </div>
         <div className='admin_c'>
           <Link href="/admin/report_feedback">
-            <Image src={logoRep} alt={'aun nigga'} width={100} height={100}></Image>
+            <Image src={logoRep} alt={'noting'} width={100} height={100}></Image>
           </Link>
           <p>
           <Link href="/admin/report_feedback">รับเรื่องที่แจ้ง</Link>

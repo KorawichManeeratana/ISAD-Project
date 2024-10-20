@@ -154,7 +154,7 @@ export default class page extends Component<{ searchParams: any }> {
                   </p>
                 </div>
                 <br></br>
-                <div className="py-6">
+                <div className="grid grid-flow-col gap-3 py-6">
                   <div>
                     {(this.props.searchParams.blahblah == this.state.cookieID) && <Link href={{
                   pathname: `/edit_profile/${this.props.searchParams.blahblah}`,
@@ -165,7 +165,12 @@ export default class page extends Component<{ searchParams: any }> {
                       </button>
                     </Link>}
                   </div>
-                </div>
+                    <Link href={{pathname :'http://localhost:3000/'}}>
+                      <button 
+                      className='bg-white text-yellow-700 h-14 w-30 rounded-l-3xl rounded-r-3xl text-xl font-bold' 
+                      style={{ width: '100px', height: '50px' }}>Back</button>
+                     </Link>
+                  </div>
               </div>
             </div>
           </div>
@@ -210,7 +215,9 @@ export default class page extends Component<{ searchParams: any }> {
               )}
             </div>
           </div>
-        </div>
+          <div className=''>
+          </div> 
+        </div>   
       </div>
     );
   }

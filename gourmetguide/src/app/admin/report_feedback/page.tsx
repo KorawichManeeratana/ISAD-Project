@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import Reportform from '@/app/components/Reportform';
 import { Search } from 'lucide-react';
+import Link from 'next/link';
 
 export default class report_feedback extends Component {
   state : any = {
@@ -159,6 +160,13 @@ export default class report_feedback extends Component {
             </div>
           )}         
         </div>
+        <div className=''>
+            <Link href={{pathname :'/admin'}}>
+              <button 
+              className='bg-yellow-200 hover:bg-yellow-700 rounded-lg text-xl' 
+              style={{ width: '100px', height: '50px' }}>Back</button>
+            </Link>
+          </div> 
       </div>
     );
   };

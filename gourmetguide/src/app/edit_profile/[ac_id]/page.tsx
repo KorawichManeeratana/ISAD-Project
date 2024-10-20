@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import React from 'react'
 import { Component } from 'react'
 import { jwtDecode } from 'jwt-decode'
+import Link from 'next/link'
 
 export default class Edit_profile extends Component<{searchParams : any}>{
     state : any = {
@@ -147,33 +148,40 @@ export default class Edit_profile extends Component<{searchParams : any}>{
         console.log("CookieInedit:", this.state.cookieValue)
         return (
             <div>
-                <div className='bg-yellow-500 min-h-screen'>
+                <div className='bg-yellow-100 min-h-screen'>
                     <div className='flex flex-col first:flexjustify-center items-center gap-6 p-10'>
                             <Avatar>
                                 <AvatarImage src={this.state.userPFP}  className='rounded-full' width={250} height={300} />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
-                            <div className='pt-6 flex justify-start px-44'><label className=" w-[200px] h-20 text-3xl font-kanit bg-yellow-300 flex justify-center items-center text-black px-16 py-4 rounded-xl shadow-2xl" htmlFor="pic">Upload</label>
+                            <div className='pt-6 flex justify-start px-44'><label className=" w-[100px] h-10 text-xl font-kanit bg-yellow-300 hover:bg-white flex justify-center items-center text-black px-16 py-4 rounded-xl shadow-2xl" htmlFor="pic">Upload</label>
                 <input type='file' className='profile_Img hidden' name="pic" id="pic"></input>
                 </div>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 text-2xl'>
                         <div>
                             <h4>Username</h4>
-                            <input className='userName p-2' value={this.state.username} onChange={(e) => this.setUserName(e.target.value)}/>
+                            <input className='userName p-2 rounded-lg' value={this.state.username} onChange={(e) => this.setUserName(e.target.value)}/>
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <input className='email p-2' value={this.state.email} onChange={(e) => this.setEmail(e.target.value)}/>
+                            <input className='email p-2 rounded-lg' value={this.state.email} onChange={(e) => this.setEmail(e.target.value)}/>
                         </div>
                         <div>
                             <h4>Description</h4>
-                            <textarea className='profile_Des w-[800px] h-[20vh] p-2' value={this.state.prof_des} onChange={(e) => this.setProf_Des(e.target.value)}/>
+                            <textarea className='profile_Des w-[800px] h-[20vh] p-2 email rounded-lg' value={this.state.prof_des} onChange={(e) => this.setProf_Des(e.target.value)}/>
                         </div>
-                        <div>
+                        <div className='flex flex-row gap-10'>
                             <br/>
-                            <button onClick={this.changeUserInfo.bind(this)} className='bg-blue-600 rounded-lg h-16 w-40 text-2xl'>save</button>
-                        </div>
+                            <button onClick={this.changeUserInfo.bind(this)} className='bg-yellow-200 hover:bg-yellow-700 rounded-lg h-16 w-40 text-2xl font-bold'>Save</button>
+                            <Link href={{
+                            pathname: `/profile/${this.props.searchParams.blahblah}`,
+                            query: {blahblah : this.props.searchParams.blahblah},
+                              }}>
+                              <button 
+                              className='bg-yellow-200 hover:bg-yellow-700 rounded-lg h-16 w-40 text-xl font-bold'>Back</button>
+                            </Link>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -181,3 +189,11 @@ export default class Edit_profile extends Component<{searchParams : any}>{
     }
   
 }
+
+{/*               </div>
+                    <Link href={{pathname :''}}>
+                      <button 
+                      className='bg-yellow-200 hover:bg-yellow-700 rounded-lg text-xl' 
+                      style={{ width: '100px', height: '50px' }}>Back</button>
+                     </Link>
+                  </div> */}

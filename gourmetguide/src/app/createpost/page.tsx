@@ -1,5 +1,6 @@
 "use client"
 import { jwtDecode, JwtPayload } from 'jwt-decode'
+import Link from 'next/link';
 import React, { Component } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -153,9 +154,13 @@ export default class page extends Component {
             
             {/* <h1 className="text-xl text-yellow-400 grid px-40 pt-6">เลือกวิดีโอ</h1>
             <input type='file' id='imageUpload' className='ml-44 pt-6 file:rounded-full file:px-4 file:border-gray-400 file:text-yellow-600 file:mr-4'></input> */}
-            <div className='justify-end flex pb-10 pt-6'>
+            <div className='justify-end flex pb-10 pt-6 gap-2'>
                 <button onClick={()=> {this.insertNewRecipe(); this.notify()}} className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl">สร้างสูตรอาหาร</button>
                 <ToastContainer/>
+                <Link href={{pathname :'http://localhost:3000/'}}>
+                      <button 
+                      className='bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl'>Back</button>
+                </Link>
             </div>
           </div>
       </div>
