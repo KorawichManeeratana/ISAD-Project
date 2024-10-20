@@ -90,7 +90,7 @@ export default class page extends Component<{ searchParams: any }> {
     }
   }
 
-  public addCalculate(sugyhang: { rep_name: string; caloreis: number }) {
+  public selectToCalculate(sugyhang: { rep_name: string; caloreis: number }) {
     this.setCalculate([...this.state.calculate, sugyhang]);
     console.log("calculate:", this.state.calculate);
   }
@@ -299,7 +299,7 @@ export default class page extends Component<{ searchParams: any }> {
                     calories={attractions.calories}
                     cookTimes={attractions.rep_time}
                     likes={attractions.likes}
-                    calculatefunction={this.addCalculate.bind(this)}
+                    calculatefunction={this.selectToCalculate.bind(this)}
                     showButton={this.state.isCalculateOpen}
                     rep_date = {attractions.rep_date}
                     searcherac_id = {searcherac_id}

@@ -9,6 +9,13 @@ import Bookmark from "./Bookmark";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+interface Report{
+  check1 : boolean
+  check2 : boolean
+  check3 : boolean
+  report_des : string
+}
+
 export default class SearchResultCard extends Component<{
   ac_id?: number;
   rep_id?: number;
@@ -143,8 +150,8 @@ export default class SearchResultCard extends Component<{
       this.setCookTime(value.toString())
     }
   }
-  handleSunmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission
+  handleSubmit = async (report: React.FormEvent<HTMLFormElement>) => {
+    report.preventDefault(); // Prevent default form submission
 
     const { description, check1, check2, check3 } = this.state; // Get current state values
 
@@ -195,7 +202,7 @@ export default class SearchResultCard extends Component<{
           
         >
           <div className="w-[1260px] h-[620px]  bg-white rounded-lg p-8">
-            <form onSubmit={this.handleSunmit.bind(this)}>
+            <form onSubmit={this.handleSubmit.bind(this)}>
               <div className="flex flex-col justify-center items-center">
                 <h2 className="text-2xl font-bold mb-4">รายงานปัญหา</h2>
                 <div className="space-y-2">

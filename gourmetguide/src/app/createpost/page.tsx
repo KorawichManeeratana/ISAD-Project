@@ -4,7 +4,18 @@ import Link from 'next/link';
 import React, { Component } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+interface Recipe{
+  rep_name : string
+  rep_des : string
+  calories : number
+  rep_step : string
+  rep_ing : string
+  hour: number
+  min: number
+  time : number
+  
 
+}
 export default class page extends Component {
   state = {
     errorCreate : "",
