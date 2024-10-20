@@ -5,7 +5,7 @@ dotenv.config()
 export default class dbConnector {
     private connection: Pool | undefined;
     private setting: PoolOptions = {
-        host: process.env.DB_HOSTPKRIT,
+        host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_DATABASE,
