@@ -15,6 +15,7 @@ export default class Edit_profile extends Component<{searchParams : any}>{
         prof_des: "",
         email: "",
         userPFP:"",
+        ac_id: null,
     }
     constructor(props : any){
         super(props)
@@ -25,7 +26,11 @@ export default class Edit_profile extends Component<{searchParams : any}>{
         userPFP: value
       })
     }
-
+    public setAc_ID(value: number){
+      this.setState({
+        ac_id : value
+      })
+    }
     public setCookieValue(value : JwtPayload){
         this.setState({
             cookieValue : value
@@ -86,13 +91,13 @@ export default class Edit_profile extends Component<{searchParams : any}>{
         console.log("email", this.state.email);
         console.log("profile_des", this.state.prof_des);
         console.log("profile_img", profImg.files![0]);
-        console.log("ac_id", this.state.oldUserData.ac_id);
+        console.log("ac_id", this.state.ac_id);
 
         a.append("username", this.state.username);
         a.append("email", this.state.email);
         a.append("profile_des", this.state.prof_des);
         a.append("profile_img", profImg.files![0]);
-        a.append("ac_id", this.state.oldUserData.ac_id);
+        a.append("ac_id", this.state.ac_id);
 
         try{
           let res = await fetch(
@@ -117,6 +122,7 @@ export default class Edit_profile extends Component<{searchParams : any}>{
       }
 
       public async getUserInfo(){
+      console.log("this.props.searchParams.blahblah:", this.props.searchParams.blahblah)
         try{
             let res = await fetch(
                 "http://localhost:3000/attractions/api_getUserInfo/",
@@ -132,12 +138,13 @@ export default class Edit_profile extends Component<{searchParams : any}>{
               );
               if(res.ok){
                 let data = await res.json();
-                console.log("datainedit:", data[0])
+                console.log("datainedit:", data)
                 this.setOldUserData(data[0]);
                 this.setUserName(data[0].username)
                 this.setEmail(data[0].email)
                 this.setProf_Des(data[0].profile_des)
                 this.setUserPFP(data[0].userPFP)
+                this.setAc_ID(data[0].ac_id)
               }
               
         }catch(error){

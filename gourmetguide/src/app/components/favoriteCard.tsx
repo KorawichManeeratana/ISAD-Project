@@ -30,25 +30,6 @@ export default class FavoriteCard extends Component<{
         this.checkCalories(this.props.rep_time ?? 0);
     }
 
-   /*  public async removeFav(){
-        let res = await fetch("http://localhost:3000/attractions/api_removeFav/", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              rep_id: this.state.id_rep,
-              ac_id: this.state.ac_id
-            }),
-          });
-          if(res.ok){
-            console.log("Remove Favourite Success");
-          }else {
-            console.log("Error Removing favourite")
-          }
-          window.location.reload()
-      } */
-
     public checkCalories = (value: number) =>{
         if (value > 60){
           let keep = Math.round(value / 60) + " ชั่วโมง : " + (value % 60)
@@ -80,7 +61,7 @@ export default class FavoriteCard extends Component<{
 
           <div className="h-[45%]">
             <h1 className="mb-[3%]">{this.props.rep_name}</h1>
-            <p className="h-[79%] overflow-hidden text-gray-400">
+            <p className="h-[79%] overflow-y-auto text-gray-400">
               {this.props.rep_des}
             </p>
           </div>

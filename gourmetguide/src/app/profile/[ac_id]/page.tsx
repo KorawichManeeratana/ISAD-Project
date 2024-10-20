@@ -68,7 +68,7 @@ export default class page extends Component<{ searchParams: any }> {
 
   public async componentDidMount() {
     await this.getCookieValue();
-    this.getUserInfo();
+    await this.getUserInfo();
   }
 
   getCookie(name: string): string | null {
@@ -122,6 +122,7 @@ export default class page extends Component<{ searchParams: any }> {
 
   render() {
     console.log("CookieID:", this.state.cookieID)
+    console.log("this.props.searchParams.blahblah:", this.props.searchParams.blahblah)
     return (
       <div className="bg-gray-400 relative z-10">
         <div className="overflow-y-auto"></div> {/* scroll bar */}

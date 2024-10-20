@@ -32,7 +32,7 @@ export async function POST(req: Response) {
     }
         
   } catch (error) {
-    console.log("Update user data Failed.");
+    console.log("Update user data Failed.", error);
     return Response.json(
       { Message: "Update user Info failed" },
       { status: 500 }

@@ -8,20 +8,17 @@ export default class Reportform extends Component<{
   rep_name: string;
   owner: string;
 }> {
-  public async getDeleteAccount() {
+  public async getDeleteRecipe() {
     try {
-      let res = await fetch(
-        "http://localhost:3000/attractions/api_deleteRecipe",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            rep_id: this.props.rep_id,
-          }),
-        }
-      );
+      let res = await fetch("http://localhost:3000/attractions/api_deleteRecipe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          rep_id: this.props.rep_id,
+        }),
+      });
       if (res.ok) {
         console.log("Account delete Success!!");
         window.location.reload();
@@ -30,6 +27,7 @@ export default class Reportform extends Component<{
       console.log("Error Occur when trying to delete this account");
     }
   }
+
   render() {
     return (
       <div className="">
@@ -79,7 +77,7 @@ export default class Reportform extends Component<{
               </svg>
             </div>
           </Link>
-          <div className="basis-1/2 cursor-pointer" onClick={() => this.getDeleteAccount()}>X</div>
+          <div className="basis-1/2 cursor-pointer" onClick={() => this.getDeleteRecipe()}>X</div>
         </div>
       </div>
     );
