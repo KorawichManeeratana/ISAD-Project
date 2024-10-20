@@ -254,7 +254,7 @@ export default class page extends Component<{ searchParams: any }> {
                   },
                 }}
               >
-                ยินยัน
+                ยืนยัน
               </Link>
             </button>
             <button

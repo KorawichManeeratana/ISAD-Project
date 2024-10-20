@@ -130,7 +130,7 @@ export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue:
                   type="submit" // Make this a submit button
                   className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
                 >
-                  ค้นหา
+                  เพิ่ม
                 </button>
               </form>
             </div>

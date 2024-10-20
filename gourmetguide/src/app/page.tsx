@@ -198,7 +198,7 @@ class Home extends React.Component {
                 query: {
                   searchResult  : this.state.searchResult
                 }
-              }}>ยินยัน</Link>
+              }}>ยืนยัน</Link>
               </button>
               <button
                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
@@ -245,7 +245,7 @@ class Home extends React.Component {
                     },
                   }}
                 ><h1 className="text-xl text-gray-700 grid justify-end px-40 pt-6">
-            ดูเพิ่มเตืม
+            ดูเพิ่มเติม
           </h1></Link>
         </div>
         <div className="bg-white w-1920px h-1680px py-10 text-white"></div>{" "}
