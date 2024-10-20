@@ -4,7 +4,7 @@ import { Kysely, MysqlDialect } from "kysely";
 
 const dialect = new MysqlDialect({
     pool : createPool({
-        host: process.env.DB_HOSTPKRIT,
+        host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_DATABASE,

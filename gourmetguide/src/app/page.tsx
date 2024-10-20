@@ -150,7 +150,7 @@ class Home extends React.Component {
             min={0}
             max={2000}
             step={10}
-            Cap={1000}
+            Cap={2000}
             Visible={this.handleClose.bind(this)}
           />
         )}

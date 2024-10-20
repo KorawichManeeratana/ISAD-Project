@@ -166,9 +166,9 @@ export default class page extends Component<{ searchParams: any }> {
             initialMin={100}
             initialMax={500}
             min={0}
-            max={1000}
+            max={2000}
             step={10}
-            Cap={1000}
+            Cap={2000}
             Visible={this.handleClose.bind(this)}
           />
         )}

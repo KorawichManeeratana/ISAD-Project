@@ -24,6 +24,7 @@ export default class dbConnector {
     }
     
     public async get() {
+        console.log("kuyyyyyyyyyyyyyyyy:", process.env.DB_HOST)
         return this.connection;
     }
 }
