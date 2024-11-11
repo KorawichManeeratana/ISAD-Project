@@ -29,7 +29,7 @@ export default class manage_account_page extends Component {
     })
   }
   componentDidMount() {
-    this.checkAdminRole();
+    this.checkRole();
     this.getUserform();
   }
 
@@ -50,7 +50,7 @@ export default class manage_account_page extends Component {
     return null;
   }
 
-  checkAdminRole() {
+  checkRole() {
     const token = this.getCookie('token'); // Replace 'token' with your cookie name
     if (token) {
       try {

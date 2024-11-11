@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { Component } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 interface Recipe{
   rep_name : string
   rep_des : string
@@ -13,8 +14,6 @@ interface Recipe{
   hour: number
   min: number
   time : number
-  
-
 }
 export default class page extends Component {
   state = {
@@ -178,16 +177,3 @@ export default class page extends Component {
     )
   }
 }
-// import { toast, ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
-// public notify(){
-//   toast("user has been deleted")
-// }
-// public timeout(delay: number) {
-//   return new Promise( res => setTimeout(res, delay) );
-// }
-
-
-// <button type="button" className='bg-red-600 w-40 h-10 rounded-lg' onClick={() => {this.setDelete(true); this.notify()}}>Delete</button>
-// <ToastContainer/>

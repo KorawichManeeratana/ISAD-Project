@@ -42,6 +42,7 @@ export default class Userform extends Component <{
     public notify(){
       toast.success("User has been deleted....");
     }
+    
     public timeout(delay: number) {
       return new Promise( res => setTimeout(res, delay) );
     }

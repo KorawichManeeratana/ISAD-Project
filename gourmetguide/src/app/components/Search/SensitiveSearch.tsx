@@ -13,6 +13,17 @@ interface SensitiveSearchProps {
   Visible: () => void;
 }
 
+interface Recipe{
+  rep_name : string
+  rep_des : string
+  calories : number
+  rep_step : string
+  rep_ing : string
+  hour: number
+  min: number
+  time : number
+}
+
 export class SensitiveSearch extends Component<SensitiveSearchProps, { minValue: number; maxValue: number, searchTags: string[] , minTime : number | null, maxTime: number | null}> {
   progressRef = React.createRef<HTMLDivElement>(); // Simplify ref creation
   

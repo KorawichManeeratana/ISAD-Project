@@ -7,6 +7,17 @@ import { SensitiveSearch } from "./components/Search/SensitiveSearch";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
+interface Recipe{
+  rep_name : string
+  rep_des : string
+  calories : number
+  rep_step : string
+  rep_ing : string
+  hour: number
+  min: number
+  time : number
+}
+
 // หน้า homepage หลักเลย
 class Home extends React.Component {
   state : any = {
@@ -92,13 +103,13 @@ class Home extends React.Component {
     this.setSensitiveVisible(false);
   }
 
-  public async handleSearch(e: any) {
+  public async handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     let searchResult: any = document.querySelector(".search");
     this.setSearchResult(searchResult.value)
   }
 
-  public SearchQuery = (e : any) => {
+  public SearchQuery = (e : React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     location.assign(`http://localhost:3000/recipe?searchResult=${this.state.searchResult}`)
   };

@@ -32,7 +32,7 @@ class Admin_page extends React.Component{
   }
   componentDidMount() {
     console.log("this is didmount")
-    this.checkAdminRole();
+    this.checkRole();
   }
 
   getCookie(name: string): string | null {
@@ -46,7 +46,7 @@ class Admin_page extends React.Component{
     return null;
   }
 
-  checkAdminRole() {
+  checkRole() {
     const token = this.getCookie('token'); // Replace 'token' with your cookie name
     if (token) {
       try {

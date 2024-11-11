@@ -1,6 +1,8 @@
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import Link from "next/link";
 import React, { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class Reportform extends Component<{
   ac_id: number;
@@ -26,6 +28,10 @@ export default class Reportform extends Component<{
     } catch (error) {
       console.log("Error Occur when trying to delete this account");
     }
+  }
+
+  public notify(){
+    toast.success("Recipe has been deleted....");
   }
 
   render() {
@@ -77,7 +83,8 @@ export default class Reportform extends Component<{
               </svg>
             </div>
           </Link>
-          <div className="basis-1/2 cursor-pointer" onClick={() => this.getDeleteRecipe()}>X</div>
+          <div className="basis-1/2 cursor-pointer" onClick={() => {this.getDeleteRecipe(); this.notify()}}>X</div>
+          <ToastContainer />
         </div>
       </div>
     );

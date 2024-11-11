@@ -6,6 +6,8 @@ import { redirect } from "next/navigation";
 import Loading from "@/app/loading";
 import Modal from "@/app/components/modal";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default class page extends Component<{ searchParams: any }> {
   state: any = {
@@ -114,6 +116,10 @@ export default class page extends Component<{ searchParams: any }> {
     } else {
       this.setCookTime(value.toString());
     }
+  }
+
+  public notify(){
+    toast.success("Recipe has been Update!!");
   }
 
   public async getRecipe() {
@@ -382,11 +388,12 @@ export default class page extends Component<{ searchParams: any }> {
             <div className="bg-white w-[1471px] h-auto px-10 py-4 rounded-lg shadow-lg flex justify-end">
               <div className="flex space-x-4">
                 <button
-                  onClick={() => this.getUpdateRecipe()}
+                  onClick={() => {this.getUpdateRecipe(); this.notify()}}
                   className=" border border-yellow-800 flex py-2 px-4 rounded-2xl"
                 >
                   <p>บันทึก</p>
                 </button>
+                <ToastContainer />
                 <Link href={{
                   pathname: `/recipe/${this.props.searchParams.rep_id}`,
                   query: {

@@ -6,7 +6,7 @@ import Loading from "../loading";
 import { SensitiveSearch } from "../components/Search/SensitiveSearch";
 import { jwtDecode } from "jwt-decode";
 
-type Data = {
+type Recipe = {
   rep_id: number;
   rep_name: string;
   rep_dest: string;
@@ -19,7 +19,7 @@ type Data = {
   username: string;
 };
 
-export default class page extends Component<{ searchParams: any }> {
+export default class SearchingPage extends Component<{ searchParams: any }> {
   state : any = {
     isCalculateOpen: false,
     sensitiveVisible: false,
@@ -100,17 +100,16 @@ export default class page extends Component<{ searchParams: any }> {
       JSON.stringify(this.props.searchParams) !==
       JSON.stringify(prevProps.searchParams)
     ) {
-      this.handleSearch();
+      this.searchQuery();
     }
   }
 
   async componentDidMount() {
-    console.log("searhParams:", JSON.stringify(this.props.searchParams));
-    this.handleSearch();
+    this.searchQuery();
     this.getCookieValue();
   }
 
-  private async handleSearch() {
+  private async searchQuery() {
     this.setIsLoading(true);
     let res = await fetch("http://localhost:3000/attractions/api_search/", {
       method: "POST",
@@ -243,7 +242,7 @@ export default class page extends Component<{ searchParams: any }> {
               </div>
             </div>
             <button
-              onClick={() => this.handleSearch()}
+              onClick={() => this.searchQuery()}
               className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 ml-10 rounded-l-3xl rounded-r-3xl"
             >
               <Link
